@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.crm.dao.UserDao">
+  <!--  
+  	<cache type="com.crm.util.RedisCache" />
+  -->
+	<resultMap type="com.crm.model.User" id="userMap">
+		<id property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="userPassword" column="user_password" />		
+		<result property="userMotto" column="user_motto" />		
+		<result property="userIcon" column="user_icon" />		
+		<result property="userEmail" column="user_email" />		
+		<result property="userIntro" column="user_intro" />		
+		<result property="userSex" column="user_sex" />		
+	</resultMap>
+  
+	<sql id="userColumns">
+		user_id,user_name,user_password,user_motto,user_email,user_intro,user_sex
+	</sql>
+	
+	<insert id="insertUser" parameterType="com.crm.model.User">
+		insert into MP_user(user_name,user_email,user_password)
+		values(#{userName},#{userEmail},#{userPassword})
+	</insert>
+	
+	<select id="getUserByEmail" parameterType="String" resultMap="userMap">
+		select <include refid="userColumns" /> from MP_user
+		where user_email=#{_parameter}
+	</select>
+</mapper>

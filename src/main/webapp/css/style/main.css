@@ -1,0 +1,572 @@
+body{
+    position: relative;
+    background-color: #EBEBEB;
+}
+/*设置被选中字体的样式*/
+::selection { background:#E67E22; color: #fff; }
+::-moz-selection { background:#E67E22;color: #fff; }
+::-webkit-selection { background:#E67E22; color: #fff; }
+
+/*头部图片*/
+.main-header{
+    background-image: url("../../img/common/head.jpg");
+    background-size: cover;
+    background-color: transparent;
+    width: 100%;
+    height: 211px;
+    position: relative;
+    z-index: 100;
+}
+.main-header .container{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-family: "华文中宋", "Arial", "sans-serif";
+    padding-top: 40px;
+    background-color: #EBEBEB;
+}
+/*头部右上方相关链接*/
+.header{
+    width:100%;
+    padding-top: 50px;
+}
+.header .header_content{
+    width: 90%;
+    height:30px;
+    /*margin:0 auto;*/
+    /*padding-right: 20px;*/
+}
+.title{
+    float:right;
+}
+.title li{
+    display: inline-block;
+    /*height:30px;*/
+    margin-left: 25px;
+}
+.title li a{
+    display: block;
+    height:30px;
+    line-height: 30px;
+    color:white;
+    font-size: 16px;
+}
+
+
+/*导航栏*/
+.main-navigation{
+    position: absolute;   /*搜索框的绝对定位*/
+    z-index: 100;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    border-top: 2px solid #E1E1E1;
+    border-bottom: 2px solid #E1E1E1;
+    background-color: white;
+}
+.menu li{
+    display: inline-block;
+    height: 57px;
+    padding: 19px 26px;
+}
+.menu li.current-page{
+    border-bottom: 2px solid #E67E22;
+}
+.menu li a{
+    font-size: 14px;
+    text-decoration: none;
+    color: #333333;
+}
+.menu li a:hover{
+    color: #E67E22;
+}
+
+/*!*登录、注册链接*!*/
+/*#login, #register{*/
+    /*height: 40px;*/
+    /*padding-top: 8px;*/
+    /*background-color: #E67E22;*/
+/*}*/
+/*#login a:hover, #register a:hover{*/
+    /*color: white;*/
+/*}*/
+/*#login{*/
+
+/*}*/
+/*#register{*/
+
+/*}*/
+
+/*小屏幕下的导航栏*/
+.menu-small{
+    display: block;
+    margin-top: 19px;
+    font-size: 22px;
+    cursor: pointer;
+}
+/*小屏幕导航栏的下拉菜单*/
+.assit-menu{
+    position: relative;  /*设为相对定位，结合margin-top。避免用绝对定位结合top时，下拉菜单脱离文档流*/
+    margin-top: -105px;
+    width: 70%;
+    z-index: 1;
+    left: 50%;      /*绝对定位的元素无法设置margin-left和margin-right*/
+    margin-left: -35%;     /*设置margin-left为导航栏宽度的一半，即70%的一半*/
+    border: 1px solid rgba(230,126,34,0.65);
+    border-top: none;
+    background-color: white;
+}
+.assit-menu .menu{
+    margin: 0;      /*不知为什么原来会有margin，导致下拉菜单的下边框与选项之间有间隔*/
+}
+.assit-menu .menu li{
+    display: block;
+    text-align: center;
+    margin-left: 6%;
+    margin-right: 6%;
+    height: 30px;     /*与横向导航设置为不一样的选项高度*/
+    line-height: 6px;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    border-bottom: 1px solid #E1E1E1;
+}
+.assit-menu .menu li.current-page{
+    background-color: rgba(230,126,34,0.9);
+}
+.assit-menu .menu li.current-page a{
+    color: white;
+}
+
+
+
+/*导航栏中的搜索框*/
+#main-search{
+    position: absolute;
+    top: -45px;
+    right: 20px;
+}
+#form-search input{
+    width: 160px;
+    height:33px;
+    margin: 0;
+    border: 1px solid #CCCCCC;
+    border-right: none;
+    font-size: 13px;
+    color: #808080;
+    background-color: #F2F2F5;
+}
+#form-search .form-control:focus{  /*覆盖bootstrap设置的样式，改变focus时阴影的颜色*/
+    /*box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(201,140,109,0.6);*/
+    box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(230,126,34,0.4);
+}
+#form-search button{
+    height: 33px;
+    margin: 0;
+    background-color: #F2F2F5;
+}
+
+
+
+/**************************************************************************/
+/*朋友圈*/
+.content-wrap>.container>.row{
+    margin-top: 20px;  /*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*/
+}
+.main-content{
+    /*margin-top: 85px;  !*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*!*/
+    padding-right: 25px;     /*为列设置 padding 属性，创建列与列之间的间隔*/
+    padding-left: 25px;
+}
+
+/*发布*/
+.main-content .put-out{
+    width: 100%;
+    height: 250px;
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-left: 7%;
+    padding-right: 7%;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    color: rgb(51, 51, 51);
+    background-color: white;
+    border: 1px solid #E1E1E1;
+}
+.main-content .put-out .input-group{
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.main-content .put-out .input-group .input-group-addon{
+    background-color: #E67E22;
+    color: white;
+}
+#put-out-title{
+    width: 70%;
+    height: 35px;
+}
+#put-out-content{
+    height: 100px;
+}
+.main-content .put-out .input-group .form-control:focus{
+    box-shadow: none;
+    border-color: #E67E22;
+}
+.put-out-footer .wrapper button{
+    float: right;
+    width: 55px;
+    margin-right: 5%;
+    text-align: left;  /*“发布中”时，不会随...的改变而文字移动*/
+    background-color: #E67E22;
+    color: white;
+}
+/*发布按钮，输入框中没有内容时，按钮无效*/
+.put-out-footer .wrapper .btn-invalid{
+    opacity: 0.7;
+}
+/*用户已输入内容，发布按钮有效*/
+.put-out-footer .wrapper .btn-valid{
+    opacity: 1;
+}
+/*公开 / 仅自己可见*/
+.visibility{
+    float: right;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.visibility a span.glyphicon-globe{
+    color: rgb(119, 163, 211);
+}
+.visibility a span.glyphicon-lock{
+    color: rgb(156, 119, 213);
+}
+
+/*上传图片*/
+.insert-picture{
+    float: left;
+    width: 50px;
+    padding-top: 9px;
+    margin-left: 3%;
+    cursor: pointer;
+}
+.insert-picture:hover{
+    color: rgb(255, 164, 5);
+}
+.insert-picture .glyphicon{
+    padding-right: 5px;
+    color: rgb(255, 164, 5);   /*设置图片图标的颜色*/
+}
+/*预览图片*/
+.preview-picture{
+    position: relative;
+    margin-left: 90px;
+    padding-top: 3px;
+    width: 100px;
+}
+.preview-picture button{
+    background-color: #E67E22;
+    border-color: #E67E22;
+    opacity: 0.8;
+    color: white;
+}
+.preview-picture button:hover{
+    background-color: #E67E22;
+    border-color: #E67E22;
+    opacity: 1;
+    color: white;
+}
+.preview-picture span{
+    position: absolute;  /*设置删除图标定位在预览按钮的右上方*/
+    top: -9px;
+    left: 60px;
+    margin-left: 3px;
+    margin-top: 7px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: red;
+}
+.preview-picture span:hover{
+    background-color: red;
+    opacity: 0.5;
+    color: #E1E1E1;
+}
+#mask {
+    position:fixed;
+    width:100%;
+    _position:absolute;
+    top:0px;
+    left:0px;
+    z-index: 10000;
+    /*_top:expression(documentElement.scrollTop);*/
+    background:rgba(0,0,0,0.5);
+    background:transparent\9;
+    filter:progid:DXImageTransform.Microsoft.Gradient(
+            startColorStr=#80000000,endColorStr=#80000000
+    );
+    display:none;
+}
+#mask_td {
+    text-align:center;
+    vertical-align: middle;
+}
+
+
+
+/*动态*/
+.main-content .dynamic{
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #E1E1E1;
+}
+.dynamic-title{
+    margin: 0;
+    margin-left: 10%;
+    margin-top: 30px;
+}
+.dynamic-title a{
+    text-decoration: none;
+    font-family: "华文中宋", "Arial", "sans-serif";
+    color: #303030;
+}
+/*作者及发布时间*/
+.dynamic-meta{
+    margin-top: 10px;
+    position: relative;   /*发布时间需相对meta设置绝对定位，top: 2px*/
+    text-align: right;    /*设置作者和时间始终在右方*/
+    padding-right: 110px;
+}
+.dynamic-author{
+    font-size: 14px;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    color: #959595;
+}
+.dynamic-author a{
+    color: #E67E22;
+}
+.dynamic-time{
+    font-size: 13px;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    color: #959595;
+    position: absolute;
+    top: 2px;
+    margin-left: 20px;
+}
+/*发布内容之文本*/
+.dynamic-content{
+    font-size: 20px;
+    font-family: "Helvetica", "Arial", "sans-serif";
+    font-weight: lighter;
+    color: #444443;
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+/*发布内容之图片*/
+.dynamic-img{
+    margin-left: 12%;
+    margin-top: 10px;
+    /*width: 340px;*/
+    /*height: 197px;*/
+}
+.dynamic-img img{
+    width: 100%;
+    height: 100%;
+}
+/*评论点赞*/
+.dynamic-action{
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-top: 1px solid #EBEBEB;
+}
+/*.grayLi{*/
+    /*color: #808080;*/
+/*}*/
+/*.orangeLi{*/
+    /*color: #E67E22;*/
+/*}*/
+.dynamic-action .row ul li{
+    display: inline-block;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    border-right: 1px solid #E1E1E1;
+    /*color: #808080;*/
+}
+.grayLi{
+    color: #808080;
+}
+.orangeLi{
+    color: #E67E22;
+}
+.dynamic-action .row ul li a{
+    color: #808080;
+    text-decoration: none;
+}
+.dynamic-action .row ul li span{
+    padding: 2px;
+ }
+
+
+/*评论功能*/
+/*z-index设置为-1，里面的元素无法点击和悬停？？？？？？？*/
+/*评论框比动态长时，冒出头？？？？？？？？？？？？*/
+/*结论：评论框不设置动画下滑。。。直接由hide转为show。。。*/
+/*.dynamic{*/
+    /*position: relative;   !*评论框相对整个动态绝对定位*!*/
+    /*z-index: 1;*/
+/*}*/
+.comment-wrap{
+    /*position: absolute;*/
+    /*z-index: 0;*/
+    /*bottom: 20px;*/
+    display: none;
+    border: 1px solid #E1E1E1;
+    border-top: none;
+    background-color: white;
+}
+.dynamic-comment{
+    /*position: absolute;*/
+    /*z-index: -1;*/
+    /*top: 100px;*/
+    /*position: relative;*/
+    /*bottom: 500px;*/
+    width: 94%;
+    margin: 3%;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 15px;
+    border-top: 2px solid rgba(230,126,34,0.6);
+    border-bottom: 2px solid rgba(230,126,34,0.6);
+
+    background-color: rgb(245,245,245);
+}
+.dynamic-comment .my-name, .dynamic-comment .reviewer{
+    cursor: pointer;
+    font-size: 13px;
+    color: #E67E22;
+}
+/*发送评论*/
+.dynamic-comment .send-comment{
+    margin-bottom: 10px;
+}
+.dynamic-comment .send-comment img{
+    width: 30px;
+    margin-top: -27px;
+    margin-left: 20px;
+    margin-right: 6px;
+}
+.dynamic-comment .send-comment .input-comment{
+    width: 60%;
+    height: 40px;
+    border: 1px solid #E1E1E1;
+}
+.dynamic-comment .send-comment .input-comment:focus{
+    border: 1px solid rgba(230,126,34,0.8);
+}
+.dynamic-comment .send-comment button{
+    margin-left: 75%;
+    background-color: #E67E22;
+    color: white;
+}
+.dynamic-comment .send-comment button:hover{
+    background-color: rgba(230,126,34,0.9);
+}
+/*其他用户的评论*/
+.dynamic-comment .comment{
+    margin-left: 10%;
+    margin-right: 5px;
+    padding: 10px 20px 10px 20px;
+    border-top: 1px solid #E1E1E1;
+}
+.dynamic-comment .comment .reviewer-words{
+    font-family: "Helvetica", "Arial", "sans-serif";
+    font-size: 13px;
+}
+/*加载更多*/
+.dynamic-comment .more-comment{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.dynamic-comment .more-comment span{
+    cursor: pointer;
+    color: rgba(230,126,34,0.8);
+}
+.dynamic-comment .more-comment span:hover{
+    color: rgba(230,126,34,1.0);
+}
+
+/*转发*/
+.modal{
+    /*border-top: 2px solid #E67E22;*/
+    /*padding-left: 50%;*/
+}
+.modal .modal-header{
+    border-top: 2px solid #E67E22;
+}
+.modal .modal-header .modal-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.modal .modal-body .share-content{
+    width: 90%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    margin: auto;
+    padding-left: 10px;
+    background-color: rgb(242,242,245);
+}
+.modal .modal-body .share-content .share-author{
+    color: #E67E22;
+}
+.modal .modal-body .share-content .share-title{
+    color: rgb(128,128,128);
+}
+.modal .modal-body .share-word{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+}
+.modal .modal-body .share-word .remain-word{
+    margin-left: 15px;
+}
+#share-word{
+    width: 70%;
+    height: 80px;
+    font-family: "微软雅黑", Arial, sans-serif;
+    color: rgb(128,128,128);
+    border: 1px solid rgb(204,204,204);
+}
+.modal .modal-footer button{
+    width: 55px;
+    text-align: left;
+    background-color: #E67E22;
+    border-color: #E67E22;
+}
+
+/*边栏*/
+.sidebar{
+    /*margin-top: 85px;*/
+    background-color: white;
+    border: 1px solid #E1E1E1;
+}
+
+
+
+/**************************************************************************/
+/*作者个人主页*/
+.main-content .author{
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 15px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: center;
+    line-height: 30px;
+    background-color: white;
+    border: 1px solid #E1E1E1;
+}

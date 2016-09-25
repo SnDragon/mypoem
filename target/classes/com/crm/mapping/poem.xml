@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.PoemDao">
+	<resultMap type="com.crm.model.Poem" id="poemMap">
+		<id property="poemId" column="poem_id"/>
+		<result property="userId" column="user_id" />
+		<result property="poemText" column="poem_text" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="poemNumSupport" column="poem_num_support" />
+		<result property="poemPublishTime" column="poem_publish_time" />
+		<result property="poemImg" column="poem_img" />
+	</resultMap>
+	<resultMap type="com.crm.util.PoemUtil" id="poemUtilMap">
+		<id property="poemId" column="poem_id"/>
+		<result property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="poemText" column="poem_text" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="poemNumSupport" column="poem_num_support" />
+		<result property="poemPublishTime" column="poem_publish_time" />
+		<result property="poemImg" column="poem_img" />
+	</resultMap>
+	
+	<sql id="poemColumns">
+		poem_id,user_id,poem_text,poem_title,poem_num_support,poem_publish_time,poem_img
+	</sql>
+	<sql id="poemUtilColumns">
+		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,poem_publish_time,poem_img
+	</sql>
+	<insert id="insertPoem" parameterType="com.crm.model.Poem" useGeneratedKeys="true" keyProperty="poemId">
+		insert into MP_poem(user_id,poem_title,poem_text,poem_publish_time
+		<if test="poemImg!=null">,poem_img</if>
+		)
+		values(#{userId},#{poemTitle},#{poemText},#{poemPublishTime}
+		<if test="poemImg!=null">,#{poemImg}</if>
+		)
+	</insert>
+	
+	<select id="getPoemById" resultMap="poemMap">
+		select <include refid="poemColumns" /> from MP_poem
+		where poem_id=#{0}
+	</select>
+	
+	<select id="getPoemUtils" resultMap="poemUtilMap">
+		select <include refid="poemUtilColumns" />
+		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id; 	
+	</select>
+	
+	<update id="addSupport">
+		update MP_poem set poem_num_support=poem_num_support+1
+		where poem_id=#{0}
+	</update>
+	
+	<update id="subSupport">
+		update MP_poem set poem_num_support=poem_num_support-1
+		where poem_id=#{0}
+	</update>
+</mapper>

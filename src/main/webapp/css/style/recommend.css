@@ -1,0 +1,61 @@
+/*“今日推荐”多出的样式*/
+.recommend{
+    font-family: "微软雅黑", Arial, sans-serif;
+    width: 100%;
+    vertical-align:middle;
+    margin-bottom: 8px;
+    padding-bottom: 2px;
+    border-top: 5px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    background-color: white;
+}
+/*.recommend .img td{*/
+    /*text-align: center;*/
+    /*vertical-align: middle;*/
+/*}*/
+.recommend .img img{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+/*.recommend .words td{*/
+    /*vertical-align: middle;*/
+/*}*/
+.recom-title a{
+    font-size: 2rem;
+    line-height: 30px;
+    margin: 0 0 5px;
+    max-height: 60px;
+    overflow: hidden;
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+.recom-content{
+    color: #949494;
+    display: block;
+    line-height: 20px;
+    margin: 0;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.recom-meta{
+    float: right;
+    margin-right: 15px;
+}
+.recom-author a{
+    margin-right: 10px;
+    color: #E67E22;
+}
+.recom-time{
+    cursor: default;
+    color: #a0a0a0;
+}
+
+.setImgSmall{
+    padding-top: 5px;
+}
+.setWordsSmall{
+    padding-top: 10px;
+    padding-left: 30px;
+}
