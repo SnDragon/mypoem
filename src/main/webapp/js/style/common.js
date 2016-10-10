@@ -1,7 +1,5 @@
-/**
- * Created by Administrator on 2016/9/21.
- */
 
+// 搜索框及小菜单
 $(function () {
     // 搜索框
     var $search = $(".poem-search");

@@ -74,18 +74,22 @@ public class PoemServiceImpl implements PoemService{
 		}
 		ArrayList<PoemUtil> poemUtils=poemDao.getPoemUtils();
 		for(PoemUtil poemUtil:poemUtils){
-			if(collectionService.isCollectionExisted(poemUtil.getUserId(),poemUtil.getPoemId())){
+			if(collectionService.isCollectionExisted(uid,poemUtil.getPoemId())){
 				poemUtil.setIsCollected(true);
 			}else{
 				poemUtil.setIsCollected(false);
 			}
-			if(supportService.isSupportExisted(poemUtil.getUserId(),poemUtil.getPoemId())){
+			if(supportService.isSupportExisted(uid,poemUtil.getPoemId())){
 				poemUtil.setIsSupported(true);
 			}else{
 				poemUtil.setIsSupported(false);
 			}
 		}
-		
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+			String[] poemRow=poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
 		return poemUtils;
 	}
 
@@ -107,6 +111,101 @@ public class PoemServiceImpl implements PoemService{
 		}else{
 			return false;
 		}
+	}
+
+
+	@Override
+	public ArrayList<PoemUtil> getRecommendPoemUtils() {
+		ArrayList<PoemUtil> poemUtils=poemDao.getPoemUtils();
+		for(PoemUtil poemUtil:poemUtils){
+			String[] poemRow=poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
+		return poemUtils;
+	}
+
+
+	@Override
+	public PoemUtil getPoemUtilById(Integer userId, Integer pid) {
+		if(userId==null || pid==null){
+			return null;
+		}
+		PoemUtil poemUtil=poemDao.getPoemUtilById(userId,pid);
+		if(collectionService.isCollectionExisted(userId,poemUtil.getPoemId())){
+			poemUtil.setIsCollected(true);
+		}else{
+			poemUtil.setIsCollected(false);
+		}
+		if(supportService.isSupportExisted(userId,poemUtil.getPoemId())){
+			poemUtil.setIsSupported(true);
+		}else{
+			poemUtil.setIsSupported(false);
+		}
+		
+		String[] poemRow=poemUtil.getPoemText().split("\\|");
+		poemUtil.setPoemRow(poemRow);
+		return poemUtil;
+	}
+
+
+	@Override
+	public boolean addTransmit(Integer poemId) {
+		if(poemId==null){
+			return false;
+		}
+		if(poemDao.addTransmit(poemId)>0){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean addComment(Integer poemId) {
+		if(poemId==null){
+			return false;
+		}
+		if(poemDao.addComment(poemId)>0){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean subComment(int poemId,int num) {
+		if(poemDao.subComment(poemId,num)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+
+	@Override
+	public ArrayList<PoemUtil> getPoemUtilsByUUID(Integer userId, Integer aid) {
+		if(userId==null || aid==null){
+			return null;
+		}
+		ArrayList<PoemUtil> poemUtils=poemDao.getPoemUtilsByAId(aid);
+		for(PoemUtil poemUtil:poemUtils){
+			if(collectionService.isCollectionExisted(userId,poemUtil.getPoemId())){
+				poemUtil.setIsCollected(true);
+			}else{
+				poemUtil.setIsCollected(false);
+			}
+			if(supportService.isSupportExisted(userId,poemUtil.getPoemId())){
+				poemUtil.setIsSupported(true);
+			}else{
+				poemUtil.setIsSupported(false);
+			}
+		}
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+			String[] poemRow=poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
+		return poemUtils;
 	}
 
 }

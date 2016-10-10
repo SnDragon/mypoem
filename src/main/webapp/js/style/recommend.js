@@ -35,16 +35,18 @@ window.onresize = function () {
 
     // 根据屏幕大小不同调整“推荐”的样式
     if(clientWidth >= 768){
-        if(clientWidth <= 992){
-            setMiddle(2);
-        }else if(clientWidth <= 1200){
-            setMiddle(3);
-        }else{
-            setMiddle(4);
-        }
+        setSmall(false);
+        setMiddle(2);
+        // if(clientWidth <= 992){
+        //     setMiddle(2);
+        // }else if(clientWidth <= 1200){
+        //     setMiddle(3);
+        // }else{
+        //     setMiddle(4);
+        // }
     }else{
         // 当屏幕宽度小于768时，图片与文字竖直排列，需另外设置样式
-        setSmall();
+        setSmall(true);
     }
 };
 
@@ -59,8 +61,9 @@ function setMiddle(n) {
     isImgLoad(function(){
         // 加载完成
         var $recom = $(".recommend");
-        var recom_height = $recom.css("height");
+        // var recom_height = $recom.css("height");
         $recom.each(function () {
+            var recom_height = $(this).css("height");
             var $img = $(this).find(".img");
 
             var $words = $(this).find(".words");
@@ -73,16 +76,6 @@ function setMiddle(n) {
             $words.css("margin-top", words_target + "px");
         });
     });
-}
-// 设置768px以下，“推荐”的样式
-function setSmall() {
-    var $recom = $(".recommend");
-    var $img = $recom.find(".img");
-    var $words = $recom.find(".words");
-    $img.addClass("setImgSmall");
-    $words.addClass("setWordsSmall");
-
-    $recom.css("margin-bottom", "0");
 }
 // 判断图片是否加载完成
 function isImgLoad(callback){
@@ -104,5 +97,21 @@ function isImgLoad(callback){
         t_img = setTimeout(function(){
             isImgLoad(callback);    // 递归扫描（这里设置0.3秒）
         },300);
+    }
+}
+// 设置768px以下，“推荐”的样式
+function setSmall(small) {
+    var $recom = $(".recommend");
+    var $img = $recom.find(".img");
+    var $words = $recom.find(".words");
+
+    if(small){
+        $img.addClass("setImgSmall");
+        $words.addClass("setWordsSmall");
+        $recom.css("margin-bottom", "0");
+    }else{
+        $img.removeClass("setImgSmall");
+        $words.removeClass("setWordsSmall");
+        $recom.css("margin-bottom", "8px");
     }
 }

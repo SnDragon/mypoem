@@ -1,6 +1,7 @@
 package com.crm.service;
 
 import com.crm.model.*;
+import com.crm.util.UserUtil;
 
 
 public interface UserService {
@@ -10,4 +11,14 @@ public interface UserService {
    public boolean register(String username, String email, String password1, String password2);
 
    public boolean isAccountExisted(String email);
+
+   public boolean updateUserIcon(Integer uid,String iconName);
+	
+	public boolean updateUserIntro(Integer uid, String user_intro);
+	
+	public boolean updateUserMotto(Integer uid, String user_intro);
+	
+	public boolean updateUserPass(Integer uid, String oldPass, String newPass, String againPass);
+	
+	public UserUtil getUserUtilById(Integer aid);
 }

@@ -1,5 +1,8 @@
 package com.crm.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -7,17 +10,25 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.model.User;
 import com.crm.service.PoemService;
 import com.crm.service.UserService;
+import com.crm.util.Encryption;
 import com.crm.util.PoemUtil;
+import com.crm.util.UserUtil;
+import com.sun.javafx.sg.prism.NGShape.Mode;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 
 
@@ -27,7 +38,8 @@ public class UserController {
 	
 	@Resource
 	private UserService userService;
-	@Resource PoemService poemService;
+	@Resource 
+	private PoemService poemService;
 	
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
@@ -101,17 +113,14 @@ public class UserController {
 	@RequestMapping(value="/friendCircle",method=RequestMethod.GET)
 	public ModelAndView showFriendCircle(HttpSession session){
 		User user=(User)session.getAttribute("user");
+		
 		if(user==null){
 			return null;
 		}
+		System.out.println("userId:"+user.getUserId());
 		ModelAndView modelAndView=new ModelAndView("friendCircle");
 		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUID(user.getUserId());
 		modelAndView.addObject("poemUtilList",poemUtils);
-		for(PoemUtil poemUtil:poemUtils){
-			System.out.println(poemUtil);
-			String[] poemRow=poemUtil.getPoemText().split("\\|");
-			poemUtil.setPoemRow(poemRow);
-		}
 		return modelAndView;
 	}
 	
@@ -126,4 +135,119 @@ public class UserController {
 		}
 		return "false";
 	}
+	
+	@RequestMapping(value="/uid/{uid}",method=RequestMethod.GET)
+	public ModelAndView showUser(@PathVariable("uid") Integer uid){
+		ModelAndView modelAndView=new ModelAndView("showUser");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/aid/{aid}",method=RequestMethod.GET)
+	public ModelAndView showAuthor(@PathVariable("aid") Integer aid,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		if(user==null){
+			return null;
+		}
+		ModelAndView modelAndView=new ModelAndView("showAuthor");
+		UserUtil author=userService.getUserUtilById(aid);
+		System.out.println(author);
+		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUUID(user.getUserId(),aid);
+		modelAndView.addObject("author",author);
+		modelAndView.addObject("poemUtils",poemUtils);
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/changeIcon/{uid}",method=RequestMethod.POST)
+	public ModelAndView updateIcon(@PathVariable("uid") Integer uid,@RequestParam("file") MultipartFile file){
+		ModelAndView modelAndView=new ModelAndView();
+		boolean success=true;
+		String iconName="user"+uid+".";
+		String path="D:\\javaEEd1\\mypoem\\src\\main\\webapp\\img\\user";
+		if(!file.isEmpty()){  
+            String contentType=file.getContentType();  
+            //获得文件后缀名称  
+            System.out.println(contentType);
+            iconName+=contentType.substring(contentType.indexOf("/")+1);  
+            String type=contentType.substring(0,contentType.indexOf("/"));
+            System.out.println("type:"+type);
+            if("image".equals(type)){
+            	 try {
+					file.transferTo(new File(path+"/"+iconName));
+				} catch (IOException e) {
+					e.printStackTrace();
+				} 
+            }else{
+            	success=false;
+            }
+        }else{
+        	success=false;
+        }
+		if(success && userService.updateUserIcon(uid,iconName)){
+//			String introduction="hello world";
+//			userService.updateIconAndIntro(iconName,introduction);
+			modelAndView.setViewName("showUser");
+		}else{
+			modelAndView.setViewName("fail");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/updateUserIntro/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateUserIntro(@PathVariable("uid") Integer uid,HttpServletRequest request){
+		String user_intro=request.getParameter("user_intro");
+		if(userService.updateUserIntro(uid,user_intro)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/updateUserMotto/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateUserMotto(@PathVariable("uid") Integer uid,HttpServletRequest request){
+		String user_intro=request.getParameter("user_intro");
+		if(userService.updateUserMotto(uid,user_intro)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/security/{uid}",method=RequestMethod.GET)
+	public ModelAndView showSecurity(@PathVariable("uid")Integer uid){
+		return new ModelAndView("security");
+	}
+	
+	@RequestMapping(value="/updatePass/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public String updatePass(@PathVariable("uid") Integer uid,HttpServletRequest request,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		String oldPass=request.getParameter("oldPass");
+		String newPass=request.getParameter("newPass");
+		String againPass=request.getParameter("againPass");
+		System.out.println(user.getUserPassword()==null);
+		if(!Encryption.md5(oldPass).equals(user.getUserPassword())){
+			return "wrong";
+		}
+		if(userService.updateUserPass(uid,oldPass,newPass,againPass)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/concern/{uid}",method=RequestMethod.GET)
+	public ModelAndView showConcern(){
+		return new ModelAndView("showConcern");
+	}
+	
+	@RequestMapping(value="/collection/{uid}",method=RequestMethod.GET)
+	public ModelAndView showCollection(){
+		return new ModelAndView("showCollection");
+	}
+	
 }

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.CommentDao">
+	<resultMap type="com.crm.model.Comment" id="commentMap">
+		<id property="commentId" column="comment_id" />
+		<result property="poemId" column="poem_id" />
+		<result property="parentId" column="parent_id" />
+		<result property="parentUserName" column="parent_user_name" />
+		<result property="commentorId" column="commentor_id" />
+		<result property="commentorName" column="commentor_name" />
+		<result property="commentText" column="comment_text" />
+		<result property="commentTime" column="comment_time" />
+		<result property="commentThread" column="comment_thread" />
+	</resultMap>
+	<sql id="commentColumns">
+		comment_id,poem_id,parent_id,parent_user_name,commentor_id,commentor_name,comment_text,comment_time,comment_thread
+	</sql>
+	
+	<insert id="insertComment" parameterType="com.crm.model.Comment" useGeneratedKeys="true" keyProperty="commentId" >
+		insert into MP_comment(poem_id,commentor_id,commentor_name,comment_time,comment_text)
+		values(#{poemId},#{commentorId},#{commentorName},#{commentTime},#{commentText})
+	</insert>
+	
+	<insert id="insertReplyComment" parameterType="com.crm.model.Comment" useGeneratedKeys="true" keyProperty="commentId">
+		insert into MP_comment(poem_id,parent_id,parent_user_name,commentor_id,commentor_name,comment_time,comment_text,comment_thread)
+		values(#{poemId},#{parentId},#{parentUserName},#{commentorId},#{commentorName},#{commentTime},#{commentText},#{commentThread})
+	</insert>
+	
+	<select id="getCommentList" resultMap="commentMap">
+		select <include refid="commentColumns" /> from MP_comment
+		where poem_id=#{0} and comment_thread='/' limit #{1},#{2}
+	</select>
+	
+	<select id="getChildrenCommentListByThread" resultMap="commentMap">
+		select <include refid="commentColumns" /> from MP_comment
+		where poem_id=#{0} and comment_thread like CONCAT(#{1},'%')
+	</select>
+	
+	<delete id="removeCommentById">
+		delete from MP_comment where comment_id=#{0}
+	</delete>
+	
+	<select id="getCommentNumberByThread" resultType="int">
+		select count(comment_id) from MP_comment where comment_thread like CONCAT(#{0},'%');
+	</select>
+</mapper>

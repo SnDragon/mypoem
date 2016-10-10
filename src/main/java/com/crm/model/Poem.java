@@ -8,16 +8,37 @@ public class Poem {
 	private String poemText;
 	private String poemTitle;
 	private Integer poemNumSupport;
+	private Integer poemNumComment;
+	private Integer poemNumTransmit;
 	private Timestamp poemPublishTime;
 	private String poemImg;
+	
+	
+
+	public Integer getPoemNumComment() {
+		return poemNumComment;
+	}
+
+	public void setPoemNumComment(Integer poemNumComment) {
+		this.poemNumComment = poemNumComment;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "Poem [poemId=" + poemId + ", userId=" + userId + ", poemText=" + poemText + ", poemTitle=" + poemTitle
-				+ ", poemNumSupport=" + poemNumSupport + ", poemPublishTime=" + poemPublishTime + ", poemImg=" + poemImg
-				+ "]";
+				+ ", poemNumSupport=" + poemNumSupport + ", poemNumComment=" + poemNumComment + ", poemNumTransmit="
+				+ poemNumTransmit + ", poemPublishTime=" + poemPublishTime + ", poemImg=" + poemImg + "]";
 	}
-	
+
+	public Integer getPoemNumTransmit() {
+		return poemNumTransmit;
+	}
+
+	public void setPoemNumTransmit(Integer poemNumTransmit) {
+		this.poemNumTransmit = poemNumTransmit;
+	}
+
 	public String getPoemImg() {
 		return poemImg;
 	}

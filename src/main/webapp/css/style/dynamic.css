@@ -1,0 +1,330 @@
+
+/*动态样式*/
+.main-content .dynamic{
+    width: 100%;
+    margin-bottom: 15px;
+    background-color: white;
+    border: 1px solid #E1E1E1;
+    border-top: 5px solid #E1E1E1;
+}
+.dynamic-title{
+    margin: 0;
+    margin-left: 10%;
+    margin-top: 30px;
+}
+.dynamic-title a{
+    text-decoration: none;
+    font-family: "华文中宋", "Arial", "sans-serif";
+    color: #303030;
+}
+/*作者及发布时间*/
+.dynamic-meta{
+    margin-top: 10px;
+    position: relative;   /*发布时间需相对meta设置绝对定位，top: 2px*/
+    text-align: right;    /*设置作者和时间始终在右方*/
+    padding-right: 110px;
+}
+.dynamic-author{
+    font-size: 14px;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    color: #959595;
+}
+.dynamic-author a{
+    color: #E67E22;
+}
+.dynamic-time{
+    font-size: 13px;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    color: #959595;
+    position: absolute;
+    top: 2px;
+    margin-left: 20px;
+}
+/*发布内容之文本*/
+.dynamic-content{
+    font-size: 20px;
+    font-family: "Helvetica", "Arial", "sans-serif";
+    font-weight: lighter;
+    color: #444443;
+    margin-top: 20px;
+    margin-left: 15%;
+    margin-right: 15%;
+}
+.dynamic-content span{
+    font-size: 14px;
+    margin-left: 85%;
+    cursor: pointer;
+    color: #E67E22;
+}
+.dynamic-content span:hover{
+    color: #BB7E22;
+}
+/*发布内容之图片*/
+.dynamic-img{
+    margin-left: 12%;
+    margin-top: 10px;
+}
+.dynamic-img img{
+    width: 100%;
+    height: 100%;
+}
+/*评论点赞*/
+.dynamic-action{
+    height: 40px;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-top: 1px solid #EBEBEB;
+}
+.dynamic-action .row ul li{
+    display: inline-block;
+    margin-top: 12px;
+    text-align: center;
+    font-size: 13px;
+    border-right: 1px solid #E1E1E1;
+    /*color: #808080;*/
+}
+.grayLi{
+    color: #808080;
+}
+.orangeLi{
+    color: #E67E22;
+}
+.dynamic-action .row ul li a{
+    color: #808080;
+    text-decoration: none;
+}
+.dynamic-action .row ul li span{
+    padding: 2px;
+}
+
+
+/*评论功能*/
+/*z-index设置为-1，里面的元素无法点击和悬停？？？？？？？*/
+/*评论框比动态长时，冒出头？？？？？？？？？？？？*/
+/*结论：评论框不设置动画下滑。。。直接由hide转为show。。。*/
+/*.dynamic{*/
+/*position: relative;   !*评论框相对整个动态绝对定位*!*/
+/*z-index: 1;*/
+/*}*/
+.comment-wrap{
+    /*position: absolute;*/
+    /*z-index: 0;*/
+    /*bottom: 20px;*/
+    display: none;
+    background-color: white;
+}
+.dynamic-comment{
+    /*position: absolute;*/
+    /*z-index: -1;*/
+    /*top: 100px;*/
+    /*position: relative;*/
+    /*bottom: 500px;*/
+    width: 94%;
+    margin: 3%;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-left: 15px;
+    border-top: 2px solid rgba(230,126,34,0.6);
+    border-bottom: 2px solid rgba(230,126,34,0.6);
+    color: rgb(51,51,51);
+
+    /*background-color: rgb(245,245,245);*/
+}
+.dynamic-comment .my-name, .dynamic-comment .reviewer{
+    cursor: pointer;
+    font-size: 13px;
+    color: #E67E22;
+}
+/*发送评论*/
+.dynamic-comment .send-comment{
+    margin-bottom: 10px;
+}
+.dynamic-comment .send-comment img{
+    width: 40px;
+    margin-top: -45px;
+    margin-left: 20px;
+    margin-right: 6px;
+}
+.dynamic-comment .send-comment .input-comment{
+    width: 60%;
+    /*height: 40px;*/
+    resize: vertical;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05) inset;
+    border: 1px solid #E1E1E1;
+}
+.dynamic-comment .send-comment button{
+    margin-left: 75%;
+    background-color: #E67E22;
+    color: white;
+}
+.dynamic-comment .send-comment button:hover{
+    background-color: rgba(230,126,34,0.9);
+}
+
+/*其他用户的评论*/
+.dynamic-comment .comment{
+    clear: both;
+    margin-left: 7%;
+    margin-right: 5px;
+    padding: 10px 20px 10px 20px;
+    border-top: 1px dashed #E1E1E1;
+}
+.dynamic-comment .comment .head-icon img{
+    float: left;
+    width: 50px;
+    height: 50px;
+    margin-top: 3px;
+    margin-right: 15px;
+}
+.dynamic-comment .comment .content{
+    position: relative;
+}
+.dynamic-comment .comment .content a{
+    color: #E67E22;
+}
+.dynamic-comment .comment .content .reviewer-words{
+    margin-top: 3px;
+}
+.dynamic-comment .comment .content .reviewer-words .triangle{
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: #ededed transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 10px;
+    content: "";
+    display: block;
+    height: 0;
+    left: 70px;
+    position: absolute;
+    top: 23px;
+    transform: translateX(-50%);
+    width: 0;
+    z-index: 5;
+}
+.dynamic-comment .comment .content .reviewer-words .words{
+    font-family: "Helvetica", "Arial", "sans-serif";
+    font-size: 13px;
+    margin-left: 70px;
+    margin-right: 15px;
+    border-radius: 5px;
+    padding: 13px;
+    background-color: #ededed;
+}
+.dynamic-comment .comment span{
+    float: right;
+    margin-top: 4px;
+    margin-bottom: 7px;
+    cursor: pointer;
+    color: #808080;
+    opacity: 0.8;
+}
+.dynamic-comment .comment span:hover{
+    color: #E67E22;
+    opacity: 0.8;
+}
+.dynamic-comment .comment .reply{
+    margin-top: 20px;
+    margin-left: 40px;
+}
+.dynamic-comment .comment .reply .input-reply{
+    resize: vertical;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.05) inset;
+    font-size: 0.9em;
+    max-width: 80%;
+    padding: 10px;
+    width: 80%;
+}
+.dynamic-comment .comment .reply button{
+    float: right;
+    background-color: #CCCCCC;
+    border: medium none;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.8em;
+    line-height: 1.5em;
+    margin-top: 20px;
+    opacity: 1;
+    outline: 0 none;
+    padding: 6px 20px;
+    margin-bottom: 5px;
+    text-align: right;
+    transition: background-color 0.3s ease 0s;    /*平滑过渡*/
+}
+.dynamic-comment .comment .reply button:hover{
+    background-color: #9d9d9d;
+}
+.reply-n{
+    clear: both;
+    margin-top: 30px;
+    margin-left: 70px;
+}
+/*加载更多*/
+.dynamic-comment .more-comment{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.dynamic-comment .more-comment span{
+    cursor: pointer;
+    color: rgba(230,126,34,0.8);
+}
+.dynamic-comment .more-comment span:hover{
+    color: rgba(230,126,34,1.0);
+}
+
+/*转发*/
+.modal{
+    /*border-top: 2px solid #E67E22;*/
+    /*padding-left: 50%;*/
+}
+.modal .modal-header{
+    border-top: 2px solid #E67E22;
+}
+.modal .modal-header .modal-title{
+    font-size: 16px;
+    font-weight: bold;
+}
+.modal .modal-body .share-content{
+    width: 90%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 15px;
+    margin: auto;
+    padding-left: 10px;
+    background-color: rgb(242,242,245);
+}
+.modal .modal-body .share-content .share-author{
+    color: #E67E22;
+}
+.modal .modal-body .share-content .share-title{
+    color: rgb(128,128,128);
+}
+.modal .modal-body .share-word{
+    width: 90%;
+    margin: auto;
+    margin-top: 10px;
+}
+.modal .modal-body .share-word .remain-word{
+    margin-left: 15px;
+}
+#share-word{
+    width: 70%;
+    height: 80px;
+    font-family: "微软雅黑", Arial, sans-serif;
+    color: rgb(128,128,128);
+    border: 1px solid rgb(204,204,204);
+}
+.modal .modal-footer button{
+    width: 55px;
+    text-align: left;
+    background-color: #E67E22;
+    border-color: #E67E22;
+}

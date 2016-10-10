@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.TransmitDao">
+	<resultMap type="com.crm.model.Transmit" id="transmitMap">
+		<result property="userId" column="user_id" />
+		<result property="poemId" column="poem_id" />
+		<result property="transmitComment" column="transmit_comment" />
+		<result property="transmitTime" column="transmit_time" />
+	</resultMap>
+	<sql id="transmitColumns">
+		user_id,poem_id,transmit_comment,transmit_time
+	</sql>
+	<insert id="insertTransmit" parameterType="com.crm.model.Transmit">
+		insert into MP_transmit(<include refid="transmitColumns" />)
+		values(#{userId},#{poemId},#{transmitComment},#{transmitTime});
+	</insert>
+	
+	
+</mapper>

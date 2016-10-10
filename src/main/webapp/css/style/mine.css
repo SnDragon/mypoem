@@ -1,0 +1,265 @@
+nav.mine-sidebar {
+    height: 100%;
+    opacity: 0.9;
+    padding: 20px 10px;
+    margin-right: 30px;
+    text-align: center;
+    background: none repeat scroll 0 0 white;
+    color: black;
+    border: 3px solid #E1E1E1;
+}
+nav.mine-sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+nav.mine-sidebar ul li{
+    margin: 0;
+    margin-top: 20px;
+    margin-left: -4px;
+    list-style-type: none;
+    border-radius: 4px;
+    text-align: center;
+    padding: 4px;
+    cursor: pointer;
+}
+nav.mine-sidebar ul li a{
+    outline: 0;
+    color: black;
+    font-size: 20px;
+    text-decoration: none;
+}
+nav.mine-sidebar ul li a span{
+    margin-left: 2px;
+    font-size: 11px;
+    position: relative;
+    bottom: 2px;
+}
+nav.mine-sidebar ul li:hover{
+    background: none repeat scroll 0 0 rgb(238,238,238);
+    border-radius: 4px;
+    text-align: center;
+    margin-left: -4px;
+    padding: 4px;
+    color: white;
+}
+nav.mine-sidebar ul li:hover a{
+    color: #E67E22;
+}
+nav.mine-sidebar ul li.active {
+    background: none repeat scroll 0 0 #E67E22;
+    border-radius: 4px;
+    text-align: center;
+    margin-left: -4px;
+    padding: 4px;
+}
+nav.mine-sidebar ul li.active a{
+    color: white !important;
+}
+nav.mine-sidebar ul li.active a:hover {
+    color: white !important;
+}
+
+.my-friends, .my-infos, .my-security{
+    padding-bottom: 25px;
+    border: 2px solid #E1E1E1;
+    background-color: white;
+}
+.content-wrap .title{
+    display: block;
+    float: left;
+    margin: 9px;
+}
+.my-friends .friends, .my-infos .content{
+    clear: both;
+    padding-top: 10px;
+    border-top: 2px solid #E1E1E1;
+}
+.my-friends .friends .friend{
+    float: left;
+    display: inline-block;
+    list-style: none;
+    width: 200px;
+    margin: 10px 15px;
+    text-align: left;
+    border: 1px dotted #E1E1E1;
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+.my-friends .friends .friend a{
+    display: block;
+    text-decoration: none;
+    outline: none;
+}
+.my-friends .friends .friend .head a{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 20px 0 10px 50px;
+}
+.my-friends .friends .friend .head a img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    /*多重设置阴影*/
+    -webkit-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),  /*右*/
+            inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+            0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+            inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+            inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+            inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+            inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+            0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+            inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+            inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+            inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+            inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+            0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+            inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+            inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+            inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+}
+.my-friends .friends .friend .info{
+    padding: 10px;
+    background-color: white;
+}
+.my-friends .friends .friend .info span{
+    margin-right: 10px;
+    color: rgb(68,68,68);
+}
+.my-friends .friends .friend .delete{
+    display: block;
+    float: right;
+    margin: 10px;
+    margin-bottom: 4px;
+    color: rgb(245,184,93);
+}
+.my-friends .friends .friend .delete:hover{
+    color: #E67E22;
+}
+/*在bootstrap.js添加了相应代码，使得模态框垂直居中*/
+#myModal .modal-dialog{    /*修改模态框的宽度，不是设置在.modal，而是.modal-dialog这个div*/
+    width: 400px;
+    height: 300px;
+}
+#myModal h4{
+    font-weight: normal;
+}
+#myModal .modal-body span{
+    color: #E67E22;
+}
+
+/*个人资料*/
+.my-infos .content .icon{
+    margin-bottom: 18px;
+}
+.my-infos .content .icon img{
+    width: 100px;
+    height: 100px;
+    margin-left: 30px;
+    border-radius: 50px;
+    border: 1px solid #9d9d9d;
+    -webkit-box-shadow: 3px 3px 5px #9D9D9D;
+    -moz-box-shadow: 3px 3px 5px #9D9D9D;
+    box-shadow: 3px 3px 5px #9D9D9D;
+}
+.my-infos .content .icon button{
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.my-infos .content .icon .icon-change-btn{
+    margin-left: 140px;
+    margin-top: -50px;
+}
+.my-infos .content .icon .icon-change-btn button{
+    padding: 5px;
+    background-color: #a0a0a0;
+    color: white;
+}
+.my-infos .content .info{
+    width: 90%;
+    min-height: 50px;
+    margin-left: 5%;
+    margin-bottom: 18px;
+    padding: 15px;
+    font-size: 14px;
+    border: 1px solid #D9D9D9;
+    background-color: #F2F2F2;
+}
+.my-infos .content .info:hover{
+    background-color: #E1E1E1;
+}
+.my-infos .content .info .tag{
+    display: block;
+    float: left;
+    width: 100px;
+    color: #333333;
+}
+.my-infos .content .info .value{
+    color: #999999;
+}
+.my-infos .content .info .change{
+    display: block;
+    float: right;
+    width: 50px;
+    cursor: pointer;
+    color: #0A8CD2;
+}
+.my-infos .content .signature .sig{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.my-infos .content .signature .old{
+    clear: both;
+    margin-top: 45px;
+}
+.my-infos .content .signature .new .sig{
+    display: block;
+    float: left;
+    margin-top: 15px;
+}
+.my-infos .content .signature textarea{
+    display: inline-block;
+    resize: none;
+    width: 60%;
+    margin-top: 14px;
+    margin-left: 5px;
+    margin-right: 10px;
+}
+.my-infos .content .signature button{
+    margin-left: 85%;
+    margin-top: 10px;
+}
+
+/*安全中心*/
+.my-security li a{
+    color: black;
+}
+.my-security .content{
+    padding-top: 20px;
+}
+.my-security .content .page{
+    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-left: 20%;
+    border: 1px solid #dddddd;
+    border-top: none;
+}
+.my-security .content .page div{
+    margin-bottom: 20px;
+}
+.my-security .content .page div input{
+    width: 200px;
+}
+.my-security .content .page div label.error{
+    margin-top: 8px;
+    margin-left: 16px;
+    font-weight: normal;
+    color: red;
+}
+.my-security .content .page .change {
+    margin-left: 60%;
+}

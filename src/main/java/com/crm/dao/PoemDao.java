@@ -16,4 +16,14 @@ public interface PoemDao {
 
 	public int subSupport(Integer poemId);
 
+	public PoemUtil getPoemUtilById(Integer userId, Integer pid);
+
+	public int addTransmit(Integer poemId);
+
+	public int addComment(Integer poemId);
+
+	public int subComment(int poemId,int num);
+
+	public ArrayList<PoemUtil> getPoemUtilsByAId(Integer aid);
+
 }

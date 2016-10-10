@@ -6,17 +6,23 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.model.Poem;
+import com.crm.model.User;
 import com.crm.service.PoemService;
+import com.crm.util.PoemUtil;
 
 @Controller
 @RequestMapping(value="/poem")
@@ -89,18 +95,13 @@ public class PoemController {
 		return result;
 	}
 	
-	@RequestMapping(value="test",method=RequestMethod.POST)
-	@ResponseBody
-	public String test(HttpServletRequest request){
-		String content=request.getParameter("content");
-		System.out.println(content);
-		content=content.replaceAll(" ", "");
-		System.out.println(content);
-//		content=content.replaceAll("\\r\\n\\r\\n", "\r\n");
-//		System.out.println(content);
-		content=content.replaceAll("\\r\\n", "|");
-		System.out.println(content);
-		return "test";
+	@RequestMapping(value="/pid/{pid}",method=RequestMethod.GET)
+	public ModelAndView getPoem(@PathVariable("pid")Integer pid,HttpSession session){
+		User user=(User)session.getAttribute("user");
+		PoemUtil poemUtil=poemService.getPoemUtilById(user.getUserId(),pid);
+		System.out.println(poemUtil);
+		ModelAndView modelAndView=new ModelAndView("showPoem");
+		modelAndView.addObject("poemUtil",poemUtil);
+		return modelAndView;
 	}
-	
 }

@@ -1,182 +1,3 @@
-body{
-    position: relative;
-    background-color: #EBEBEB;
-}
-/*设置被选中字体的样式*/
-::selection { background:#E67E22; color: #fff; }
-::-moz-selection { background:#E67E22;color: #fff; }
-::-webkit-selection { background:#E67E22; color: #fff; }
-
-/*头部图片*/
-.main-header{
-    background-image: url("../../img/common/head.jpg");
-    background-size: cover;
-    background-color: transparent;
-    width: 100%;
-    height: 211px;
-    position: relative;
-    z-index: 100;
-}
-.main-header .container{
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    font-family: "华文中宋", "Arial", "sans-serif";
-    padding-top: 40px;
-    background-color: #EBEBEB;
-}
-/*头部右上方相关链接*/
-.header{
-    width:100%;
-    padding-top: 50px;
-}
-.header .header_content{
-    width: 90%;
-    height:30px;
-    /*margin:0 auto;*/
-    /*padding-right: 20px;*/
-}
-.title{
-    float:right;
-}
-.title li{
-    display: inline-block;
-    /*height:30px;*/
-    margin-left: 25px;
-}
-.title li a{
-    display: block;
-    height:30px;
-    line-height: 30px;
-    color:white;
-    font-size: 16px;
-}
-
-
-/*导航栏*/
-.main-navigation{
-    position: absolute;   /*搜索框的绝对定位*/
-    z-index: 100;
-    width: 100%;
-    height: 60px;
-    text-align: center;
-    border-top: 2px solid #E1E1E1;
-    border-bottom: 2px solid #E1E1E1;
-    background-color: white;
-}
-.menu li{
-    display: inline-block;
-    height: 57px;
-    padding: 19px 26px;
-}
-.menu li.current-page{
-    border-bottom: 2px solid #E67E22;
-}
-.menu li a{
-    font-size: 14px;
-    text-decoration: none;
-    color: #333333;
-}
-.menu li a:hover{
-    color: #E67E22;
-}
-
-/*!*登录、注册链接*!*/
-/*#login, #register{*/
-    /*height: 40px;*/
-    /*padding-top: 8px;*/
-    /*background-color: #E67E22;*/
-/*}*/
-/*#login a:hover, #register a:hover{*/
-    /*color: white;*/
-/*}*/
-/*#login{*/
-
-/*}*/
-/*#register{*/
-
-/*}*/
-
-/*小屏幕下的导航栏*/
-.menu-small{
-    display: block;
-    margin-top: 19px;
-    font-size: 22px;
-    cursor: pointer;
-}
-/*小屏幕导航栏的下拉菜单*/
-.assit-menu{
-    position: relative;  /*设为相对定位，结合margin-top。避免用绝对定位结合top时，下拉菜单脱离文档流*/
-    margin-top: -105px;
-    width: 70%;
-    z-index: 1;
-    left: 50%;      /*绝对定位的元素无法设置margin-left和margin-right*/
-    margin-left: -35%;     /*设置margin-left为导航栏宽度的一半，即70%的一半*/
-    border: 1px solid rgba(230,126,34,0.65);
-    border-top: none;
-    background-color: white;
-}
-.assit-menu .menu{
-    margin: 0;      /*不知为什么原来会有margin，导致下拉菜单的下边框与选项之间有间隔*/
-}
-.assit-menu .menu li{
-    display: block;
-    text-align: center;
-    margin-left: 6%;
-    margin-right: 6%;
-    height: 30px;     /*与横向导航设置为不一样的选项高度*/
-    line-height: 6px;
-    /*padding-top: 10px;*/
-    /*padding-bottom: 10px;*/
-    border-bottom: 1px solid #E1E1E1;
-}
-.assit-menu .menu li.current-page{
-    background-color: rgba(230,126,34,0.9);
-}
-.assit-menu .menu li.current-page a{
-    color: white;
-}
-
-
-
-/*导航栏中的搜索框*/
-#main-search{
-    position: absolute;
-    top: -45px;
-    right: 20px;
-}
-#form-search input{
-    width: 160px;
-    height:33px;
-    margin: 0;
-    border: 1px solid #CCCCCC;
-    border-right: none;
-    font-size: 13px;
-    color: #808080;
-    background-color: #F2F2F5;
-}
-#form-search .form-control:focus{  /*覆盖bootstrap设置的样式，改变focus时阴影的颜色*/
-    /*box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(201,140,109,0.6);*/
-    box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(230,126,34,0.4);
-}
-#form-search button{
-    height: 33px;
-    margin: 0;
-    background-color: #F2F2F5;
-}
-
-
-
-/**************************************************************************/
-/*朋友圈*/
-.content-wrap>.container>.row{
-    margin-top: 20px;  /*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*/
-}
-.main-content{
-    /*margin-top: 85px;  !*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*!*/
-    padding-right: 25px;     /*为列设置 padding 属性，创建列与列之间的间隔*/
-    padding-left: 25px;
-}
 
 /*发布*/
 .main-content .put-out{
@@ -186,6 +7,7 @@ body{
     padding-top: 10px;
     padding-left: 7%;
     padding-right: 7%;
+    border-radius: 10px;
     font-family: "微软雅黑", "Arial", "sans-serif";
     color: rgb(51, 51, 51);
     background-color: white;
@@ -309,245 +131,6 @@ body{
     vertical-align: middle;
 }
 
-
-
-/*动态*/
-.main-content .dynamic{
-    width: 100%;
-    margin-bottom: 15px;
-    background-color: white;
-    border: 1px solid #E1E1E1;
-}
-.dynamic-title{
-    margin: 0;
-    margin-left: 10%;
-    margin-top: 30px;
-}
-.dynamic-title a{
-    text-decoration: none;
-    font-family: "华文中宋", "Arial", "sans-serif";
-    color: #303030;
-}
-/*作者及发布时间*/
-.dynamic-meta{
-    margin-top: 10px;
-    position: relative;   /*发布时间需相对meta设置绝对定位，top: 2px*/
-    text-align: right;    /*设置作者和时间始终在右方*/
-    padding-right: 110px;
-}
-.dynamic-author{
-    font-size: 14px;
-    font-family: "微软雅黑", "Arial", "sans-serif";
-    color: #959595;
-}
-.dynamic-author a{
-    color: #E67E22;
-}
-.dynamic-time{
-    font-size: 13px;
-    font-family: "微软雅黑", "Arial", "sans-serif";
-    color: #959595;
-    position: absolute;
-    top: 2px;
-    margin-left: 20px;
-}
-/*发布内容之文本*/
-.dynamic-content{
-    font-size: 20px;
-    font-family: "Helvetica", "Arial", "sans-serif";
-    font-weight: lighter;
-    color: #444443;
-    margin-top: 20px;
-    margin-left: 15%;
-    margin-right: 15%;
-}
-/*发布内容之图片*/
-.dynamic-img{
-    margin-left: 12%;
-    margin-top: 10px;
-    /*width: 340px;*/
-    /*height: 197px;*/
-}
-.dynamic-img img{
-    width: 100%;
-    height: 100%;
-}
-/*评论点赞*/
-.dynamic-action{
-    height: 40px;
-    margin-top: 20px;
-    margin-left: 5%;
-    margin-right: 5%;
-    border-top: 1px solid #EBEBEB;
-}
-/*.grayLi{*/
-    /*color: #808080;*/
-/*}*/
-/*.orangeLi{*/
-    /*color: #E67E22;*/
-/*}*/
-.dynamic-action .row ul li{
-    display: inline-block;
-    margin-top: 12px;
-    text-align: center;
-    font-size: 13px;
-    border-right: 1px solid #E1E1E1;
-    /*color: #808080;*/
-}
-.grayLi{
-    color: #808080;
-}
-.orangeLi{
-    color: #E67E22;
-}
-.dynamic-action .row ul li a{
-    color: #808080;
-    text-decoration: none;
-}
-.dynamic-action .row ul li span{
-    padding: 2px;
- }
-
-
-/*评论功能*/
-/*z-index设置为-1，里面的元素无法点击和悬停？？？？？？？*/
-/*评论框比动态长时，冒出头？？？？？？？？？？？？*/
-/*结论：评论框不设置动画下滑。。。直接由hide转为show。。。*/
-/*.dynamic{*/
-    /*position: relative;   !*评论框相对整个动态绝对定位*!*/
-    /*z-index: 1;*/
-/*}*/
-.comment-wrap{
-    /*position: absolute;*/
-    /*z-index: 0;*/
-    /*bottom: 20px;*/
-    display: none;
-    border: 1px solid #E1E1E1;
-    border-top: none;
-    background-color: white;
-}
-.dynamic-comment{
-    /*position: absolute;*/
-    /*z-index: -1;*/
-    /*top: 100px;*/
-    /*position: relative;*/
-    /*bottom: 500px;*/
-    width: 94%;
-    margin: 3%;
-    margin-top: 20px;
-    padding-top: 10px;
-    padding-left: 15px;
-    border-top: 2px solid rgba(230,126,34,0.6);
-    border-bottom: 2px solid rgba(230,126,34,0.6);
-
-    background-color: rgb(245,245,245);
-}
-.dynamic-comment .my-name, .dynamic-comment .reviewer{
-    cursor: pointer;
-    font-size: 13px;
-    color: #E67E22;
-}
-/*发送评论*/
-.dynamic-comment .send-comment{
-    margin-bottom: 10px;
-}
-.dynamic-comment .send-comment img{
-    width: 30px;
-    margin-top: -27px;
-    margin-left: 20px;
-    margin-right: 6px;
-}
-.dynamic-comment .send-comment .input-comment{
-    width: 60%;
-    height: 40px;
-    border: 1px solid #E1E1E1;
-}
-.dynamic-comment .send-comment .input-comment:focus{
-    border: 1px solid rgba(230,126,34,0.8);
-}
-.dynamic-comment .send-comment button{
-    margin-left: 75%;
-    background-color: #E67E22;
-    color: white;
-}
-.dynamic-comment .send-comment button:hover{
-    background-color: rgba(230,126,34,0.9);
-}
-/*其他用户的评论*/
-.dynamic-comment .comment{
-    margin-left: 10%;
-    margin-right: 5px;
-    padding: 10px 20px 10px 20px;
-    border-top: 1px solid #E1E1E1;
-}
-.dynamic-comment .comment .reviewer-words{
-    font-family: "Helvetica", "Arial", "sans-serif";
-    font-size: 13px;
-}
-/*加载更多*/
-.dynamic-comment .more-comment{
-    width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-align: center;
-}
-.dynamic-comment .more-comment span{
-    cursor: pointer;
-    color: rgba(230,126,34,0.8);
-}
-.dynamic-comment .more-comment span:hover{
-    color: rgba(230,126,34,1.0);
-}
-
-/*转发*/
-.modal{
-    /*border-top: 2px solid #E67E22;*/
-    /*padding-left: 50%;*/
-}
-.modal .modal-header{
-    border-top: 2px solid #E67E22;
-}
-.modal .modal-header .modal-title{
-    font-size: 16px;
-    font-weight: bold;
-}
-.modal .modal-body .share-content{
-    width: 90%;
-    height: 40px;
-    line-height: 40px;
-    font-size: 15px;
-    margin: auto;
-    padding-left: 10px;
-    background-color: rgb(242,242,245);
-}
-.modal .modal-body .share-content .share-author{
-    color: #E67E22;
-}
-.modal .modal-body .share-content .share-title{
-    color: rgb(128,128,128);
-}
-.modal .modal-body .share-word{
-    width: 90%;
-    margin: auto;
-    margin-top: 10px;
-}
-.modal .modal-body .share-word .remain-word{
-    margin-left: 15px;
-}
-#share-word{
-    width: 70%;
-    height: 80px;
-    font-family: "微软雅黑", Arial, sans-serif;
-    color: rgb(128,128,128);
-    border: 1px solid rgb(204,204,204);
-}
-.modal .modal-footer button{
-    width: 55px;
-    text-align: left;
-    background-color: #E67E22;
-    border-color: #E67E22;
-}
-
 /*边栏*/
 .sidebar{
     /*margin-top: 85px;*/
@@ -569,4 +152,84 @@ body{
     line-height: 30px;
     background-color: white;
     border: 1px solid #E1E1E1;
+}
+
+/*转发不同于普通动态样式*/
+.dynamic .shared-head{
+    margin-top: 10px;
+    margin-left: 5%;
+}
+.dynamic .shared-head img{
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    border-radius: 35px;
+    -webkit-box-shadow:  5px 5px 5px #E1E1E1;
+    -moz-box-shadow:  5px 5px 5px #E1E1E1;
+    box-shadow:  5px 5px 5px #E1E1E1;
+}
+.dynamic .shared-head a{
+    color: #E67E22;
+}
+.dynamic .shared-reason{
+    margin: 10px 5%;
+    font-size: 16px;
+}
+/*转发中的原始文章*/
+.original{
+    width: 90%;
+    margin-left: 5%;
+    padding: 5px 30px 10px 20px;
+    background-color: rgb(242,242,245);
+}
+.original .original-head{
+    float: left;
+}
+.original .original-head .original-title{
+    display: inline-block;
+}
+.original .original-head .original-title a{
+    font-size: 25px;
+    font-family: "Helvetica", "Arial", "sans-serif";
+    color: black;
+    text-decoration: none;
+}
+.original .original-head .original-author a{
+    margin-left: 20px;
+    color: #E67E22;
+}
+.original .original-content{
+    float: left;
+    clear: both;
+    margin-left: 0;
+    font-size: 17px;
+    font-family: "Helvetica", "Arial", "sans-serif";
+    font-weight: lighter;
+    color: #444443;
+}
+.original .original-content p{
+    font-size: 15px;
+}
+.original-content span{
+    font-size: 14px;
+    margin-left: 70%;
+    cursor: pointer;
+    color: #E67E22;
+}
+.original-content span:hover{
+    color: #BB7E22;
+}
+.original .row .original-img img{
+    width: 100%;
+    height: 100%;
+    margin-top: -60px;
+    margin-bottom: 7px;
+}
+
+
+
+
+/*取出谷歌浏览器点击button时的默认蓝色轮廓*/
+.put-out-footer .wrapper button{
+    outline: none;    /*边框边缘的线，并不影响边框*/
 }

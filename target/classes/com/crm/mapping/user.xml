@@ -15,9 +15,19 @@
 		<result property="userIntro" column="user_intro" />		
 		<result property="userSex" column="user_sex" />		
 	</resultMap>
-  
+  	<resultMap type="com.crm.util.UserUtil" id="userUtilMap">
+  		<result property="userId" column="user_id" />
+  		<result property="userName" column="user_name" />
+  		<result property="userMotto" column="user_motto" />
+  		<result property="userIcon" column="user_icon" />
+  		<result property="userIntro" column="user_intro" />
+  		<result property="userSex" column="user_sex" />
+  	</resultMap>
 	<sql id="userColumns">
-		user_id,user_name,user_password,user_motto,user_email,user_intro,user_sex
+		user_id,user_name,user_password,user_motto,user_icon,user_email,user_intro,user_sex
+	</sql>
+	<sql id="userUtilColumns">
+		user_id,user_name,user_motto,user_icon,user_intro,user_sex
 	</sql>
 	
 	<insert id="insertUser" parameterType="com.crm.model.User">
@@ -28,5 +38,30 @@
 	<select id="getUserByEmail" parameterType="String" resultMap="userMap">
 		select <include refid="userColumns" /> from MP_user
 		where user_email=#{_parameter}
+	</select>
+	
+	<update id="updateUserIcon">
+		update MP_user set user_icon=#{1}
+		where user_id=#{0}
+	</update>
+	
+	<update id="updateUserIntro">
+		update MP_user set user_intro=#{1}
+		where user_id=#{0}
+	</update>
+	
+	<update id="updateUserMotto">
+		update MP_user set user_motto=#{1}
+		where user_id=#{0}
+	</update>
+	
+	<update id="updateUserPass">
+		update MP_user set user_password=#{1}
+		where user_id=#{0}
+	</update>
+	
+	<select id="getUserUtilById" resultMap="userUtilMap">
+		select <include refid="userUtilColumns" /> from MP_user
+		where user_id=#{0}
 	</select>
 </mapper>

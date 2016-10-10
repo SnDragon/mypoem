@@ -1,0 +1,199 @@
+body{
+    position: relative;
+    background-color: #EBEBEB;
+}
+/*设置被选中字体的样式*/
+::selection { background:#E67E22; color: #fff; }
+::-moz-selection { background:#E67E22;color: #fff; }
+::-webkit-selection { background:#E67E22; color: #fff; }
+
+button{
+    outline: none;
+}
+
+/*朋友圈*/
+.content-wrap>.container>.row{
+    margin-top: 20px;  /*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*/
+}
+.main-content{
+    /*margin-top: 85px;  !*最好不给设置好的列设置宽度，会导致窗口缩放时，不能达到理想的效果*!*/
+    padding-right: 25px;     /*为列设置 padding 属性，创建列与列之间的间隔*/
+    padding-left: 25px;
+}
+
+/*头部图片*/
+.main-header{
+    background-image: url("../../img/common/head.jpg");
+    background-size: cover;
+    background-color: transparent;
+    width: 100%;
+    height: 211px;
+    position: relative;
+    z-index: 100;
+}
+.main-header .container{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-family: "华文中宋", "Arial", "sans-serif";
+    padding-top: 40px;
+    background-color: #EBEBEB;
+}
+/*头部右上方相关链接*/
+.header{
+    width:100%;
+    padding-top: 50px;
+}
+.header .header_content{
+    width: 90%;
+    height:30px;
+    /*margin:0 auto;*/
+    /*padding-right: 20px;*/
+}
+.header .header_content .title{
+    float:right;
+}
+.header .header_content .title li{
+    display: inline-block;
+    /*height:30px;*/
+    margin-left: 25px;
+}
+.header .header_content .title li a{
+    display: block;
+    height:30px;
+    line-height: 30px;
+    color:white;
+    font-size: 16px;
+}
+/*用户中间头像*/
+.main-header .icon{
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    text-align: center;
+}
+.main-header .icon img{
+    width: 140px;
+    height: 140px;
+    border-radius: 70px;
+    margin-bottom: 6px;
+    -webkit-box-shadow:  5px 5px 5px rgba(243, 185, 79, 0.5);
+    -moz-box-shadow:  5px 5px 5px rgba(243, 185, 79, 0.5);
+    box-shadow:  5px 5px 5px rgba(243, 185, 79, 0.5);
+}
+.main-header .icon .signature{
+    color: white;
+}
+
+/*导航栏*/
+.main-navigation{
+    position: absolute;   /*搜索框的绝对定位*/
+    z-index: 100;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    font-family: "微软雅黑", "Arial", "sans-serif";
+    border-top: 2px solid #E1E1E1;
+    border-bottom: 2px solid #E1E1E1;
+    background-color: white;
+}
+.menu li{
+    display: inline-block;
+    height: 57px;
+    padding: 19px 26px;
+}
+.menu li.current-page{
+    border-bottom: 2px solid #E67E22;
+}
+.menu li a{
+    font-size: 14px;
+    text-decoration: none;
+    color: #333333;
+}
+.menu li a:hover{
+    color: #E67E22;
+}
+
+/*!*登录、注册链接*!*/
+/*#login, #register{*/
+/*height: 40px;*/
+/*padding-top: 8px;*/
+/*background-color: #E67E22;*/
+/*}*/
+/*#login a:hover, #register a:hover{*/
+/*color: white;*/
+/*}*/
+/*#login{*/
+
+/*}*/
+/*#register{*/
+
+/*}*/
+
+/*小屏幕下的导航栏*/
+.menu-small{
+    display: block;
+    margin-top: 19px;
+    font-size: 22px;
+    cursor: pointer;
+}
+/*小屏幕导航栏的下拉菜单*/
+.assit-menu{
+    position: relative;  /*设为相对定位，结合margin-top。避免用绝对定位结合top时，下拉菜单脱离文档流*/
+    margin-top: -105px;
+    width: 70%;
+    z-index: 1;
+    left: 50%;      /*绝对定位的元素无法设置margin-left和margin-right*/
+    margin-left: -35%;     /*设置margin-left为导航栏宽度的一半，即70%的一半*/
+    border: 1px solid rgba(230,126,34,0.65);
+    border-top: none;
+    background-color: white;
+}
+.assit-menu .menu{
+    margin: 0;      /*不知为什么原来会有margin，导致下拉菜单的下边框与选项之间有间隔*/
+}
+.assit-menu .menu li{
+    display: block;
+    text-align: center;
+    margin-left: 6%;
+    margin-right: 6%;
+    height: 30px;     /*与横向导航设置为不一样的选项高度*/
+    line-height: 6px;
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
+    border-bottom: 1px solid #E1E1E1;
+}
+.assit-menu .menu li.current-page{
+    background-color: rgba(230,126,34,0.9);
+}
+.assit-menu .menu li.current-page a{
+    color: white;
+}
+
+
+
+/*导航栏中的搜索框*/
+#main-search{
+    position: absolute;
+    top: -45px;
+    right: 20px;
+}
+#form-search input{
+    width: 160px;
+    height:33px;
+    margin: 0;
+    border: 1px solid #CCCCCC;
+    border-right: none;
+    font-size: 13px;
+    color: #808080;
+    background-color: #F2F2F5;
+}
+#form-search .form-control:focus{  /*覆盖bootstrap设置的样式，改变focus时阴影的颜色*/
+    /*box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(201,140,109,0.6);*/
+    box-shadow: 0 1px 1px rgba(0,0,0,0.075) inset, 0 0 8px rgba(230,126,34,0.4);
+}
+#form-search button{
+    height: 33px;
+    margin: 0;
+    background-color: #F2F2F5;
+}

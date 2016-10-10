@@ -4,14 +4,19 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.crm.dao.ConcernDao;
 import com.crm.dao.UserDao;
 import com.crm.model.User;
+import com.crm.service.ConcernService;
 import com.crm.service.UserService;
 import com.crm.util.Encryption;
+import com.crm.util.UserUtil;
 @Service("userService")
 public class UserServiceImpl implements UserService {
      @Resource
 	private UserDao userDao;
+     @Resource
+     private ConcernService concernService;
 
    /**
     * 登陆验证
@@ -68,6 +73,58 @@ public class UserServiceImpl implements UserService {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean updateUserIcon(Integer uid,String iconName) {
+		if(userDao.updateUserIcon(uid,iconName)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateUserIntro(Integer uid, String user_intro) {
+		if(userDao.updateUserIntro(uid, user_intro)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean updateUserMotto(Integer uid, String user_intro) {
+		if(userDao.updateUserMotto(uid, user_intro)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateUserPass(Integer uid, String oldPass, String newPass, String againPass) {
+		if(!newPass.equals(againPass)){
+			return false;
+		}
+		newPass=Encryption.md5(newPass);
+		if(userDao.updateUserPass(uid,newPass)>0){
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public UserUtil getUserUtilById(Integer aid) {
+		if(aid==null){
+			return null;
+		}
+		UserUtil userUtil=userDao.getUserUtilById(aid);
+		int numOfConcern=concernService.getConcernNumberById(aid);
+		int numOfConcerned=concernService.getConcernedNumberById(aid);
+		userUtil.setNumOfConcern(numOfConcern);
+		userUtil.setNumOfConcerned(numOfConcerned);
+		return userUtil;
 	}
 
 }

@@ -15,16 +15,38 @@ public class PoemUtil {
 	private String userName;
 	private String poemImg;
 	private Integer poemNumSupport;
-	private Timestamp poemPublishTime;
+	private Integer poemNumComment;
+	private Integer poemNumTransmit;
 	
-
+	
+	
 	@Override
 	public String toString() {
 		return "PoemUtil [poemId=" + poemId + ", userId=" + userId + ", poemTitle=" + poemTitle + ", poemText="
 				+ poemText + ", poemRow=" + Arrays.toString(poemRow) + ", isCollected=" + isCollected + ", isSupported="
 				+ isSupported + ", userName=" + userName + ", poemImg=" + poemImg + ", poemNumSupport=" + poemNumSupport
-				+ ", poemPublishTime=" + poemPublishTime + "]";
+				+ ", poemNumComment=" + poemNumComment + ", poemNumTransmit=" + poemNumTransmit + ", poemPublishTime="
+				+ poemPublishTime + "]";
 	}
+
+	public Integer getPoemNumComment() {
+		return poemNumComment;
+	}
+
+	public void setPoemNumComment(Integer poemNumComment) {
+		this.poemNumComment = poemNumComment;
+	}
+
+	public Integer getPoemNumTransmit() {
+		return poemNumTransmit;
+	}
+
+	public void setPoemNumTransmit(Integer poemNumTransmit) {
+		this.poemNumTransmit = poemNumTransmit;
+	}
+	private Timestamp poemPublishTime;
+	
+
 
 	public Boolean getIsSupported() {
 		return isSupported;

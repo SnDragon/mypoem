@@ -8,6 +8,8 @@
 		<result property="poemText" column="poem_text" />
 		<result property="poemTitle" column="poem_title" />
 		<result property="poemNumSupport" column="poem_num_support" />
+		<result property="poemNumComment" column="poem_num_comment" />
+		<result property="poemNumTransmit" column="poem_num_transmit" />
 		<result property="poemPublishTime" column="poem_publish_time" />
 		<result property="poemImg" column="poem_img" />
 	</resultMap>
@@ -18,15 +20,19 @@
 		<result property="poemText" column="poem_text" />
 		<result property="poemTitle" column="poem_title" />
 		<result property="poemNumSupport" column="poem_num_support" />
+		<result property="poemNumComment" column="poem_num_comment" />
+		<result property="poemNumTransmit" column="poem_num_transmit" />
 		<result property="poemPublishTime" column="poem_publish_time" />
 		<result property="poemImg" column="poem_img" />
 	</resultMap>
 	
 	<sql id="poemColumns">
-		poem_id,user_id,poem_text,poem_title,poem_num_support,poem_publish_time,poem_img
+		poem_id,user_id,poem_text,poem_title,poem_num_support,poem_num_comment,
+		poem_num_transmit,poem_publish_time,poem_img
 	</sql>
 	<sql id="poemUtilColumns">
-		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,poem_publish_time,poem_img
+		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,
+		poem_num_comment,poem_num_transmit,poem_publish_time,poem_img
 	</sql>
 	<insert id="insertPoem" parameterType="com.crm.model.Poem" useGeneratedKeys="true" keyProperty="poemId">
 		insert into MP_poem(user_id,poem_title,poem_text,poem_publish_time
@@ -47,6 +53,11 @@
 		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id; 	
 	</select>
 	
+	<select id="getPoemUtilsByAId" resultMap="poemUtilMap">
+		select <include refid="poemUtilColumns" />
+		from MP_poem,MP_user where MP_poem.user_id=#{0} and MP_poem.user_id=MP_user.user_id
+	</select>
+	
 	<update id="addSupport">
 		update MP_poem set poem_num_support=poem_num_support+1
 		where poem_id=#{0}
@@ -54,6 +65,26 @@
 	
 	<update id="subSupport">
 		update MP_poem set poem_num_support=poem_num_support-1
+		where poem_id=#{0}
+	</update>
+	
+	<select id="getPoemUtilById" resultMap="poemUtilMap">
+		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
+		where MP_user.user_id=#{0} and MP_Poem.poem_id=#{1}
+	</select>
+	
+	<update id="addTransmit">
+		update MP_poem set poem_num_transmit=poem_num_transmit+1
+		where poem_id=#{0}
+	</update>
+	
+	<update id="addComment">
+		update MP_poem set poem_num_comment=poem_num_comment+1
+		where poem_id=#{0}
+	</update>
+	
+	<update id="subComment">
+		update MP_poem set poem_num_comment=poem_num_comment-#{1}
 		where poem_id=#{0}
 	</update>
 </mapper>

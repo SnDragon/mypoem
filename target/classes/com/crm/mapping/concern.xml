@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.crm.dao.ConcernDao">
+	<resultMap type="com.crm.model.Concern" id="concernMap">
+		<result property="concernedId" column="concerned_id" />
+		<result property="concernerId" column="concerner_id" />
+	</resultMap>
+	
+	<select id="getConcernNumberById" resultType="int">
+		select count(*) from MP_concern where concerner_id=#{0}
+	</select>
+	
+	<select id="getConcernedNumberById" resultType="int">
+		select count(*) from MP_concern where concerned_id=#{0}
+	</select>
+</mapper>

@@ -1,5 +1,7 @@
 package com.crm.controller;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.crm.model.Poem;
 import com.crm.model.User;
 import com.crm.service.PoemService;
+import com.crm.util.PoemUtil;
 
 
 @Controller
@@ -20,10 +23,13 @@ public class IndexController {
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String Index(HttpSession session){
-		System.out.println("index");
 		User user=new User();
 		user.setUserId(1);
 		user.setUserName("小吴");
+		user.setUserEmail("1803240383@qq.com");
+		user.setUserIcon("user1.jpeg");
+		user.setUserMotto("hello world");
+		user.setUserPassword("e10adc3949ba59abbe56e057f20f883e");
 		session.setAttribute("user", user);
 		return "index";
 	}
@@ -38,13 +44,11 @@ public class IndexController {
 		return "register";
 	}
 	
-	@RequestMapping(value="/poem")
-	public ModelAndView poem(){
-		ModelAndView modelAndView=new ModelAndView("showPoem");
-		Poem poem=poemService.getPoemById(2);
-		modelAndView.addObject("poem",poem);
-		String[] content=poem.getPoemText().split("\\|");
-		modelAndView.addObject("content",content);
+	@RequestMapping(value="/recommend",method=RequestMethod.GET)
+	public ModelAndView getRecommend(){
+		ModelAndView modelAndView=new ModelAndView("recommend");
+		ArrayList<PoemUtil> poemUtilList=poemService.getRecommendPoemUtils();
+		modelAndView.addObject("poemUtilList",poemUtilList);
 		return modelAndView;
 	}
 	

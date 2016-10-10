@@ -10,59 +10,21 @@
     <title>朋友圈</title>
     <link rel="stylesheet" href="<%=basePath %>/css/lib/reset.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
-    <link rel="stylesheet" href="<%=basePath %>/css/lib/gallery.css" />
+    <link rel="stylesheet" href="<%=basePath %>/css/style/head.css" />
+    <link rel="stylesheet" href="<%=basePath %>/css/style/dynamic.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/style/main.css" />
     <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 	<script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
-	<script src="<%=basePath %>/js/lib/jquery.simplemodal.js"></script>
-	<script src="<%=basePath %>/js/lib/gallery.js"></script>
 </head>
 <body>
 <%@include file="header.jsp" %>
-<!--导航栏-->
-<nav class="main-navigation">
-	
-    <div id="main-menu">
-        <ul class="menu">
-            <li><a href="home.html">首页</a></li>
-            <li><a href="recommend.html">今日推荐</a></li>
-            <li class="current-page"><a href="friends.html">朋友圈</a></li>
-            <li><a href="mine.html">个人中心</a></li>
-        </ul>
-        <!--小屏幕时显示的导航栏，默认隐藏-->
-        <span class="menu-small hide glyphicon glyphicon-chevron-down"></span>
-    </div>
-
-    <!--搜索框  样式有待改善-->
-    <div id="main-search">
-        <form id="form-search" action="" method="post">
-            <div class="input-group">
-                <input name="poem-search" type="text" class="form-control poem-search" value="搜索" />
-                <button class="btn btn-default" onclick="document.getElementById('form-search').submit()">
-                    <span class="glyphicon glyphicon-search"></span>
-                </button>
-            </div>
-        </form>
-    </div>
-</nav>
-<!--小屏幕时点击扩展图标的下拉菜单，默认隐藏-->
-<div class="assit-menu">
-    <ul class="menu">
-        <li><a href="home.html">首页</a></li>
-        <li><a href="recommend.html">今日推荐</a></li>
-        <li class="current-page"><a href="friends.html">朋友圈</a></li>
-        <li><a href="mine.html">个人中心</a></li>
-    </ul>
-</div>
-
-
 
 <!--好友动态-->
 <div class="content-wrap">
     <div class="container">
         <div class="row">
             <!--动态占8列-->
-           <main class="col-md-9 main-content">
+           <main class="col-md-10 col-md-push-1 main-content">
                 <!--发布-->
                 <div class="put-out">
                     <h4>发布</h4>
@@ -114,10 +76,10 @@
                 </table>
 	<div id="articleDiv">
                <c:forEach items="${poemUtilList }" var="poemUtil">
-               	 <article  class="dynamic">
+               	 <article  class="dynamic" id="article-${poemUtil.poemId }">
                     <div class="dynamic-head">
                         <h1 class="dynamic-title">
-                            <a href="zheyeshiyiqie.html">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
+                            <a href="zheyeshiyiqie.html" class="poem-title">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
                         </h1>
                         <div class="dynamic-meta">
                             <span class="dynamic-author">
@@ -128,9 +90,14 @@
                         </div>
                     </div>
                     <div class="dynamic-content">
-                    	<c:forEach items="${poemUtil.poemRow }" var="row">
+                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="0" end="4">
                     		<p>${row }</p>
                     	</c:forEach>
+                    	<span class="expand">展开全文</span>
+                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="5">
+                    		<p class="hide">${row }</p>
+                    	</c:forEach>
+                    	<span class="pack-up hide">收起全文</span>
                     </div>
                     <c:if test="${poemUtil.poemImg!=null }">
 	                    <div class="row">   <!--用row包裹，给图片设置栅格系统-->
@@ -151,11 +118,11 @@
                                 <li class="col-xs-3 share">
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
                                     <a href="#" data-toggle="modal" data-target="#myModal">
-                                        <span class="glyphicon glyphicon-share"></span><span class="share-number">4</span>
+                                        <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
-                                <li class="col-xs-3 comment">
-                                    <span class="glyphicon glyphicon-comment"></span><span class="comment-number">4</span>
+                                <li class="col-xs-3 comment" >
+                                    <span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-${poemUtil.poemId }">${poemUtil.poemNumComment }</span>
                                 </li>
                                 <li class="col-xs-3 thumb support
                                 <c:choose><c:when test="${poemUtil.isSupported }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
@@ -169,13 +136,12 @@
 
 
                     <!--点击评论后，显示的评论记录及评论框-->
-                    <div class="comment-wrap">
+                     <div class="comment-wrap">
                         <div class="dynamic-comment">
                             <div class="send-comment">
                                 <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
-                                <!--<span class="my-name">张三</span>-->
-                                <a href="mine.html">
-                                    <img src="<%=basePath %>/img/common/writeComment.jpg" alt="输入你的评论" />
+                                <a class="head-icon" href="mine.html" target="_blank">
+                                    <img src="<%=basePath %>/img/attached/head-icon-mine.jpg" alt="进入我的个人中心" />
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
                                 <br />
@@ -183,25 +149,10 @@
                                     评论
                                 </button>
                             </div>
-                            <div class="comment">
-                                <a target="_blank" href="#" class="reviewer">李四</a>
-                                :
-                                <div class="reviewer-words">
-                                    这是评论。这是评论。这是评论。这是评论。
-                                </div>
-                            </div>
-                            <div class="comment">
-                                <a target="_blank" href="#" class="reviewer">王五</a>
-                                :
-                                <div class="reviewer-words">
-                                    这是评论。这是评论。这是评论。这是评论。
-                                    这是评论。这是评论。这是评论。这是评论。
-                                    这是评论。这是评论。这是评论。这是评论。
-                                    这是评论。这是评论。这是评论。这是评论。
-                                </div>
-                            </div>
+
+                            
                             <div class="more-comment">
-                                <span>加载更多</span>
+                                <span class="more-comment-span">加载更多</span>
                             </div>
                         </div>
                     </div>
@@ -220,6 +171,7 @@
                 </div>
             </main>
             <!--查找好友及分类占4列-->
+            <!-- 
             <aside class="col-md-3 sidebar">
                 <div class="widget">
                     <h4 class="side-title">
@@ -234,6 +186,7 @@
                     <div class="side-classify"></div>
                 </div>
             </aside>
+             -->
         </div>
     </div>
 </div>
@@ -242,34 +195,40 @@
 <div class="modal" id="myModal" data-backdrop="false" data-keyboard="false">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+        	<input type="hidden" id="modal-poemId" value="" />
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                 <h4 class="modal-title">转发</h4>
             </div>
             <div class="modal-body">
                 <div class="share-content">
-                    <a class="share-author" target="_blank" href="#"></a>
+                    <span class="share-author"></span>
                     : &nbsp;
                     <span class="share-title"></span>
                 </div>
                 <div class="share-word">
-                    <textarea name="share-word" id="share-word" cols="100" rows="5" title="20">请输入转发理由</textarea>
+                    <textarea name="share-word" id="share-word" cols="100" rows="5" title="20" placeholder="请输入转发理由"></textarea>
                     <span class="remain-word">120</span>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary">转发</button>
+                <button class="btn btn-primary transfer-button" id="share-button">转发</button>
             </div>
         </div>
     </div>
 </div>
-
-<script src="<%=basePath %>/js/style/main.js"></script>
-<!-- 
-<script src="<%=basePath %>/js/style/common.js"></script>
- -->
+<input type="hidden" value="<%=basePath%>" id="basePath"/>
+<input type="hidden" value="${user.userId }" id="userId"/>
+<input type="hidden" value="${user.userName }" id="userName"/>
 </body>
+<script src="<%=basePath %>/js/style/main.js"></script>
+<script src="<%=basePath %>/js/style/common.js"></script>
+<script src="<%=basePath %>/js/style/dynamic.js"></script>
+<script src="<%=basePath %>/js/custom/comment.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/lib/jquery.ajaxfileupload.js"></script>
+<script src="<%=basePath %>/js/custom/poem.js"></script>
+<script src="<%=basePath %>/js/custom/addPoem.js"></script>
+<!--  
 <script type="text/javascript">
 $(document).ready(function(){
 	$(document).on("click","li.collection span",function(){
@@ -288,8 +247,9 @@ $(document).ready(function(){
 				success:function(json){
 					if("success"==json){
 						$li.removeClass("grayLi").addClass("orangeLi");
-						//alert("收藏成功！");
+						alert("收藏成功！");
 					}else{
+						alert(json);
 						alert("收藏失败！");
 					}
 				}
@@ -310,7 +270,7 @@ $(document).ready(function(){
 				success:function(json){
 					if("success"==json){
 						$li.removeClass("orangeLi").addClass("grayLi");
-						//alert("取消收藏！");
+						alert("取消收藏！");
 					}else{
 						alert("取消失败！");
 					}
@@ -370,11 +330,24 @@ $(document).ready(function(){
             
         }
 	});
+	//转发处理
+	$(document).on("click","li.share span",function(){
+		$current_article=$(this).parents(".dynamic");
+		$ul=$(this).parents("ul");
+		var author = $current_article.find(".dynamic-author a").html();
+		var title = $current_article.find(".dynamic-title a").html();
+		var poemId=$current_article.find().html();
+		$("#myModal .share-author").html(author);
+		$("#myModal .share-title").html(title);
+		$("#modal-poemId").val($ul.attr("id"));
+		
+	});
 });
 </script>
+
 <script type="text/javascript">
 function addPoem(data){
-	var str='<article  class="dynamic">';
+	var str='<article  class="dynamic" id="article-'+data.poemId+'">';
 	str+='<div class="dynamic-head">';
 	str+=' <h1 class="dynamic-title">';
 	str+='<a href="zheyeshiyiqie.html">';
@@ -385,9 +358,21 @@ function addPoem(data){
 	str+='</a></span><time class="dynamic-time">刚刚</time></div></div>';
 	str+='<div class="dynamic-content">';
 	var content=data.poemText.split("|");
-	for(var i in content){
-		str+='<p>'+content[i]+'</p>';
+	if(content.length<=5){
+		for(var i in content){
+			str+='<p>'+content[i]+'</p>';
+		}
+	}else{
+		for(var i=0;i<5;i++){
+			str+='<p>'+content[i]+'</p>';
+		}
+		str+='<span class="expand">展开全文</span>';
+		for(var i=5;i<content.length;i++){
+			str+='<p class="hide">'+content[i]+'</p>';
+		}
+		str+='<span class="pack-up hide">收起全文</span>';
 	}
+	
 	str+='</div>';
 	if(data.poemImg){
 		str+='<div class="row"><div class="dynamic-img col-sm-7 col-xs-9">';
@@ -395,20 +380,21 @@ function addPoem(data){
 		str+=data.poemImg;
 		str+='" alt="这也是一切" /></div></div>';
 	}
-	str+='<div class="dynamic-action"><div class="row"><ul>';
-	str+='<li class="col-xs-3 keep grayLi collection" id="';
+	str+='<div class="dynamic-action"><div class="row"><ul id="';
 	str+=data.poemId+'">'
+	str+='<li class="col-xs-3 keep grayLi collection" >';
 	str+='<span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>';
 	str+='</li><li class="col-xs-3 share"><a href="#" data-toggle="modal" data-target="#myModal">';
-	str+='<span class="glyphicon glyphicon-share"></span><span class="share-number">0</span></a></li>';
-	str+='<li class="col-xs-3 comment"><span class="glyphicon glyphicon-comment"></span><span class="comment-number">0</span>';
-	str+='</li><li class="col-xs-3 thumb"><span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">0</span>';
+	str+='<span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-'+data.poemId+'">0</span></a></li>';
+	str+='<li class="col-xs-3 comment"><span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-'+data.poemId+'">0</span>';
+	str+='</li><li class="col-xs-3 thumb support grayLi"><span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">0</span>';
 	str+='</li></ul></div></div>';
 	
 	str+='<div class="comment-wrap"><div class="dynamic-comment"><div class="send-comment">';
 	str+='<a href="mine.html"><img src="<%=basePath %>/img/common/writeComment.jpg" alt="输入你的评论" />';
 	str+='</a><textarea name="comment" class="input-comment" rows="2"></textarea><br />';
 	str+='<button class="btn-comment btn btn-default">评论</button></div>';
+	str+='<div class="more-comment"><span>加载更多</span><span class="no-more hide">没有更多评论了</span></div>';
 	str+='</div></div></article>';
 	$("#articleDiv").prepend(str);
 }
@@ -484,5 +470,16 @@ $("#addPoem").click(function(){
 });
 
 
+</script>
+-->
+<script type="text/javascript">
+$(document).ready(function(){
+	if("${user}"!=""){
+		$(".friendCircle").removeClass("hide");
+		$(".person").removeClass("hide");
+	}
+	$(".menu li:eq(2)").addClass("current-page");
+});
+	
 </script>
 </html>
