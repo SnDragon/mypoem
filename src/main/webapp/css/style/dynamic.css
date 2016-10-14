@@ -1,6 +1,7 @@
 
 /*动态样式*/
 .main-content .dynamic{
+    position: relative;  /*“删除”相对其定位*/
     width: 100%;
     margin-bottom: 15px;
     background-color: white;
@@ -184,7 +185,8 @@
     color: #E67E22;
 }
 .dynamic-comment .comment .content .reviewer-words{
-    margin-top: 3px;
+    margin-left: -40px;
+    margin-top: 5px;
 }
 .dynamic-comment .comment .content .reviewer-words .triangle{
     -moz-border-bottom-colors: none;
@@ -198,9 +200,9 @@
     content: "";
     display: block;
     height: 0;
-    left: 70px;
+    top: 25px;
+    left: 30px;
     position: absolute;
-    top: 23px;
     transform: translateX(-50%);
     width: 0;
     z-index: 5;
@@ -239,6 +241,7 @@
     max-width: 80%;
     padding: 10px;
     width: 80%;
+    height: 60px;
 }
 .dynamic-comment .comment .reply button{
     float: right;
@@ -249,7 +252,7 @@
     display: inline-block;
     font-size: 0.8em;
     line-height: 1.5em;
-    margin-top: 20px;
+    margin-top: 10px;
     opacity: 1;
     outline: 0 none;
     padding: 6px 20px;
@@ -260,10 +263,18 @@
 .dynamic-comment .comment .reply button:hover{
     background-color: #9d9d9d;
 }
-.reply-n{
+.dynamic-comment .comment .reply-n{
     clear: both;
     margin-top: 30px;
     margin-left: 70px;
+}
+.dynamic-comment .comment .reply-n .content .reviewer-words{
+    margin-top: 5px;
+    margin-left: -30px;
+}
+.dynamic-comment .comment .reply-n .content .reviewer-words .triangle{
+    top: 25px;
+    left: 40px;
 }
 /*加载更多*/
 .dynamic-comment .more-comment{
@@ -277,6 +288,13 @@
     color: rgba(230,126,34,0.8);
 }
 .dynamic-comment .more-comment span:hover{
+    color: rgba(230,126,34,1.0);
+}
+.dynamic-comment .more-comment span.no-more{
+    cursor: pointer;
+    color: rgba(230,126,34,1.0);
+}
+.dynamic-comment .more-comment span.no-more:hover{
     color: rgba(230,126,34,1.0);
 }
 
@@ -328,3 +346,28 @@
     background-color: #E67E22;
     border-color: #E67E22;
 }
+
+/*删除*/
+.del{
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    border: none;
+    background-color: white;
+    color: #E67E22;
+    z-index: 99;
+}
+.del:hover{
+    background-color: #E67E22;
+    color: white;
+    opacity: 0.9;
+}
+/*在bootstrap.js添加了相应代码，使得模态框垂直居中*/
+#myModal2 .modal-dialog{    /*修改模态框的宽度，不是设置在.modal，而是.modal-dialog这个div*/
+    width: 400px;
+    height: 300px;
+}
+#myModal2 h4{
+    font-weight: normal;
+}
+

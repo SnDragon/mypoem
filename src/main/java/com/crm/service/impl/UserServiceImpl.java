@@ -1,5 +1,7 @@
 package com.crm.service.impl;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.crm.model.User;
 import com.crm.service.ConcernService;
 import com.crm.service.UserService;
 import com.crm.util.Encryption;
+import com.crm.util.PageUtil;
 import com.crm.util.UserUtil;
 @Service("userService")
 public class UserServiceImpl implements UserService {
@@ -125,6 +128,37 @@ public class UserServiceImpl implements UserService {
 		userUtil.setNumOfConcern(numOfConcern);
 		userUtil.setNumOfConcerned(numOfConcerned);
 		return userUtil;
+	}
+
+	@Override
+	public boolean updateUserSex(Integer uid, String sex) {
+		int sexInt=1;
+		if(sex==null){
+			return false;
+		}else if("female".equals(sex)){
+			sexInt=0;
+		}
+		if(userDao.updateUserSexById(uid,sexInt)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public ArrayList<User> getConcernUserListById(Integer uid) {
+		if(uid==null){
+			return null;
+		}
+		return userDao.getConcernUserListById(uid,PageUtil.CONCERNSPERPAGE);
+	}
+
+	@Override
+	public ArrayList<User> getFansListById(Integer uid) {
+		if(uid==null){
+			return null;
+		}
+		return userDao.getFansListById(uid,PageUtil.CONCERNSPERPAGE);
 	}
 
 }

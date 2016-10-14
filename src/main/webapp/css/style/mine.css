@@ -59,7 +59,7 @@ nav.mine-sidebar ul li.active a:hover {
     color: white !important;
 }
 
-.my-friends, .my-infos, .my-security{
+.my-friends, .my-fans, .my-infos, .my-security, .my-collections, .my-poems, .aboutus{
     padding-bottom: 25px;
     border: 2px solid #E1E1E1;
     background-color: white;
@@ -69,12 +69,21 @@ nav.mine-sidebar ul li.active a:hover {
     float: left;
     margin: 9px;
 }
-.my-friends .friends, .my-infos .content{
+.my-friends .content, .my-fans .content, .my-infos .content, .my-collections .content, .my-poems .content{
     clear: both;
     padding-top: 10px;
     border-top: 2px solid #E1E1E1;
 }
-.my-friends .friends .friend{
+.no-friend, .no-fan, .no-collection, .no-poem{
+    margin: 60px 0;
+    text-align: center;
+    font-size: 25px;
+    color: #a0a0a0;
+}
+
+
+/*各页面不同样式*/
+.my-friends .friends .friend, .my-fans .fans .fan{
     float: left;
     display: inline-block;
     list-style: none;
@@ -87,18 +96,18 @@ nav.mine-sidebar ul li.active a:hover {
     -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
     box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
 }
-.my-friends .friends .friend a{
+.my-friends .friends .friend a, .my-fans .fans .fan a{
     display: block;
     text-decoration: none;
     outline: none;
 }
-.my-friends .friends .friend .head a{
+.my-friends .friends .friend .head a, .my-fans .fans .fan .head a{
     width: 100px;
     height: 100px;
     border-radius: 50px;
     margin: 20px 0 10px 50px;
 }
-.my-friends .friends .friend .head a img{
+.my-friends .friends .friend .head a img, .my-fans .fans .fan .head a img{
     width: 100px;
     height: 100px;
     border-radius: 50px;
@@ -122,34 +131,64 @@ nav.mine-sidebar ul li.active a:hover {
             inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
             inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
 }
-.my-friends .friends .friend .info{
+.my-friends .friends .friend .info, .my-fans .fans .fan .info{
     padding: 10px;
     background-color: white;
 }
-.my-friends .friends .friend .info span{
+.my-friends .friends .friend .info span, .my-fans .fans .fan .info span{
     margin-right: 10px;
     color: rgb(68,68,68);
+}
+.my-friends .friends .friend .info span.name, .my-fans .fans .fan .info span.name{
+    display: inline-block;
+    padding: 0;
+    /*width: 95px;*/
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*-ms-text-overflow: ellipsis;*/
+    /*text-overflow: ellipsis;*/
+}
+/*性别图标*/
+.my-friends .friends .friend .info span.gender, .my-fans .fans .fan .info span.gender{
+    float: right;
+    margin: 2px 0 0 0;
+}
+.my-friends .friends .friend .info span.male, .my-fans .fans .fan .info span.male{
+    color: rgb(3, 149, 136);
+}
+.my-friends .friends .friend .info span.female, .my-fans .fans .fan .info span.female{
+    color: rgb(244, 180, 202);
 }
 .my-friends .friends .friend .delete{
     display: block;
     float: right;
-    margin: 10px;
-    margin-bottom: 4px;
+    margin: 10px 10px 4px 0;
     color: rgb(245,184,93);
 }
 .my-friends .friends .friend .delete:hover{
     color: #E67E22;
 }
+/*设置分页居中*/
+.pageWrap{
+    clear: both;
+    text-align: center;
+}
+.pageWrap .m-pagination{
+    display: inline-block;
+}
+
 /*在bootstrap.js添加了相应代码，使得模态框垂直居中*/
-#myModal .modal-dialog{    /*修改模态框的宽度，不是设置在.modal，而是.modal-dialog这个div*/
+.modal .modal-dialog{    /*修改模态框的宽度，不是设置在.modal，而是.modal-dialog这个div*/
     width: 400px;
     height: 300px;
 }
-#myModal h4{
+.modal h4{
     font-weight: normal;
 }
-#myModal .modal-body span{
-    color: #E67E22;
+.modal .modal-footer button{
+    background-color: #E67E22;
+    color: white;
+    border-color: #E67E22;
 }
 
 /*个人资料*/
@@ -234,6 +273,22 @@ nav.mine-sidebar ul li.active a:hover {
     margin-top: 10px;
 }
 
+/*性别单选框*/
+.my-infos .content .gender ul.choose-gen {
+    display: inline-block;
+    height: 33px;
+    list-style-type: none;
+}
+ul.choose-gen li{
+    display: inline-block;
+    height: 33px;
+    margin-right: 20px;
+}
+input.labelauty + label{
+    font: 12px "Microsoft Yahei";
+}
+
+
 /*安全中心*/
 .my-security li a{
     color: black;
@@ -262,4 +317,164 @@ nav.mine-sidebar ul li.active a:hover {
 }
 .my-security .content .page .change {
     margin-left: 60%;
+}
+
+
+/*诗集与收藏共用样式*/
+.poem-remove, .col-remove{
+    float: right;
+    margin: 0 -20px 5px 0;
+    cursor: pointer;
+    color: #949494;
+}
+.poem-remove:hover, .col-remove:hover{
+    color: #333;
+}
+.poem-title a, .col-title a{
+    font-size: 18px;
+    line-height: 25px;
+    margin: 0 0 5px;
+    max-height: 60px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #949494;
+}
+.poem-author a, .col-author a{
+    margin-right: 5px;
+    color: #E67E22;
+}
+.poem-content, .col-content{
+    color: #949494;
+    line-height: 20px;
+    padding-top: 20px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+/*我的诗集*/
+.my-poems .content{
+    padding-top: 20px;
+}
+.my-poems .poem{
+    font-family: "微软雅黑", Arial, sans-serif;
+    vertical-align:middle;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 8px;
+    padding-top: 5px;
+    border-top: 2px dotted #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    background-color: white;
+}
+.poem .img{
+    height: 125px;
+    padding: 0;
+    overflow: hidden;
+}
+.my-poems .poem .img img{
+    width: 96%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.poem-title{
+    width: 60%;
+    height: 25px;
+    cursor: pointer;
+}
+.poem-title a{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    max-width: 100%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 16px;
+}
+.poem-meta{
+    float: right;
+    margin-right: 15px;
+}
+.poem-meta .poem-author{
+    vertical-align: middle;
+    padding-top: 3px;
+}
+.poem-meta .poem-author a{
+    display: inline-block;
+    max-width: 120px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+.poem-meta .poem-time{
+    cursor: default;
+    color: #a0a0a0;
+    font-size: 12px;
+}
+.poem-content{
+    height: 100px;
+    padding-top: 15px;
+}
+.poem-content p{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}
+
+/*我的收藏*/
+.collection{
+    width: 43%;
+    height: 90px;
+    float: left;
+    margin-left: 4%;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px dotted #CCCCCC;
+    overflow: hidden;
+}
+.collection:hover{
+    background-color: #eeeeee;
+}
+.collection .img{
+    height: 80px;
+    padding: 0;
+    overflow: hidden;
+}
+.col-title{
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 3px;
+}
+.col-title a{
+    font-size: 14px;
+    color: black;
+    max-width: 80px;       /*诗歌题目超过100px用...代替*/
+    white-space: nowrap;  /*禁止文字自动换行*/
+    overflow: hidden;
+    text-overflow: ellipsis;  /*省略号*/
+    display: inline-block;
+}
+.col-author a{
+    font-size: 11px;
+    max-width: 55px;      /*作者昵称超过60px用...代替*/
+    white-space: nowrap;  /*禁止文字自动换行*/
+    overflow: hidden;
+    text-overflow: ellipsis;  /*省略号*/
+    display: inline-block;
+}
+.col-content{
+    padding-top: 3px;
+    font-size: 11px;
+}
+.col-content p{
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;  /*省略号：需设置white-space: nowrap; 禁止换行才可显示*/
+}
+.col-remove{
+    margin-right: 0px;
 }

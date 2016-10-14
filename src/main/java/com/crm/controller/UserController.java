@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.model.User;
+import com.crm.service.ConcernService;
 import com.crm.service.PoemService;
 import com.crm.service.UserService;
 import com.crm.util.Encryption;
@@ -40,6 +41,8 @@ public class UserController {
 	private UserService userService;
 	@Resource 
 	private PoemService poemService;
+	@Resource
+	private ConcernService concernService;
 	
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
@@ -206,6 +209,22 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping(value="/updateUser/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public String updateUser(@PathVariable("uid") Integer uid,HttpServletRequest request){
+		String type=request.getParameter("type");
+		String data=request.getParameter("data");
+		String result="";
+		if(type==null){
+			result="fail";
+		}else if("sex".equals(type)){
+			if(userService.updateUserSex(uid,data)){
+				result="success";
+			}
+		}
+		return result;
+	}
+	
 	@RequestMapping(value="/updateUserMotto/{uid}",method=RequestMethod.POST)
 	@ResponseBody
 	public String updateUserMotto(@PathVariable("uid") Integer uid,HttpServletRequest request){
@@ -241,13 +260,39 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/concern/{uid}",method=RequestMethod.GET)
-	public ModelAndView showConcern(){
-		return new ModelAndView("showConcern");
+	public ModelAndView showConcern(@PathVariable("uid") Integer uid){
+		ModelAndView modelAndView = new ModelAndView("showConcern");
+		ArrayList<User> concernUserList=userService.getConcernUserListById(uid);
+		modelAndView.addObject("cocernUserList",concernUserList);
+		for(User user:concernUserList){
+			System.out.println(user);
+		}
+		int number=concernService.getConcernNumberById(uid);
+		modelAndView.addObject("number",number);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/fans/{uid}",method=RequestMethod.GET)
+	public ModelAndView showFans(@PathVariable("uid") Integer uid){
+		ModelAndView modelAndView=new ModelAndView("showFans");
+		int number=concernService.getConcernedNumberById(uid);
+		modelAndView.addObject("number",number);
+		ArrayList<User>  fansList=userService.getFansListById(uid);
+		modelAndView.addObject("fansList",fansList);
+		for(User user:fansList){
+			System.out.println(user);
+		}
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/collection/{uid}",method=RequestMethod.GET)
-	public ModelAndView showCollection(){
-		return new ModelAndView("showCollection");
+	public ModelAndView showCollection(@PathVariable("uid") Integer uid){
+		ModelAndView modelAndView=new ModelAndView("showCollection");
+		
+		return modelAndView;
 	}
+	
+	
+	
 	
 }

@@ -6,6 +6,12 @@
 		<result property="concernedId" column="concerned_id" />
 		<result property="concernerId" column="concerner_id" />
 	</resultMap>
+	<resultMap type="com.crm.model.User" id="userMap">
+		<id property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="userIcon" column="user_icon" />
+		<result property="userSex" column="user_sex" />
+	</resultMap>
 	
 	<select id="getConcernNumberById" resultType="int">
 		select count(*) from MP_concern where concerner_id=#{0}
@@ -14,4 +20,19 @@
 	<select id="getConcernedNumberById" resultType="int">
 		select count(*) from MP_concern where concerned_id=#{0}
 	</select>
+	
+	<delete id="removeConcern" parameterType="com.crm.model.Concern">
+		delete from MP_concern where concerned_id=#{concernedId} and concerner_id=#{concernerId}
+	</delete>
+	
+	<select id="getConcernUserByPage" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		where concerner_id=#{0} and concerned_id=user_id limit #{1},#{2}
+	</select>
+	
+	<select id="getFansByPage" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		where concerned_id=#{0} and concerner_id=user_id limit #{1},#{2}
+	</select>
+	
 </mapper>

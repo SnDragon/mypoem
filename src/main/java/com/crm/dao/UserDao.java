@@ -1,5 +1,7 @@
 package com.crm.dao;
 
+import java.util.ArrayList;
+
 import com.crm.model.*;
 import com.crm.util.UserUtil;
 
@@ -19,4 +21,10 @@ public interface UserDao {
 	public int updateUserPass(Integer uid, String newPass);
 
 	public UserUtil getUserUtilById(Integer aid);
+
+	public int updateUserSexById(Integer uid, int sexInt);
+
+	public ArrayList<User> getConcernUserListById(Integer uid,int length);
+
+	public ArrayList<User> getFansListById(Integer uid, int concernsperpage);
 }

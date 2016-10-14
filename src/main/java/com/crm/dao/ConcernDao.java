@@ -1,12 +1,20 @@
 package com.crm.dao;
 
-import org.springframework.stereotype.Service;
+import java.util.ArrayList;
 
-@Service("concernDao")
+import com.crm.model.Concern;
+import com.crm.model.User;
+
 public interface ConcernDao {
 
 	int getConcernNumberById(Integer userId);
 
 	int getConcernedNumberById(Integer userId);
+
+	int removeConcern(Concern concern);
+
+	ArrayList<User> getConcernUserByPage(int userId,int begin,int length);
+
+	ArrayList<User> getFansByPage(int userId, int begin, int concernsperpage);
 
 }

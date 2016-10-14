@@ -13,11 +13,16 @@
 		<li><a href="<%=path %>/user/concern/${user.userId}"
 			title="关注"> <span class="concern">关注</span>
 		</a></li>
+		<li>
+           <a href="<%=path %>/user/fans/${user.userId}" title="粉丝">
+              <span class="myfans">粉丝</span>
+           </a>
+        </li>
 		<li><a href="<%=path %>/user/collection/${user.userId}"
-			title="收藏"> <span class="collection">收藏</span>
+			title="收藏"> <span class="mycollection">收藏</span>
 		</a></li>
 		<li><a href="<%=path %>/user/creation/${user.userId }"
-			title="我的原创"> <span class="mypoem">我的原创</span>
+			title="我的原创"> <span class="mypoem">我的诗集</span>
 		</a></li>
 		<li><a href="<%=path %>/user/security/${user.userId}"
 			title="安全中心"> <span class="security">安全中心</span>

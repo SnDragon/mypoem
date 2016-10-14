@@ -2,7 +2,7 @@
 /*发布*/
 .main-content .put-out{
     width: 100%;
-    height: 250px;
+    height: 235px;
     margin-bottom: 15px;
     padding-top: 10px;
     padding-left: 7%;
@@ -11,23 +11,27 @@
     font-family: "微软雅黑", "Arial", "sans-serif";
     color: rgb(51, 51, 51);
     background-color: white;
-    border: 1px solid #E1E1E1;
+    border: 2px solid #E1E1E1;
+}
+.main-content .put-out i{
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 17px;
+    font-family: "华文细黑", "Arial", "sans-serif";
+    font-weight: normal;
 }
 .main-content .put-out .input-group{
     width: 100%;
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.main-content .put-out .input-group .input-group-addon{
-    background-color: #E67E22;
-    color: white;
-}
 #put-out-title{
     width: 70%;
-    height: 35px;
+    height: 30px;
 }
 #put-out-content{
     height: 100px;
+    resize: none;
 }
 .main-content .put-out .input-group .form-control:focus{
     box-shadow: none;
@@ -35,7 +39,8 @@
 }
 .put-out-footer .wrapper button{
     float: right;
-    width: 55px;
+    width: 46px;
+    margin-top: 2px;
     margin-right: 5%;
     text-align: left;  /*“发布中”时，不会随...的改变而文字移动*/
     background-color: #E67E22;
@@ -158,6 +163,7 @@
 .dynamic .shared-head{
     margin-top: 10px;
     margin-left: 5%;
+    position: relative;
 }
 .dynamic .shared-head img{
     width: 70px;
@@ -170,6 +176,11 @@
 }
 .dynamic .shared-head a{
     color: #E67E22;
+}
+.dynamic .shared-head time{
+    position: absolute;
+    top: 50px;
+    left: 63px;
 }
 .dynamic .shared-reason{
     margin: 10px 5%;
@@ -188,20 +199,32 @@
 .original .original-head .original-title{
     display: inline-block;
 }
+.original-title a, .original-author a{
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
 .original .original-head .original-title a{
     font-size: 25px;
     font-family: "Helvetica", "Arial", "sans-serif";
     color: black;
     text-decoration: none;
+    display: inline-block;
+    max-width: 200px;
 }
 .original .original-head .original-author a{
     margin-left: 20px;
     color: #E67E22;
+    display: inline-block;
+    margin-bottom: -15px;
+    max-width: 90px;
 }
 .original .original-content{
     float: left;
     clear: both;
     margin-left: 0;
+    margin-top: 10px;
     font-size: 17px;
     font-family: "Helvetica", "Arial", "sans-serif";
     font-weight: lighter;

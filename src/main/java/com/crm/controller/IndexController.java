@@ -30,6 +30,7 @@ public class IndexController {
 		user.setUserIcon("user1.jpeg");
 		user.setUserMotto("hello world");
 		user.setUserPassword("e10adc3949ba59abbe56e057f20f883e");
+		user.setUserSex(0);
 		session.setAttribute("user", user);
 		return "index";
 	}

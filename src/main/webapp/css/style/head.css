@@ -1,11 +1,13 @@
 body{
     position: relative;
     background-color: #EBEBEB;
+    font-family: "微软雅黑", Arial, sans-serif;
 }
 /*设置被选中字体的样式*/
 ::selection { background:#E67E22; color: #fff; }
 ::-moz-selection { background:#E67E22;color: #fff; }
 ::-webkit-selection { background:#E67E22; color: #fff; }
+html{-webkit-text-size-adjust: none;}
 
 button{
     outline: none;

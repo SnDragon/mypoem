@@ -1,5 +1,7 @@
 package com.crm.service;
 
+import java.util.ArrayList;
+
 import com.crm.model.*;
 import com.crm.util.UserUtil;
 
@@ -21,4 +23,10 @@ public interface UserService {
 	public boolean updateUserPass(Integer uid, String oldPass, String newPass, String againPass);
 	
 	public UserUtil getUserUtilById(Integer aid);
+
+	public boolean updateUserSex(Integer uid,String sex);
+
+	public ArrayList<User> getConcernUserListById(Integer uid);
+
+	public ArrayList<User> getFansListById(Integer uid);
 }

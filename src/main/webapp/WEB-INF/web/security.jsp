@@ -24,7 +24,6 @@
                 <div class="content">
                     <ul class="nav nav-tabs" role="tablist">
                         <li role="presentation" class="active"><a href="mySecurityPassword.html">修改密码</a></li>
-                        <li role="presentation"><a href="mySecurityPhone.html">修改绑定手机号</a></li>
                     </ul>
                     <div class="page password">
                         <form id="passwordForm" action="#">
@@ -62,7 +61,7 @@ $(document).ready(function(){
 		$(".person").removeClass("hide");
 	}
 	$(".menu li:eq(3)").addClass("current-page");
-	$(".mine-sidebar li:eq(4)").addClass("active");
+	$(".mine-sidebar li:eq(5)").addClass("active");
 });
 </script>
 <script>

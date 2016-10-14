@@ -9,6 +9,7 @@
     <title>个人中心</title>
     <link rel="stylesheet" href="<%=basePath %>/css/lib/reset.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
+    <link rel="stylesheet" href="<%=basePath %>/css/lib/jquery-labelauty.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/style/head.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/style/mine.css" />
 </head>
@@ -55,10 +56,19 @@
                         <span class="value">${user.userEmail }</span>
                         <!--<span class="change">查看</span>-->
                     </div>
-                    <div class="info password">
-                        <span class="tag">密码</span>
-                        <span class="value">12345678</span>
-                        <!--<span class="change to-security">修改</span>-->
+                    <div class="info gender">
+                        <span class="tag">性别</span>
+                        <span class="value">
+                        <c:choose>
+                        	<c:when test="${user.userSex==1 }">男</c:when>
+                        	<c:otherwise>女</c:otherwise>
+                        </c:choose>
+                        </span>
+                        <ul class="choose-gen hide">
+                            <li><input type="radio" name="gender" value="male" data-labelauty="男" /></li>
+                            <li><input type="radio" name="gender" value="female" data-labelauty="女" /></li>
+                        </ul>
+                        <span class="change">修改</span>
                     </div>
                     <div class="info signature">
                         <span class="tag">个性签名</span>
@@ -85,9 +95,14 @@
         </div>
     </div>
 </div>
+<input id="userId" type="hidden" value="${user.userId }" />
+<input id="basePath" type="hidden" value="<%=basePath %>" />
+
+
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
+<script src="<%=basePath %>/js/lib/jquery-labelauty.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>
 <script src="<%=basePath %>/js/style/mine.js"></script>
 <script>

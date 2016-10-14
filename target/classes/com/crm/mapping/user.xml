@@ -60,8 +60,23 @@
 		where user_id=#{0}
 	</update>
 	
+	<update id="updateUserSexById">
+		update MP_user set user_sex=#{1}
+		where user_id=#{0}
+	</update>
+	
 	<select id="getUserUtilById" resultMap="userUtilMap">
 		select <include refid="userUtilColumns" /> from MP_user
 		where user_id=#{0}
+	</select>
+	
+	<select id="getConcernUserListById" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		where concerner_id=#{0} and user_id=concerned_id limit 0,#{1}
+	</select>
+	
+	<select id="getFansListById" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		where concerned_id=#{0} and user_id=concerner_id limit 0,#{1}
 	</select>
 </mapper>

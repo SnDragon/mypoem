@@ -2,7 +2,7 @@
 .recommend{
     font-family: "微软雅黑", Arial, sans-serif;
     width: 100%;
-    vertical-align:middle;
+    /*vertical-align:middle;*/
     margin-bottom: 8px;
     padding-bottom: 2px;
     border-top: 5px solid #E1E1E1;
@@ -26,10 +26,15 @@
     line-height: 30px;
     margin: 0 0 5px;
     max-height: 60px;
-    overflow: hidden;
     text-decoration: none;
     cursor: pointer;
     color: black;
+    display: inline-block;
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 .recom-content{
     color: #949494;
@@ -39,6 +44,13 @@
     margin-top: 5px;
     overflow: hidden;
 }
+.recom-content p{
+    width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
 .recom-meta{
     float: right;
     margin-right: 15px;
@@ -46,6 +58,13 @@
 .recom-author a{
     margin-right: 10px;
     color: #E67E22;
+    display: inline-block;
+    margin-bottom: -4px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 .recom-time{
     cursor: default;
