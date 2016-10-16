@@ -29,50 +29,27 @@
                         你暂时还没有粉丝 ~
                     </div>
                     <ul class="fans">
-                        <li class="fan">
-                            <div class="head">
-                                <a href="wangsai.html" title="进入作者主页" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon1.jpg" alt="" />
-                                </a>
-                            </div>
-                            <div class="info">
-                                <span class="name" title="张三张三张三张三张三">张三张三张三张三张三</span>
-                                <span class="gender male glyphicon glyphicon-user"></span>
-                            </div>
-                        </li>
-                        <li class="fan">
-                            <div class="head">
-                                <a href="wangsai.html" title="进入作者主页" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon4.jpg" alt="" />
-                                </a>
-                            </div>
-                            <div class="info">
-                                <span class="name" title="张三张三v张三张三张三">张三张三v张三张三张三</span>
-                                <span class="gender female glyphicon glyphicon-user"></span>
-                            </div>
-                        </li>
-                        <li class="fan">
-                            <div class="head">
-                                <a href="wangsai.html" title="进入作者主页" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon2.PNG" alt="" />
-                                </a>
-                            </div>
-                            <div class="info">
-                                <span class="name" title="王五">王五</span>
-                                <span class="gender female glyphicon glyphicon-user"></span>
-                            </div>
-                        </li>
-                        <li class="fan">
-                            <div class="head">
-                                <a href="wangsai.html" title="进入作者主页" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon3.jpeg" alt="" />
-                                </a>
-                            </div>
-                            <div class="info">
-                                <span class="name" title="王赛">王赛</span>
-                                <span class="gender male glyphicon glyphicon-user"></span>
-                            </div>
-                        </li>
+                        <c:forEach items="${fansList }" var="author">
+                    		<li class="fan"  id="author-${author.userId }">
+	                            <div class="head">
+	                                <a href="<%=basePath %>/user/aid/${author.userId}" title="进入作者主页" target="_blank">
+	                                    <c:choose>
+	                                    	<c:when test="${author.userIcon!=null }">
+	                                    	<img src="<%=basePath %>/img/user/${author.userIcon}" alt="" />
+	                                    	</c:when>
+	                                    	<c:otherwise><img src="<%=basePath %>/img/attached/head-icon1.jpg" alt="" /></c:otherwise>
+	                                    </c:choose>
+	                                </a>
+	                            </div>
+	                            <div class="info">
+	                                <span class="name" title="${author.userName }">${author.userName }</span>
+	                                <c:choose>
+	                                	<c:when test="${author.userSex==0 }"><span class="gender female glyphicon glyphicon-user"></span></c:when>
+	                                	<c:otherwise><span class="gender male glyphicon glyphicon-user"></span></c:otherwise>
+	                                </c:choose>
+	                            </div>
+                        	</li>
+                    	</c:forEach>
                     </ul>
                 </div>
                 <!--分页-->
@@ -83,7 +60,8 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="basePath" value="<%=basePath %>" />
+<input type="hidden" id="userId" value="${user.userId }" />
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.js"></script>

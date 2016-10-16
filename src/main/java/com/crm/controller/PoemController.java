@@ -3,6 +3,7 @@ package com.crm.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import com.crm.model.Poem;
 import com.crm.model.User;
 import com.crm.service.PoemService;
 import com.crm.util.PoemUtil;
+import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
 
 @Controller
 @RequestMapping(value="/poem")
@@ -104,4 +106,23 @@ public class PoemController {
 		modelAndView.addObject("poemUtil",poemUtil);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/removePoem",method=RequestMethod.POST)
+	@ResponseBody
+	public String removePoem(HttpServletRequest request){
+		String poemId=request.getParameter("poemId");
+		String userId=request.getParameter("userId");
+		if(poemService.removePoem(poemId,userId)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+//	@RequestMapping(value="/getPoemListByPage")
+//	@ResponseBody
+//	public ArrayList<Poem> getPoemListByPage(HttpServletRequest request){
+//		String page=request.getParameter("page");
+//		String uid=request.getParameter("uid");
+//		return poemService.getPoemListByPage(page,uid);
+//	}
 }

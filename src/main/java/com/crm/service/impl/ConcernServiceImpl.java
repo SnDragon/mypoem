@@ -63,6 +63,16 @@ public class ConcernServiceImpl implements ConcernService{
 		return concernDao.getFansByPage(userId,begin, PageUtil.CONCERNSPERPAGE);
 	}
 
+	@Override
+	public User getConcernUserByPageNum(String page, String concernerId) {
+		Integer pageNum=Integer.parseInt(page);
+		Integer userId=Integer.parseInt(concernerId);
+		
+		return concernDao.getConcernUserByPageNum(userId,pageNum*PageUtil.CONCERNSPERPAGE-1);
+	}
+
+	
+
 	
 
 

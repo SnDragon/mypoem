@@ -17,4 +17,6 @@ public interface ConcernDao {
 
 	ArrayList<User> getFansByPage(int userId, int begin, int concernsperpage);
 
+	User getConcernUserByPageNum(int userId,int order);
+
 }

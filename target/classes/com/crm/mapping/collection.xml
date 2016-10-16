@@ -6,7 +6,18 @@
 		<result property="userId" column="user_id" />
 		<result property="poemId" column="poem_id" />
 	</resultMap>
-	
+	<resultMap type="com.crm.util.CollectionUtil" id="collectionUtilMap">
+		<result property="poemId" column="poem_id" />
+		<result property="userId" column="user_id" />
+		<result property="userName" column="user_name" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="poemText" column="poem_text" />
+		<result property="poemImg" column="poem_img" />
+		
+	</resultMap>
+	<sql id="collectionUtilColumns">
+		poem_id,MP_user.user_id,user_name,poem_title,poem_text,poem_img
+	</sql>
 	<insert id="insertCollection" parameterType="com.crm.model.Collection">
 		insert into MP_collection(user_id,poem_id)
 		values(#{userId},#{poemId})
@@ -21,5 +32,21 @@
 		where user_id=#{0} and poem_id=#{1}
 	</select>
 	
+	<select id="getCollectionNumberById" resultType="int">
+		select count(poem_id) from MP_collection where user_id=#{0}
+	</select>
 	
+	<select id="getCollectionPoemsByPage" resultMap="collectionUtilMap">
+		select <include refid="collectionUtilColumns" /> from MP_poem,MP_user
+		where poem_id in (select poem_id from MP_collection where user_id=#{0})
+		and MP_poem.user_id=MP_user.user_id
+		limit #{1},#{2}
+	</select>
+	
+	<select id="getCollectionByPageNum" resultMap="collectionUtilMap">
+		select <include refid="collectionUtilColumns" /> from MP_poem,MP_user
+		where poem_id in (select poem_id from MP_collection where user_id=#{0})
+		and MP_poem.user_id=MP_user.user_id
+		limit #{1},1
+	</select>
 </mapper>

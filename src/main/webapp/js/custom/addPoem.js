@@ -1,3 +1,4 @@
+var basePath=$("#basePath").val();
 function addPoem(data){
 	var str='<article  class="dynamic" id="article-'+data.poemId+'">';
 	str+='<div class="dynamic-head">';
@@ -6,7 +7,7 @@ function addPoem(data){
 	str+=data.poemTitle;
 	str+='</a></h1><div class="dynamic-meta"><span class="dynamic-author">';
 	str+='作者:<a target="_blank" href="wangsai.html">';
-	str+='${user.userName}';
+	str+=$("#userName").val();
 	str+='</a></span><time class="dynamic-time">刚刚</time></div></div>';
 	str+='<div class="dynamic-content">';
 	var content=data.poemText.split("|");
@@ -28,7 +29,7 @@ function addPoem(data){
 	str+='</div>';
 	if(data.poemImg){
 		str+='<div class="row"><div class="dynamic-img col-sm-7 col-xs-9">';
-		str+='<img src="<%=basePath %>/img/poem/'
+		str+='<img src="'+basePath+'/img/poem/';
 		str+=data.poemImg;
 		str+='" alt="这也是一切" /></div></div>';
 	}
@@ -43,7 +44,9 @@ function addPoem(data){
 	str+='</li></ul></div></div>';
 	
 	str+='<div class="comment-wrap"><div class="dynamic-comment"><div class="send-comment">';
-	str+='<a href="mine.html"><img src="<%=basePath %>/img/common/writeComment.jpg" alt="输入你的评论" />';
+	str+='<a href="mine.html"><img src="'
+	str+=basePath;
+	str+='/img/common/writeComment.jpg" alt="输入你的评论" />';
 	str+='</a><textarea name="comment" class="input-comment" rows="2"></textarea><br />';
 	str+='<button class="btn-comment btn btn-default">评论</button></div>';
 	str+='<div class="more-comment"><span>加载更多</span><span class="no-more hide">没有更多评论了</span></div>';
@@ -57,7 +60,7 @@ $("#addPoem").click(function(){
 		var imgPath="";
 		$.ajaxFileUpload({  
 	        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)  
-	        url:'<%=basePath%>/poem/imageUpload?uid='+uid,  
+	        url:$("#basePath").val()+'/poem/imageUpload?uid='+uid,  
 	        secureuri:false,                           //是否启用安全提交,默认为false   
 	        fileElementId:'file',               //文件选择框的id属性  
 	        dataType:'text',                           //服务器返回的格式,可以是json或xml等  
@@ -71,7 +74,7 @@ $("#addPoem").click(function(){
 	        	if(imgPath.search(/poem/)!=-1){
 	        		$.ajax({
 	        			type:"POST",
-	        			url:"<%=basePath%>/poem/addPoem",
+	        			url:$("#basePath").val()+"/poem/addPoem",
 	        			contentType:"application/json",
 	        			data:JSON.stringify({
 	        				userId:$("#userId").val(),
@@ -98,7 +101,7 @@ $("#addPoem").click(function(){
 	}else{
 		$.ajax({
 			type:"POST",
-			url:"<%=basePath%>/poem/addPoem",
+			url:$("#basePath").val()+"/poem/addPoem",
 			contentType:"application/json",
 			data:JSON.stringify({
 				userId:$("#userId").val(),

@@ -13,6 +13,7 @@ import com.crm.model.Poem;
 import com.crm.service.CollectionService;
 import com.crm.service.PoemService;
 import com.crm.service.SupportService;
+import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
 @Service("poemService")
 public class PoemServiceImpl implements PoemService{
@@ -206,6 +207,53 @@ public class PoemServiceImpl implements PoemService{
 			poemUtil.setPoemRow(poemRow);
 		}
 		return poemUtils;
+	}
+
+
+	@Override
+	public ArrayList<Poem> getCreationsByUId(Integer uid) {
+		if(uid==null){
+			return null;
+		}
+		int begin=0;
+		int length=PageUtil.CREATIONPERPAGE;
+		return poemDao.getCreationsByUId(uid,begin,length);
+	}
+
+
+	@Override
+	public int getPoemNumberByUId(Integer uid) {
+		return poemDao.getPoemNumberByUId(uid);
+	}
+
+
+	@Override
+	public ArrayList<Poem> getPoemListByPage(String page, Integer uid) {
+		int pageInt=0;
+		if(page==null || "".equals(page.trim())){
+			pageInt=1;
+		}else{
+			pageInt=Integer.parseInt(page);
+		}
+		if(pageInt<1){
+			return null;
+		}
+		int begin=PageUtil.CREATIONPERPAGE*(pageInt-1);
+		return poemDao.getCreationsByUId(uid,begin,PageUtil.CREATIONPERPAGE);
+	}
+
+
+	@Override
+	public boolean removePoem(String poemId, String userId) {
+		if(poemId==null || userId==null){
+			return false;
+		}
+		Integer pid=Integer.parseInt(poemId);
+		Integer uid=Integer.parseInt(userId);
+		if(poemDao.removePoem(pid,uid)>0){
+			return true;
+		}
+		return false;
 	}
 
 }

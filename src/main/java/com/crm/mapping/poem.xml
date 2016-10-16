@@ -87,4 +87,18 @@
 		update MP_poem set poem_num_comment=poem_num_comment-#{1}
 		where poem_id=#{0}
 	</update>
+	
+	<select id="getCreationsByUId" resultMap="poemMap">
+		select <include refid="poemColumns" /> from MP_poem
+		where user_id=#{0} limit #{1},#{2}
+	</select>
+	
+	<select id="getPoemNumberByUId" resultType="int">
+		select count(poem_id) from MP_poem where user_id=#{0}
+	</select>
+	
+	<delete id="removePoem">
+		delete from MP_poem where poem_id=#{0} and user_id=#{1}
+	</delete>
+	
 </mapper>

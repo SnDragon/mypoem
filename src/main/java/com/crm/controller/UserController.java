@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.ws.rs.Path;
 
+import org.springframework.beans.factory.support.MethodOverrides;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +22,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.crm.model.Poem;
 import com.crm.model.User;
+import com.crm.service.CollectionService;
 import com.crm.service.ConcernService;
 import com.crm.service.PoemService;
 import com.crm.service.UserService;
+import com.crm.util.CollectionUtil;
 import com.crm.util.Encryption;
 import com.crm.util.PoemUtil;
 import com.crm.util.UserUtil;
@@ -43,6 +47,8 @@ public class UserController {
 	private PoemService poemService;
 	@Resource
 	private ConcernService concernService;
+	@Resource
+	private CollectionService collectionService;
 	
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
@@ -288,10 +294,30 @@ public class UserController {
 	@RequestMapping(value="/collection/{uid}",method=RequestMethod.GET)
 	public ModelAndView showCollection(@PathVariable("uid") Integer uid){
 		ModelAndView modelAndView=new ModelAndView("showCollection");
-		
+		int number=collectionService.getCollectionNumberById(uid);
+		modelAndView.addObject("number",number);
+		ArrayList<CollectionUtil> collectionList=collectionService.getCollectionsByPage(null,uid);
+		modelAndView.addObject("collectionList",collectionList);
+		for(CollectionUtil collectionUtil:collectionList){
+			System.out.println(collectionUtil);
+		}
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/creation/{uid}",method=RequestMethod.GET)
+	public ModelAndView showCreations(@PathVariable("uid") Integer uid,HttpServletRequest request){
+		ModelAndView modelAndView=new ModelAndView("showCreation");
+		int number=poemService.getPoemNumberByUId(uid);
+		modelAndView.addObject("number",number);
+		String page=request.getParameter("page");
+		ArrayList<Poem> creationList=poemService.getPoemListByPage(page,uid);
+		modelAndView.addObject("creationList",creationList);
+		for(Poem poem:creationList){
+			System.out.println(poem);
+		}
+//		String[] poemRow=poemUtil.getPoemText().split("\\|");
+		return modelAndView;
+	}
 	
 	
 	

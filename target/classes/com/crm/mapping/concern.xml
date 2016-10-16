@@ -35,4 +35,9 @@
 		where concerned_id=#{0} and concerner_id=user_id limit #{1},#{2}
 	</select>
 	
+	<select id="getConcernUserByPageNum" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		where concerner_id=#{0} and concerned_id=user_id limit #{1},1
+	</select>
+	
 </mapper>

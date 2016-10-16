@@ -3,7 +3,15 @@ package com.crm.model;
 public class Collection {
 	private Integer userId;
 	private Integer poemId;
+	public Collection(){
+		
+	}
 	
+	public Collection(Integer userId, Integer poemId) {
+		super();
+		this.userId = userId;
+		this.poemId = poemId;
+	}
 	@Override
 	public String toString() {
 		return "Collection [userId=" + userId + ", poemId=" + poemId + "]";

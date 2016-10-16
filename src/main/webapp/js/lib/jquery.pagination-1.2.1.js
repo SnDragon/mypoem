@@ -90,9 +90,11 @@
         }
 
         var eventHandler = function (event) {
+        	
             var that = event.data.page;
             var $target = $(event.target);
             if (event.type === 'click' && $target.data('pageIndex') !== undefined && !$target.parent().hasClass('active')) {
+            	
                 var pageIndex = $(event.target).data("pageIndex");
                 that.$element.trigger(pageEvent.pageClicked, pageIndex + 1);
                 that.debug('event[ pageClicked ] : data = ' + (pageIndex + 1));

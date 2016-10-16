@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.crm.model.Poem;
 import com.crm.util.PoemUtil;
 
+import sun.security.util.Length;
+
 public interface PoemDao {
 	public int insertPoem(Poem poem);
 
@@ -25,5 +27,12 @@ public interface PoemDao {
 	public int subComment(int poemId,int num);
 
 	public ArrayList<PoemUtil> getPoemUtilsByAId(Integer aid);
+
+	public ArrayList<Poem> getCreationsByUId(Integer uid,int begin,int length);
+
+	public int getPoemNumberByUId(Integer uid);
+
+	public int removePoem(Integer pid, Integer uid);
+
 
 }

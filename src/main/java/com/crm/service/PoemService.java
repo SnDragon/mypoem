@@ -28,4 +28,12 @@ public interface PoemService {
 	public boolean subComment(int poemId,int num);
 
 	public ArrayList<PoemUtil> getPoemUtilsByUUID(Integer userId, Integer aid);
+
+	public ArrayList<Poem> getCreationsByUId(Integer uid);
+
+	public int getPoemNumberByUId(Integer uid);
+
+	public ArrayList<Poem> getPoemListByPage(String page, Integer uid);
+
+	public boolean removePoem(String poemId, String userId);
 }

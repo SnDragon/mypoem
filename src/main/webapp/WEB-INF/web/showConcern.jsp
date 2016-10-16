@@ -105,6 +105,20 @@ $(document).ready(function(){
 	}
 	$(".menu li:eq(3)").addClass("current-page");
 	$(".mine-sidebar li:eq(1)").addClass("active");
+	
+	var $title=$("span.title");
+	var num=$title.html().slice(5);
+    if(Number(num)==0){
+    	//$title.addClass("hide");
+    	$(".no-friend").removeClass("hide");
+    }
+    initConcernPage();
+    //alert($("ul.m-pagination-page li").eq(-1));
+   // $("ul.m-pagination-page li").eq(2).click();
+    //$("ul.m-pagination-page li").removeClass("active");
+    //$("ul.m-pagination-page li").eq(2).addClass("active");
+    //$("ul.m-pagination-page li").eq(2).click();
+   // alert($("ul.m-pagination-page li").eq(2).html());
 });
 </script>
 </body>

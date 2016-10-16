@@ -33,7 +33,7 @@ $(function () {
         window.location.href = h;
     });
 
-
+    
     // 取消关注
     if($(".my-friends").length != 0){
         $(document).on("click", ".friend .delete", function () {
@@ -43,65 +43,98 @@ $(function () {
             $("#hidden-concernId").val(concernId.slice(7));
         });
         $(document).on("click", "#concernModal .modal-footer .yes", function () {
-        	$.ajax({
-        		type:"POST",
-        		url:$("#basePath").val()+"/concern/removeConcern",
-        		contentType:"application/json",
-        		data:JSON.stringify({
-        			concernedId: $("#hidden-concernId").val(),
-        			concernerId: $("#userId").val()
-        		}),
-        		dataType:"text",
-        		success:function(data){
-        			if("success"==data){
-        				alert("成功");
-        			}else{
-        				alert("失败");
-        				return;
-        			}
-        		}
-        	});
         	var num=$(".my-friends .title").html().slice(5);
-        	alert(num);
-        	$(".my-friends .title").html("全部关注 "+Number(num)-1);
+        	num=Number(num)-1;
+        	$(".my-friends .title").html("全部关注 "+num);
             var name = $(this).parents(".modal-content").find(".modal-body span").html();
             $(".friend").each(function () {
                 var n = $(this).find(".info .name").html();
                 if(n == name){
                     $(this).remove();
-                    if($(".friend").length == 0){
-                        $(".no-friend").removeClass("hide");
-                    }
-                    return false;
                 }
             });
+            if(num==0){
+            	$(".no-friend").removeClass("hide");
+            }
             // 关闭弹出框
             $(this).next().click();
+            
+        	var page=$(".m-pagination-page li.active a").html();
+        	if(!page){
+        		page=1;
+        	}
+        	$.ajax({
+        		type:"POST",
+        		url:$("#basePath").val()+"/concern/removeConcern",
+        		data:{
+        			concernedId: $("#hidden-concernId").val(),
+        			concernerId: $("#userId").val(),
+        			page:page//当前页。
+        		},
+        		dataType:"json",
+        		success:function(data){
+        			if(data.userId){
+//        				alert(data);
+        				var str='<li class="friend" id="author-'+data.userId+'"><div class="head">'
+						+'<a href="'+$("#basePath").val()+'/user/aid/'+data.userId+'" title="进入作者主页" target="_blank">';
+						if(this.user_icon){
+							str+='<img src="'+$("#basePath").val()+'/img/user/'+data.user_icon+'" alt="" />';
+						}else{
+							str+='<img src="'+$("#basePath").val()+'/img/attached/head-icon2.PNG" alt="" />';
+						}
+						var remainStr='</a></div><div class="info"><span class="name" title="'+data.userName+'">'+data.userName
+									  +'</span><span class="gender ';
+						if(data.userSex==1){
+							remainStr+="male";
+						}else{
+							remainStr+="female";
+						}
+						remainStr+=' glyphicon glyphicon-user"></span></div><a href="#" data-toggle="modal" data-target="#concernModal">';
+		                remainStr+='<span class="delete">取消关注</span></a></li>';
+		                str+=remainStr;
+		                
+		                $("ul.friends").append(str);
+        			}else{
+        				alert("没有了");
+        			}
+        		}
+        	});
+        	if($("ul.m-pagination-page li").length!=0){
+        		$("#conPage").page("destroy");
+                initConcernPage();
+        	}
+        	
+        	
+            if($("ul.m-pagination-page li").length!=0 && $("ul.m-pagination-page li").eq(page-1).html()){
+            	$("ul.m-pagination-page li").removeClass("active");
+                $("ul.m-pagination-page li").eq(page-1).addClass("active");
+            }else if(page!=1){
+            	window.location.reload(true);
+            }
         });
 
+    }
 
-        // “关注”中的分页
-        totalItems = parseInt($(".my-friends .title").html().slice(5));   //总共关注的人数
-        itemsEachPage = 2;                                               //每页的条目数量
+    // 粉丝
+    if($(".my-fans").length != 0){
+        totalItems = parseInt($(".my-fans .title").html().slice(5));
+        itemsEachPage = 2;
         pages = Math.ceil(totalItems / itemsEachPage);
-        if(pages != 1 && $("#conPage").length != 0){
-            showPage($("#conPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
-            $("#conPage").on("pageClicked", function (event, pageIndex) {
-                //点击跳转到对应页面
+        if(pages != 1 && $("#fansPage").length != 0){
+            showPage($("#fansPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
+            $("#fansPage").on("pageClicked", function (event, pageIndex) {
             	$.ajax({
             		type:"POST",
-            		url:$("#basePath").val()+"/concern/getConcernsByPage",
+            		url:$("#basePath").val()+"/concern/getFansByPage",
             		data:{
             			page: pageIndex,
             			uId: $("#userId").val()
             		},
             		dataType:"json",
             		success:function(data){
-//            			alert(data);
-            			$(".friends li").remove();
+            			$(".fans li").remove();
             			$.each(data,function(){
-//            				alert(this.userId);
-            				var str='<li class="friend" id="author-'+this.userId+'"><div class="head">'
+            				var str='<li class="fan" id="author-'+this.userId+'"><div class="head">'
             						+'<a href="'+$("#basePath").val()+'/user/aid/'+this.userId+'" title="进入作者主页" target="_blank">';
             				if(this.user_icon){
             					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.user_icon+'" alt="" />';
@@ -115,29 +148,14 @@ $(function () {
             				}else{
             					remainStr+="female";
             				}
-            				remainStr+=' glyphicon glyphicon-user"></span></div><a href="#" data-toggle="modal" data-target="#concernModal">';
-                            remainStr+='<span class="delete">取消关注</span></a></li>';
+            				remainStr+=' glyphicon glyphicon-user"></span></div></li>';
                             str+=remainStr;
                             
-                            $("ul.friends").append(str);
+                            $("ul.fans").append(str);
             			});
             				
             		}
             	});
-
-            });
-        }
-    }
-
-    // 粉丝
-    if($(".my-fans").length != 0){
-        totalItems = parseInt($(".my-fans .title").html().slice(5));
-        itemsEachPage = 9;
-        pages = Math.ceil(totalItems / itemsEachPage);
-        if(pages != 1 && $("#fansPage").length != 0){
-            showPage($("#fansPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
-            $("#fansPage").on("pageClicked", function (event, pageIndex) {
-
             });
         }
     }
@@ -350,28 +368,60 @@ $(function () {
             $("#poemModal").attr("remove-id", id);
             var title = $(this).parent().siblings(".poem-title").find("a").html();
             $("#poemModal .modal-body span").html(title);
+            
+            var poemId=$(this).parents("div.poem").attr("id").slice(5);
+            $("#poem-id-input").val(poemId);
+            
         });
         $(document).on("click", "#poemModal .yes", function () {
-            var id = $(this).parents("#poemModal").attr("remove-id");
-            $(".poem").each(function () {
-                if($(this).attr("id") == id){
-                    $(this).remove();
-                    if($(".poem").length == 0){
-                        $(".no-poem").removeClass("hide");
-                    }
-                    return false;
-                }
+            var poemId=$("#poem-id-input").val();
+            
+            $.ajax({
+            	type:"POST",
+            	url:$("#basePath").val()+"/poem/removePoem",
+            	data:{
+            		poemId:poemId,
+            		userId:$("#userId").val()
+            	},
+            	dataType:"text",
+            	success:function(data){
+            		if(data=="success"){
+            			alert("删除成功");
+//            			var $title=$("span.title");
+//                    	var num=Number($title.html().slice(5));
+//                    	num=num-1;
+//                    	$title.html("我的诗集 "+num);
+//                        if(num==0){
+//                        	$(".no-poem").removeClass("hide");
+//                        }
+            			var num=$("div.poem").length;
+                        $("#poem-"+poemId).remove();
+                        var page=Number($("ul.m-pagination-page li.active a").html());
+                        if($("ul.m-pagination-page li.active").length==0){
+                        	page=1;
+                        }
+            			if(num==1 && page>1){
+            				page=(page-1);
+            			}
+            			window.location.href=$("#basePath").val()+"/user/creation/"
+						+$("#userId").val()+"?page="+page;
+            		}else{
+            			alert("删除失败");
+            		}
+            	}
             });
+            
             $(this).next().click();
+            
         });
 
         totalItems = parseInt($(".my-poems .title").html().slice(5));
-        itemsEachPage = 8;
+        itemsEachPage = 2;
         pages = Math.ceil(totalItems / itemsEachPage);
         if(pages != 1 && $("#poemPage").length != 0){
             showPage($("#poemPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
             $("#poemPage").on("pageClicked", function (event, pageIndex) {
-
+            	window.location.href=$("#basePath").val()+"/user/creation/"+$("#userId").val()+"?page="+pageIndex;
             });
         }
     }
@@ -394,30 +444,104 @@ $(function () {
             $("#colModal").attr("remove-id", id);
             var title = $(this).parent().siblings(".col-title").find("a").html();
             $("#colModal .modal-body span").html(title);
+            
+            $("#poem-id-hidden").val(id.slice(11));
         });
         $(document).on("click", "#colModal .yes", function () {
-            var id = $(this).parents("#colModal").attr("remove-id");
-            $(".collection").each(function () {
-                if($(this).attr("id") == id){
-                    $(this).remove();
-                    if($(".collection").length == 0){
-                        $(".no-collection").removeClass("hide");
-                    }
-                    return false;
-                }
-            });
-            $(this).next().click();
+//            var id = $(this).parents("#colModal").attr("remove-id");
+//            $(".collection").each(function () {
+//                if($(this).attr("id") == id){
+//                    $(this).remove();
+//                    if($(".collection").length == 0){
+//                        $(".no-collection").removeClass("hide");
+//                    }
+//                    return false;
+//                }
+//            });
+        	 $(this).next().click();
+        	var poemId=$("#poem-id-hidden").val();
+        	var page=$(".m-pagination-page li.active a").html();
+        	if(!page){
+        		page=1;
+        	}
+        	var num=$("span.title").html().slice(5);
+			num=Number(num)-1;
+			$("span.title").html("我的收藏 "+num);
+			if(num==0){
+				$(".no-collection").removeClass("hide");
+			}
+			$("#collection-"+poemId).remove();
+        	$.ajax({
+        		type:"POST",
+        		url:$("#basePath").val()+"/collection/removeByAjax",
+        		data:{
+        			userId:$("#userId").val(),
+        			poemId:poemId,
+        			page:page
+        		},
+        		dataType:"json",
+        		success:function(data){
+        			if(data.poemId){
+        				str='<div class="collection" id="collection-'
+        					+data.poemId
+        					+'"><div class="row"><div class="img col-sm-5">';
+        				var img="";
+        				if(data.poemImg){
+        					img='<img src="'+$("#basePath").val()+'/img/poem/'+data.poemImg+'" alt="我的收藏" />';
+        				}else{
+        					img='<img src="'+$("#basePath").val()+'/img/attached/test.jpg" alt="我的收藏" />';
+        				}
+                        str+=img;
+                        var remainStr='</div><div class="words col-sm-7"><a href="#" data-toggle="modal" data-target="#colModal">'
+                        			  +'<span class="col-remove glyphicon glyphicon-trash"></span></a>'
+                        			  +'<div class="col-title"><a href="'
+                        			  +$("#basePath").val()
+                        			  +'/poem/pid/'
+                        			  +data.poemId
+                        			  +'" target="_blank" title="'
+                        			  +data.poemTitle
+                        			  +'">'
+                        			  +data.poemTitle
+                        			  +'</a></div><span class="col-author"><a target="_blank" href="'
+                        			  +$("#basePath").val()
+                        			  +'/user/aid/'
+                        			  +data.userId
+                        			  +'" title="'
+                        			  +data.userName
+                        			  +'">'
+                        			  +data.userName
+                        			  +'</a></span><div class="col-content"><p>'
+                        			  +data.poemText
+                        			  +'</p></div></div></div></div>';
+                        str+=remainStr;
+                        $("#collection-wrap-div").append(str);
+                        setImg($(".my-collections"));
+        			}
+        		}
+        	})
+        	if($("ul.m-pagination-page li").length!=0){
+        		$("#colPage").page("destroy");
+                initCollectionPage();
+        	}
+        	
+            if($("ul.m-pagination-page li").length!=0 && $("ul.m-pagination-page li").eq(page-1).html()){
+            	$("ul.m-pagination-page li").removeClass("active");
+                $("ul.m-pagination-page li").eq(page-1).addClass("active");
+            }else if(page!=1){
+            	window.location.reload(true);
+            }
+           
         });
 
-        totalItems = parseInt($(".my-collections .title").html().slice(5));
-        itemsEachPage = 12;
-        pages = Math.ceil(totalItems / itemsEachPage);
-        if(pages != 1 && $("#colPage").length != 0){
-            showPage($("#colPage"), totalItems, itemsEachPage);   //调用实现分页插件的函数
-            $("#colPage").on("pageClicked", function (event, pageIndex) {
-
-            });
-        }
+//        totalItems = parseInt($(".my-collections .title").html().slice(5));
+//        itemsEachPage = 2;
+//        pages = Math.ceil(totalItems / itemsEachPage);
+//        if(pages != 1 && $("#colPage").length != 0){
+//            showPage($("#colPage"), totalItems, itemsEachPage);   //调用实现分页插件的函数
+//            $("#colPage").on("pageClicked", function (event, pageIndex) {
+//            	
+//            });
+//        }
     }
 });
 
@@ -536,4 +660,113 @@ function showPage(target, totalItems, itemsEachPage){
         showJump: false,
         showPageSizes: false
     });
+}
+function initConcernPage(){
+	
+	// “关注”中的分页
+    var total = parseInt($(".my-friends .title").html().slice(5));   //总共关注的人数
+    var itemsEachPage = 2; 
+    //每页的条目数量
+    pages = Math.ceil(total / itemsEachPage);
+    if(pages != 1 && $("#conPage").length != 0){
+        showPage($("#conPage"), total, itemsEachPage);  //调用实现分页插件的函数
+        $("#conPage").on("pageClicked", function (event, pageIndex) {
+            //点击跳转到对应页面
+        	$.ajax({
+        		type:"POST",
+        		url:$("#basePath").val()+"/concern/getConcernsByPage",
+        		data:{
+        			page: pageIndex,
+        			uId: $("#userId").val()
+        		},
+        		dataType:"json",
+        		success:function(data){
+        			$(".friends li").remove();
+        			$.each(data,function(){
+        				var str='<li class="friend" id="author-'+this.userId+'"><div class="head">'
+        						+'<a href="'+$("#basePath").val()+'/user/aid/'+this.userId+'" title="进入作者主页" target="_blank">';
+        				if(this.user_icon){
+        					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.user_icon+'" alt="" />';
+        				}else{
+        					str+='<img src="'+$("#basePath").val()+'/img/attached/head-icon2.PNG" alt="" />';
+        				}
+        				var remainStr='</a></div><div class="info"><span class="name" title="'+this.userName+'">'+this.userName
+        							  +'</span><span class="gender ';
+        				if(this.userSex==1){
+        					remainStr+="male";
+        				}else{
+        					remainStr+="female";
+        				}
+        				remainStr+=' glyphicon glyphicon-user"></span></div><a href="#" data-toggle="modal" data-target="#concernModal">';
+                        remainStr+='<span class="delete">取消关注</span></a></li>';
+                        str+=remainStr;
+                        
+                        $("ul.friends").append(str);
+        			});
+        				
+        		}
+        	});
+        });
+    }
+}
+function initCollectionPage(){
+	// “收藏”中的分页
+    var total = parseInt($(".my-collections .title").html().slice(5));   //总共关注的人数
+    var itemsEachPage = 2; 
+    //每页的条目数量
+    pages = Math.ceil(total / itemsEachPage);
+    if(pages != 1 && $("#colPage").length != 0){
+        showPage($("#colPage"), total, itemsEachPage);  //调用实现分页插件的函数
+        $("#colPage").on("pageClicked", function (event, pageIndex) {
+            //点击跳转到对应页面
+        	$.ajax({
+        		type:"POST",
+        		url:$("#basePath").val()+"/collection/getCollectionsByPage",
+        		data:{
+        			page: pageIndex,
+        			uId: $("#userId").val()
+        		},
+        		dataType:"json",
+        		success:function(data){
+        			$("#collection-wrap-div").empty();
+        			$.each(data,function(){
+        				str='<div class="collection" id="collection-'
+        					+this.poemId
+        					+'"><div class="row"><div class="img col-sm-5">';
+        				var img="";
+        				if(this.poemImg){
+        					img='<img src="'+$("#basePath").val()+'/img/poem/'+this.poemImg+'" alt="我的收藏" />';
+        				}else{
+        					img='<img src="'+$("#basePath").val()+'/img/attached/test.jpg" alt="我的收藏" />';
+        				}
+                        str+=img;
+                        var remainStr='</div><div class="words col-sm-7"><a href="#" data-toggle="modal" data-target="#colModal">'
+                        			  +'<span class="col-remove glyphicon glyphicon-trash"></span></a>'
+                        			  +'<div class="col-title"><a href="'
+                        			  +$("#basePath").val()
+                        			  +'/poem/pid/'
+                        			  +this.poemId
+                        			  +'" target="_blank" title="'
+                        			  +this.poemTitle
+                        			  +'">'
+                        			  +this.poemTitle
+                        			  +'</a></div><span class="col-author"><a target="_blank" href="'
+                        			  +$("#basePath").val()
+                        			  +'/user/aid/'
+                        			  +this.userId
+                        			  +'" title="'
+                        			  +this.userName
+                        			  +'">'
+                        			  +this.userName
+                        			  +'</a></span><div class="col-content"><p>'
+                        			  +this.poemText
+                        			  +'</p></div></div></div></div>';
+                        str+=remainStr;
+                        $("#collection-wrap-div").append(str);
+        			});
+        			setImg($(".my-collections"));
+        		}
+        	});
+        });
+    }
 }

@@ -24,11 +24,15 @@ public class ConcernController {
 	
 	@RequestMapping(value="/removeConcern")
 	@ResponseBody
-	public String removeConcern(@RequestBody Concern concern){
+	public User removeConcern(HttpServletRequest request){
+		String concernedId=request.getParameter("concernedId");
+		String concernerId=request.getParameter("concernerId");
+		String page=request.getParameter("page");
+		Concern concern=new Concern(Integer.parseInt(concernedId),Integer.parseInt(concernerId));
 		if(concernService.removeConcern(concern)){
-			return "success";
+			return concernService.getConcernUserByPageNum(page,concernerId);
 		}else{
-			return "fail";
+			return null;
 		}
 	}
 	

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%String basePath=request.getContextPath(); %>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,12 +28,12 @@
                 <article  class="dynamic" id="article-${poemUtil.poemId }">
                     <div class="dynamic-head">
                         <h1 class="dynamic-title">
-                            <a href="zheyeshiyiqie.html" class="poem-title">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
+                            ${poemUtil.poemTitle }  <!--如何跳转到作者的相应页面，参考ghost网站-->
                         </h1>
                         <div class="dynamic-meta">
                             <span class="dynamic-author">
                                 作者：
-                                <a target="_blank" href="wangsai.html">${poemUtil.userName }</a>
+                                <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                             </span>
                             <time id="time" class="dynamic-time">2016年</time>
                         </div>
@@ -41,11 +42,14 @@
                     	<c:forEach items="${poemUtil.poemRow }" var="row" begin="0" end="4">
                     		<p>${row }</p>
                     	</c:forEach>
-                    	<span class="expand">展开全文</span>
-                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="5">
-                    		<p class="hide">${row }</p>
-                    	</c:forEach>
-                    	<span class="pack-up hide">收起全文</span>
+                    	<c:if test="${fn:length(poemUtil.poemRow)>5 }">
+	                    	<span class="expand">展开全文</span>
+	                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="5">
+	                    		<p class="hide">${row }</p>
+	                    	</c:forEach>
+	                    	<span class="pack-up hide">收起全文</span>
+                    	</c:if>
+                    	
                     </div>
                     <c:if test="${poemUtil.poemImg!=null }">
 	                    <div class="row">   <!--用row包裹，给图片设置栅格系统-->

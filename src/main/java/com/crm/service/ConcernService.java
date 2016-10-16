@@ -13,5 +13,6 @@ public interface ConcernService {
 	public boolean removeConcern(Concern concern);
 	public ArrayList<User> getConcernUserByPage(String page, String uId);
 	public ArrayList<User> getFansByPage(String page, String uId);
-
+	public User getConcernUserByPageNum(String page, String concernerId);
+	
 }
