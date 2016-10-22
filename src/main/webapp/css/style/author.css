@@ -23,9 +23,14 @@
     width: 100%;
     height: 100%;
 }
-.author .author-name{
+.author .author-info{
     margin-top: 20px;
     margin-left: 150px;
+}
+.author .author-info .gender{
+    position: relative;
+    left: 15px;
+    top: 2px;
 }
 .author .author-signature{
     margin-left: 150px;
@@ -39,6 +44,28 @@
     -ms-user-select:none;       /*IE10*/
     -khtml-user-select:none;    /*早期浏览器*/
     user-select:none;
+}
+.author .author-meta button{
+    float: right;
+    margin-right: 20px;
+    width: 90px;
+    color: white;
+}
+.author .author-meta button.add-concern{
+    background-color: rgb(247,111,40);
+    border-color: rgb(247,111,40);
+    opacity: 0.9;
+}
+.author .author-meta button.add-concern:hover{
+    opacity: 1;
+}
+.author .author-meta button.cancel-concern{
+    background-color: rgb(104,109,119);
+    border-color: rgb(104,109,119);
+    opacity: 0.9;
+}
+.author .author-meta button.cancel-concern:hover{
+    opacity: 1;
 }
 .clickable{
     cursor: pointer;
@@ -55,36 +82,121 @@
     /*border: 1px solid #f0ad4e;*/
     /*border-radius: 5px;*/
     color: #E67E22;
+    font-weight: bolder;
 }
 .author .concern, .author .fans{
-    margin-top: 8px;
-    margin-left: 150px;
-    margin-bottom: 5px;
+    position: relative;
+    margin: 8px 20px 5px 50px;
+    padding: 10px 20px 20px 25px;
+    border: 2px solid #E1E1E1;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
 }
-.author .concern a, .author .fans a{
-    text-decoration: none;
+.author .concern span.triangle, .author .fans span.triangle{
+    display: inline-block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -10px;
+    left: 175px;
+    border-left:15px solid transparent;
+    border-right:15px solid transparent;
+    border-bottom:10px solid #E1E1E1;
 }
-.author .concern .label, .author .fans a .label{
-    font-weight: normal;
-    margin-left: 8px;
-    padding: 4px 12px;
-    background-color: white;
-    color: #5e5e5e;
-    border: 1px solid #ccc;
+.author .fans span.triangle{
+    left: 245px;
 }
 .author .show-all{
-    float: right;
+    position: absolute;
     display: inline-block;
-    margin: 0 15px 0 0;
+    bottom: -2px;
+    right: 30px;
     font-size: 14px;
     cursor: pointer;
-    /*color: #888888;*/
-    color: #f0ad4e;
+    color: #888888;
+    /*color: #f0ad4e;*/
 }
 .author .show-all:hover{
-    /*color: #333333;*/
-    color: #E67E22;
+    color: #333333;
+    /*color: #E67E22;*/
 }
-.author .more{
-    display: inline;
+
+
+
+
+/*作者关注的人及其粉丝的样式*/
+.author .concern ul, .author .fans ul{
+    margin-bottom: 0;
+}
+.author .concern li, .author .fans li{
+    position: relative;
+    display: inline-block;
+    list-style: none;
+    width: 200px;
+    margin: 10px 15px;
+    padding: 5px 0;
+    text-align: left;
+    border: 1px dotted #E1E1E1;
+    border-radius: 15px;
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+.author .concern li a, .author .fans li a{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    /*margin: 20px 0 10px 50px;*/
+    margin: 10px 0 10px 10px;
+}
+.author .concern li a img, .author .fans li a img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    /*多重设置阴影*/
+    -webkit-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),  /*右*/
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+}
+.author .concern li span, .author .fans li span{
+    margin-right: 10px;
+    color: rgb(68,68,68);
+    position: absolute;
+}
+.author .concern li span.name, .author .fans li span.name{
+    display: inline-block;
+    padding: 0;
+    top: 30px;
+    left: 115px;
+    height: 70px;
+    overflow: hidden;
+}
+/*性别图标*/
+.author .concern li span.gender, .author .fans li span.gender{
+    top: 5px;
+    right: 10px;
+    margin: 2px 0 0 0;
+}
+.author .concern li span.male, .author .fans li span.male, .author span.male{
+    color: rgb(3, 149, 136);
+}
+.author .concern li span.female, .author .fans li span.female, .author span.female{
+    color: rgb(244, 180, 202);
 }

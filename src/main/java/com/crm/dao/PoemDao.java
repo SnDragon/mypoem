@@ -3,6 +3,8 @@ package com.crm.dao;
 import java.util.ArrayList;
 
 import com.crm.model.Poem;
+import com.crm.util.HomeOtherPoemUtil;
+import com.crm.util.HomePoemUtil;
 import com.crm.util.PoemUtil;
 
 import sun.security.util.Length;
@@ -18,7 +20,7 @@ public interface PoemDao {
 
 	public int subSupport(Integer poemId);
 
-	public PoemUtil getPoemUtilById(Integer userId, Integer pid);
+	public PoemUtil getPoemUtilById(Integer pid);
 
 	public int addTransmit(Integer poemId);
 
@@ -33,6 +35,10 @@ public interface PoemDao {
 	public int getPoemNumberByUId(Integer uid);
 
 	public int removePoem(Integer pid, Integer uid);
+
+	public ArrayList<HomePoemUtil> getHomePoemUtils();
+
+	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
 
 
 }

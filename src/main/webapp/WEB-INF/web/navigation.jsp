@@ -24,6 +24,9 @@
 		<li><a href="<%=path %>/user/creation/${user.userId }"
 			title="我的原创"> <span class="mypoem">我的诗集</span>
 		</a></li>
+		<li><a href="<%=path %>/user/transmition/${user.userId }"
+			title="我的转发"> <span class="myshare">我的转发</span>
+		</a></li>
 		<li><a href="<%=path %>/user/security/${user.userId}"
 			title="安全中心"> <span class="security">安全中心</span>
 		</a></li>

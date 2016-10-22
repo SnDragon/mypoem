@@ -23,6 +23,13 @@
   		<result property="userIntro" column="user_intro" />
   		<result property="userSex" column="user_sex" />
   	</resultMap>
+  	<resultMap type="com.crm.util.HomeUserUtil" id="recommendUserMap">
+  		<result property="userId" column="user_id" />
+  		<result property="userName" column="user_name" />
+  		<result property="userIcon" column="user_icon" />
+  		<result property="numOfPoem" column="num_of_poem" />
+  		<result property="numOfConcern" column="num_of_concern" />
+  	</resultMap>
 	<sql id="userColumns">
 		user_id,user_name,user_password,user_motto,user_icon,user_email,user_intro,user_sex
 	</sql>
@@ -78,5 +85,17 @@
 	<select id="getFansListById" resultMap="userMap">
 		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
 		where concerned_id=#{0} and user_id=concerner_id limit 0,#{1}
+	</select>
+	
+	<select id="getRecommendUsers" resultMap="recommendUserMap">
+		select user_id,user_icon,user_name,num_of_poem,count(c.concerner_id) as num_of_concern
+		from (select  u.user_id,u.user_icon,u.user_name,count(p.poem_id) as num_of_poem
+		from MP_user u,MP_poem p
+		where u.user_id=p.user_id
+        group by user_id
+        order by num_of_poem) as n,MP_concern as c
+        where n.user_id=c.concerned_id
+        group by user_id
+        order by num_of_concern desc,num_of_poem desc;
 	</select>
 </mapper>

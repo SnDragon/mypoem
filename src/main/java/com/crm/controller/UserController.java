@@ -27,10 +27,12 @@ import com.crm.model.User;
 import com.crm.service.CollectionService;
 import com.crm.service.ConcernService;
 import com.crm.service.PoemService;
+import com.crm.service.TransmitService;
 import com.crm.service.UserService;
 import com.crm.util.CollectionUtil;
 import com.crm.util.Encryption;
 import com.crm.util.PoemUtil;
+import com.crm.util.TransmitUtil;
 import com.crm.util.UserUtil;
 import com.sun.javafx.sg.prism.NGShape.Mode;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -49,6 +51,8 @@ public class UserController {
 	private ConcernService concernService;
 	@Resource
 	private CollectionService collectionService;
+	@Resource
+	private TransmitService transmitService;
 	
 	@RequestMapping(value="/doLogin",method=RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
@@ -160,9 +164,11 @@ public class UserController {
 		ModelAndView modelAndView=new ModelAndView("showAuthor");
 		UserUtil author=userService.getUserUtilById(aid);
 		System.out.println(author);
+		Integer isConcerned=concernService.isCocernedByUUId(user.getUserId(),author.getUserId());
 		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUUID(user.getUserId(),aid);
 		modelAndView.addObject("author",author);
-		modelAndView.addObject("poemUtils",poemUtils);
+		modelAndView.addObject("isConcerned",isConcerned);
+		modelAndView.addObject("poemUtilList",poemUtils);
 		for(PoemUtil poemUtil:poemUtils){
 			System.out.println(poemUtil);
 		}
@@ -319,6 +325,15 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	
+	@RequestMapping(value="/transmition/{uid}",method=RequestMethod.GET)
+	public ModelAndView showTransmition(@PathVariable("uid") Integer uid,HttpServletRequest request){
+		ModelAndView modelAndView=new ModelAndView("showTransmition");
+		int number=transmitService.getTransmitionNumberByUId(uid);
+		modelAndView.addObject("number",number);
+		String page=request.getParameter("page");
+		ArrayList<TransmitUtil> transmitList=transmitService.getTransmitsByPage(page,uid);
+		modelAndView.addObject("transmitList",transmitList);
+		return modelAndView;
+	}
 	
 }

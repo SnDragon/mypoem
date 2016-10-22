@@ -3,6 +3,8 @@ package com.crm.service;
 import java.util.ArrayList;
 
 import com.crm.model.Poem;
+import com.crm.util.HomeOtherPoemUtil;
+import com.crm.util.HomePoemUtil;
 import com.crm.util.PoemUtil;
 
 public interface PoemService {
@@ -36,4 +38,8 @@ public interface PoemService {
 	public ArrayList<Poem> getPoemListByPage(String page, Integer uid);
 
 	public boolean removePoem(String poemId, String userId);
+
+	public ArrayList<HomePoemUtil> getHomePoemUtils();
+
+	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
 }

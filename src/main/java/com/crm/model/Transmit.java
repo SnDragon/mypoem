@@ -3,17 +3,25 @@ package com.crm.model;
 import java.sql.Timestamp;
 
 public class Transmit {
+	private Integer transmitId;
 	private Integer userId;
 	private Integer poemId;
 	private String transmitComment;
 	private Timestamp transmitTime;
 	
+	
+	
 	@Override
 	public String toString() {
-		return "Transmit [userId=" + userId + ", poemId=" + poemId + ", transmitComment=" + transmitComment
-				+ ", transmitTime=" + transmitTime + "]";
+		return "Transmit [transmitId=" + transmitId + ", userId=" + userId + ", poemId=" + poemId + ", transmitComment="
+				+ transmitComment + ", transmitTime=" + transmitTime + "]";
 	}
-	
+	public Integer getTransmitId() {
+		return transmitId;
+	}
+	public void setTransmitId(Integer transmitId) {
+		this.transmitId = transmitId;
+	}
 	public Integer getUserId() {
 		return userId;
 	}

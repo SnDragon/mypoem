@@ -12,6 +12,7 @@ import com.crm.model.User;
 import com.crm.service.ConcernService;
 import com.crm.service.UserService;
 import com.crm.util.Encryption;
+import com.crm.util.HomeUserUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.UserUtil;
 @Service("userService")
@@ -159,6 +160,13 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		return userDao.getFansListById(uid,PageUtil.CONCERNSPERPAGE);
+	}
+
+	@Override
+	public ArrayList<HomeUserUtil> getRecommendUsers() {
+		ArrayList<HomeUserUtil> homeUserUtils=userDao.getRecommendUsers();
+		return homeUserUtils;
+		
 	}
 
 }

@@ -30,6 +30,7 @@
                 <div class="recommend">
                     <div class="row">
                         <div class="img col-sm-4">
+                        	<div class="img-wrap">
                         	<c:choose>
                         		<c:when test="${poemUtil.poemImg!=null }">
                         			<img src="<%=basePath %>/img/poem/${poemUtil.poemImg }" alt="今日推荐" />
@@ -38,7 +39,7 @@
                              		<img src="<%=basePath %>/img/attached/zheyeshiyiqie.jpg" alt="今日推荐" />
                              	</c:otherwise>
                         	</c:choose>
-                            
+                            </div>
                         </div>
                         <div class="words col-sm-8">
                             <div class="recom-title">

@@ -13,26 +13,44 @@ import org.springframework.web.servlet.ModelAndView;
 import com.crm.model.Poem;
 import com.crm.model.User;
 import com.crm.service.PoemService;
+import com.crm.service.UserService;
 import com.crm.util.PoemUtil;
+import com.crm.util.HomeOtherPoemUtil;
+import com.crm.util.HomePoemUtil;
+import com.crm.util.HomeUserUtil;
 
 
 @Controller
 public class IndexController {
 	@Resource
 	private PoemService poemService;
-	
+	@Resource
+	private UserService userService;
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String Index(HttpSession session){
+	public ModelAndView Index(HttpSession session){
 		User user=new User();
-		user.setUserId(1);
-		user.setUserName("小吴");
+		user.setUserId(2);
+		user.setUserName("dragon");
 		user.setUserEmail("1803240383@qq.com");
 		user.setUserIcon("user1.jpeg");
 		user.setUserMotto("hello world");
 		user.setUserPassword("e10adc3949ba59abbe56e057f20f883e");
 		user.setUserSex(0);
 		session.setAttribute("user", user);
-		return "index";
+		ModelAndView modelAndView=new ModelAndView("index");
+		ArrayList<HomePoemUtil> homePoemUtils=poemService.getHomePoemUtils();
+		modelAndView.addObject("homePoemUtils",homePoemUtils);
+		ArrayList<HomeUserUtil> homeUserUtils=userService.getRecommendUsers();
+		modelAndView.addObject("homeUserUtils",homeUserUtils);
+		for(HomeUserUtil homeUserUtil:homeUserUtils){
+			System.out.println(homeUserUtil);
+		}
+		ArrayList<HomeOtherPoemUtil> otherPoemUtils=poemService.getHomeOtherPoemUtils();
+		modelAndView.addObject("otherPoemUtils",otherPoemUtils);
+		for(HomeOtherPoemUtil poem:otherPoemUtils){
+			System.out.println(poem);
+		}
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)

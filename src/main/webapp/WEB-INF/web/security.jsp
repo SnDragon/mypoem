@@ -61,7 +61,7 @@ $(document).ready(function(){
 		$(".person").removeClass("hide");
 	}
 	$(".menu li:eq(3)").addClass("current-page");
-	$(".mine-sidebar li:eq(5)").addClass("active");
+	$(".mine-sidebar li:eq(6)").addClass("active");
 });
 </script>
 <script>

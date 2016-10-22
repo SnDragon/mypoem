@@ -13,6 +13,8 @@ import com.crm.model.Poem;
 import com.crm.service.CollectionService;
 import com.crm.service.PoemService;
 import com.crm.service.SupportService;
+import com.crm.util.HomeOtherPoemUtil;
+import com.crm.util.HomePoemUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
 @Service("poemService")
@@ -131,7 +133,7 @@ public class PoemServiceImpl implements PoemService{
 		if(userId==null || pid==null){
 			return null;
 		}
-		PoemUtil poemUtil=poemDao.getPoemUtilById(userId,pid);
+		PoemUtil poemUtil=poemDao.getPoemUtilById(pid);
 		if(collectionService.isCollectionExisted(userId,poemUtil.getPoemId())){
 			poemUtil.setIsCollected(true);
 		}else{
@@ -254,6 +256,18 @@ public class PoemServiceImpl implements PoemService{
 			return true;
 		}
 		return false;
+	}
+
+
+	@Override
+	public ArrayList<HomePoemUtil> getHomePoemUtils() {
+		return poemDao.getHomePoemUtils();
+	}
+
+
+	@Override
+	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils() {
+		return poemDao.getHomeOtherPoemUtils();
 	}
 
 }

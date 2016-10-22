@@ -25,6 +25,7 @@ import com.crm.model.User;
 import com.crm.service.PoemService;
 import com.crm.util.PoemUtil;
 import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 
 @Controller
 @RequestMapping(value="/poem")
@@ -125,4 +126,8 @@ public class PoemController {
 //		String uid=request.getParameter("uid");
 //		return poemService.getPoemListByPage(page,uid);
 //	}
+	@RequestMapping(value="/oid/{pid}",method=RequestMethod.GET)
+	public ModelAndView showOtherPoem(){
+		return null;
+	}
 }

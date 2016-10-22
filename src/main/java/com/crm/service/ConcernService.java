@@ -14,5 +14,9 @@ public interface ConcernService {
 	public ArrayList<User> getConcernUserByPage(String page, String uId);
 	public ArrayList<User> getFansByPage(String page, String uId);
 	public User getConcernUserByPageNum(String page, String concernerId);
+	public Integer isCocernedByUUId(Integer userId, Integer userId2);
+	public boolean addConcern(Concern concern);
+	public ArrayList<User> getFansByUId(Integer uid);
+	public ArrayList<User> getConcernsById(Integer uid);
 	
 }

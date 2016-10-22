@@ -2,25 +2,26 @@
 .recommend{
     font-family: "微软雅黑", Arial, sans-serif;
     width: 100%;
-    /*vertical-align:middle;*/
     margin-bottom: 8px;
-    padding-bottom: 2px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     border-top: 5px solid #E1E1E1;
     border-bottom: 1px solid #E1E1E1;
     background-color: white;
 }
-/*.recommend .img td{*/
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
-/*}*/
-.recommend .img img{
-    width: 96%;
-    margin-left: 2%;
-    margin-right: 2%;
+.recommend .img{
+    height: 155px;
+    overflow: hidden;
 }
-/*.recommend .words td{*/
-    /*vertical-align: middle;*/
-/*}*/
+.recommend .img .img-wrap{
+    width: 100%;
+    height: 100%;
+    margin-left: 10px;
+    overflow: hidden;
+}
+.recommend .img img{
+    overflow: hidden;
+}
 .recom-title a{
     font-size: 2rem;
     line-height: 30px;

@@ -28,7 +28,7 @@
                 <span class="title">我的诗集  ${number }</span>
                 <div class="content">
                     <div class="no-poem hide">
-                        你还没有任何原创或者转发 ~
+                        你还没有任何原创哦 ~
                     </div>
 					<div id="content-wrap-div">
                     <c:forEach items="${creationList }" var="poem">

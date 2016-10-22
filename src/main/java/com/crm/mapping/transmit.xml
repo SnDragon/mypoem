@@ -3,18 +3,44 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.crm.dao.TransmitDao">
 	<resultMap type="com.crm.model.Transmit" id="transmitMap">
+		<id property="transmitId" column="transmit_id" />
 		<result property="userId" column="user_id" />
 		<result property="poemId" column="poem_id" />
 		<result property="transmitComment" column="transmit_comment" />
 		<result property="transmitTime" column="transmit_time" />
 	</resultMap>
+	<resultMap type="com.crm.util.TransmitUtil" id="transmitUtilMap">
+		<result property="transmitId" column="transmit_id" />
+		<result property="poemId" column="poem_id" />
+		<result property="transmitComment" column="transmit_comment" />
+		<result property="transmitTime" column="transmit_time" />
+		<result property="authorId" column="user_id" />
+		<result property="authorName" column="user_name" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="poemImg" column="poem_img" />
+	</resultMap>
+	
 	<sql id="transmitColumns">
 		user_id,poem_id,transmit_comment,transmit_time
+	</sql>
+	<sql id="transmitUtilColumns">
+		t.transmit_id,t.poem_id,t.transmit_comment,t.transmit_time,u.user_id,u.user_name,p.poem_title,p.poem_img
 	</sql>
 	<insert id="insertTransmit" parameterType="com.crm.model.Transmit">
 		insert into MP_transmit(<include refid="transmitColumns" />)
 		values(#{userId},#{poemId},#{transmitComment},#{transmitTime});
 	</insert>
 	
+	<select id="getTransmitionNumberByUId" resultType="int">
+		select count(*) from MP_transmit where user_id=#{0}
+	</select>
 	
+	<select id="getTransmitsByPage" resultMap="transmitUtilMap">
+		select <include refid="transmitUtilColumns" /> from MP_poem p,MP_user u,MP_transmit t
+		where t.user_id=#{0} and p.poem_id=t.poem_id and p.user_id=u.user_id limit #{1},#{2}
+	</select>
+	
+	<delete id="removeTransmitById">
+		delete from MP_transmit where transmit_id=#{0}
+	</delete>
 </mapper>

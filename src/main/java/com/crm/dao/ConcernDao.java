@@ -19,4 +19,12 @@ public interface ConcernDao {
 
 	User getConcernUserByPageNum(int userId,int order);
 
+	int getConcernByUUId(Integer concernerId, Integer concernedId);
+
+	int addConcern(Concern concern);
+
+	ArrayList<User> getFansByUId(Integer uid);
+
+	ArrayList<User> getConcernsById(Integer uid);
+
 }

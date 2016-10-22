@@ -4,12 +4,15 @@ package com.crm.controller;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.resource.spi.RetryableUnavailableException;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.crm.model.Concern;
@@ -52,5 +55,37 @@ public class ConcernController {
 		String uId=request.getParameter("uId");
 		ArrayList<User> userList=concernService.getFansByPage(page,uId);
 		return userList;
+	}
+	
+	@RequestMapping(value="/removeConcernByAjax",method=RequestMethod.POST)
+	@ResponseBody
+	public String removeConcernByAjax(@RequestBody Concern concern){
+		if(concernService.removeConcern(concern)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/addConcernByAjax",method=RequestMethod.POST)
+	@ResponseBody
+	public String addConcern(@RequestBody Concern concern){
+		if(concernService.addConcern(concern)){
+			return "success";
+		}else{
+			return "fail";
+		}
+	}
+	
+	@RequestMapping(value="/getFansByAjax/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<User> getFansByAjax(@PathVariable("uid")Integer uid){
+		return concernService.getFansByUId(uid);
+	}
+	
+	@RequestMapping(value="/getConcernsByAjax/{uid}",method=RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<User>  getConcernsByAjax(@PathVariable("uid")Integer uid){
+		return concernService.getConcernsById(uid);
 	}
 }

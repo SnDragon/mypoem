@@ -3,6 +3,7 @@ package com.crm.service;
 import java.util.ArrayList;
 
 import com.crm.model.*;
+import com.crm.util.HomeUserUtil;
 import com.crm.util.UserUtil;
 
 
@@ -29,4 +30,6 @@ public interface UserService {
 	public ArrayList<User> getConcernUserListById(Integer uid);
 
 	public ArrayList<User> getFansListById(Integer uid);
+
+	public ArrayList<HomeUserUtil> getRecommendUsers();
 }

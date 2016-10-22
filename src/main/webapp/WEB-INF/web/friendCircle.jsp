@@ -79,12 +79,12 @@
                	 <article  class="dynamic" id="article-${poemUtil.poemId }">
                     <div class="dynamic-head">
                         <h1 class="dynamic-title">
-                            <a href="zheyeshiyiqie.html" class="poem-title">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
+                            <a href="<%=basePath %>/poem/pid/${poemUtil.poemId}" class="poem-title">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
                         </h1>
                         <div class="dynamic-meta">
                             <span class="dynamic-author">
                                 作者：
-                                <a target="_blank" href="wangsai.html">${poemUtil.userName }</a>
+                                <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                             </span>
                             <time id="time_${poemUtil.poemId }" class="dynamic-time">2016年</time>
                         </div>
@@ -93,11 +93,13 @@
                     	<c:forEach items="${poemUtil.poemRow }" var="row" begin="0" end="4">
                     		<p>${row }</p>
                     	</c:forEach>
-                    	<span class="expand">展开全文</span>
-                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="5">
-                    		<p class="hide">${row }</p>
-                    	</c:forEach>
-                    	<span class="pack-up hide">收起全文</span>
+                    	<c:if test="${fn:length(poemUtil.poemRow)>5 }">
+	                    	<span class="expand">展开全文</span>
+	                    	<c:forEach items="${poemUtil.poemRow }" var="row" begin="5">
+	                    		<p class="hide">${row }</p>
+	                    	</c:forEach>
+	                    	<span class="pack-up hide">收起全文</span>
+                    	</c:if>
                     </div>
                     <c:if test="${poemUtil.poemImg!=null }">
 	                    <div class="row">   <!--用row包裹，给图片设置栅格系统-->
@@ -140,7 +142,7 @@
                         <div class="dynamic-comment">
                             <div class="send-comment">
                                 <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
-                                <a class="head-icon" href="mine.html" target="_blank">
+                                <a class="head-icon" href="<%=basePath %>/user/uid/${user.userId}" target="_blank">
                                     <img src="<%=basePath %>/img/attached/head-icon-mine.jpg" alt="进入我的个人中心" />
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
@@ -228,250 +230,7 @@
 <script type="text/javascript" src="<%=basePath %>/js/lib/jquery.ajaxfileupload.js"></script>
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script src="<%=basePath %>/js/custom/addPoem.js"></script>
-<!--  
-<script type="text/javascript">
-$(document).ready(function(){
-	$(document).on("click","li.collection span",function(){
-		var $li=$(this).parent();
-		if($li.hasClass("grayLi")){
-			//收藏
-			$.ajax({
-				type:"POST",
-				url:"<%=basePath%>/collection/add",
-				contentType:"application/json",
-				data:JSON.stringify({
-					userId:"${user.userId}",
-					poemId:$li.parent().attr("id")
-				}),
-				dataType:"text",
-				success:function(json){
-					if("success"==json){
-						$li.removeClass("grayLi").addClass("orangeLi");
-						alert("收藏成功！");
-					}else{
-						alert(json);
-						alert("收藏失败！");
-					}
-				}
-				
-			});
-		}else{
-			//取消收藏
-			
-			$.ajax({
-				type:"POST",
-				url:"<%=basePath%>/collection/remove",
-				contentType:"application/json",
-				data:JSON.stringify({
-					userId:"${user.userId}",
-					poemId:$li.parent().attr("id")
-				}),
-				dataType:"text",
-				success:function(json){
-					if("success"==json){
-						$li.removeClass("orangeLi").addClass("grayLi");
-						alert("取消收藏！");
-					}else{
-						alert("取消失败！");
-					}
-				}
-			});
-		}
-	});
-	//点赞处理
-	$(document).on("click","li.support span",function(){
-		$li=$(this).parent();
-		var $thumb_number = $li.find(".thumb-number");
-        var thumb_number_text = parseInt($thumb_number.html());   /*parseInt转换为数字*/
-        // 由于需要更新点赞次数，就不调用clickLi()仅改变颜色
-        if($li.hasClass("grayLi")){
-        	$.ajax({
-        		type:"POST",
-        		url:"<%=basePath%>/support/add",
-        		contentType:"application/json",
-        		data:JSON.stringify({
-        			userId:"${user.userId}",
-        			poemId:$li.parent().attr("id")
-        		}),
-        		dataType:"text",
-        		success:function(json){
-        			if(json=="success"){
-        				alert("成功");
-        				var new_thumb = thumb_number_text + 1;  /*new_thumb需传送给后台*/
-        	            $thumb_number.html(new_thumb);  /*不能用++*/
-        	            $li.removeClass("grayLi").addClass("orangeLi");
-        			}else{
-        				alert("失败");
-        			}
-        		}
-        	});
-            
-        }else if($li.hasClass("orangeLi")){
-        	$.ajax({
-        		type:"POST",
-        		url:"<%=basePath%>/support/remove",
-        		contentType:"application/json",
-        		data:JSON.stringify({
-        			userId:"${user.userId}",
-        			poemId:$li.parent().attr("id")
-        		}),
-        		dataType:"text",
-        		success:function(json){
-        			if(json=="success"){
-        				alert("成功");
-        				var new_thumb = thumb_number_text - 1;
-        	            $thumb_number.html(new_thumb);
-        	            $li.removeClass("orangeLi").addClass("grayLi");
-        			}else{
-        				alert("失败");
-        			}
-        		}
-        	});
-            
-        }
-	});
-	//转发处理
-	$(document).on("click","li.share span",function(){
-		$current_article=$(this).parents(".dynamic");
-		$ul=$(this).parents("ul");
-		var author = $current_article.find(".dynamic-author a").html();
-		var title = $current_article.find(".dynamic-title a").html();
-		var poemId=$current_article.find().html();
-		$("#myModal .share-author").html(author);
-		$("#myModal .share-title").html(title);
-		$("#modal-poemId").val($ul.attr("id"));
-		
-	});
-});
-</script>
 
-<script type="text/javascript">
-function addPoem(data){
-	var str='<article  class="dynamic" id="article-'+data.poemId+'">';
-	str+='<div class="dynamic-head">';
-	str+=' <h1 class="dynamic-title">';
-	str+='<a href="zheyeshiyiqie.html">';
-	str+=data.poemTitle;
-	str+='</a></h1><div class="dynamic-meta"><span class="dynamic-author">';
-	str+='作者:<a target="_blank" href="wangsai.html">';
-	str+='${user.userName}';
-	str+='</a></span><time class="dynamic-time">刚刚</time></div></div>';
-	str+='<div class="dynamic-content">';
-	var content=data.poemText.split("|");
-	if(content.length<=5){
-		for(var i in content){
-			str+='<p>'+content[i]+'</p>';
-		}
-	}else{
-		for(var i=0;i<5;i++){
-			str+='<p>'+content[i]+'</p>';
-		}
-		str+='<span class="expand">展开全文</span>';
-		for(var i=5;i<content.length;i++){
-			str+='<p class="hide">'+content[i]+'</p>';
-		}
-		str+='<span class="pack-up hide">收起全文</span>';
-	}
-	
-	str+='</div>';
-	if(data.poemImg){
-		str+='<div class="row"><div class="dynamic-img col-sm-7 col-xs-9">';
-		str+='<img src="<%=basePath %>/img/poem/'
-		str+=data.poemImg;
-		str+='" alt="这也是一切" /></div></div>';
-	}
-	str+='<div class="dynamic-action"><div class="row"><ul id="';
-	str+=data.poemId+'">'
-	str+='<li class="col-xs-3 keep grayLi collection" >';
-	str+='<span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>';
-	str+='</li><li class="col-xs-3 share"><a href="#" data-toggle="modal" data-target="#myModal">';
-	str+='<span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-'+data.poemId+'">0</span></a></li>';
-	str+='<li class="col-xs-3 comment"><span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-'+data.poemId+'">0</span>';
-	str+='</li><li class="col-xs-3 thumb support grayLi"><span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">0</span>';
-	str+='</li></ul></div></div>';
-	
-	str+='<div class="comment-wrap"><div class="dynamic-comment"><div class="send-comment">';
-	str+='<a href="mine.html"><img src="<%=basePath %>/img/common/writeComment.jpg" alt="输入你的评论" />';
-	str+='</a><textarea name="comment" class="input-comment" rows="2"></textarea><br />';
-	str+='<button class="btn-comment btn btn-default">评论</button></div>';
-	str+='<div class="more-comment"><span>加载更多</span><span class="no-more hide">没有更多评论了</span></div>';
-	str+='</div></div></article>';
-	$("#articleDiv").prepend(str);
-}
-$("#addPoem").click(function(){
-	//如果有图片
-	if($("#file").val()){
-		var uid=$("#userId").val();
-		var imgPath="";
-		$.ajaxFileUpload({  
-	        //处理文件上传操作的服务器端地址(可以传参数,已亲测可用)  
-	        url:'<%=basePath%>/poem/imageUpload?uid='+uid,  
-	        secureuri:false,                           //是否启用安全提交,默认为false   
-	        fileElementId:'file',               //文件选择框的id属性  
-	        dataType:'text',                           //服务器返回的格式,可以是json或xml等  
-	        success:function(data, status){ 
-	        	$("#data").empty();
-	        	$("#data").append(data);
-	        	imgPath=$("#data").text();
-	        //	alert("dataText:"+imgPath);
-	        },
-	        complete:function(){
-	        	if(imgPath.search(/poem/)!=-1){
-	        		$.ajax({
-	        			type:"POST",
-	        			url:"<%=basePath%>/poem/addPoem",
-	        			contentType:"application/json",
-	        			data:JSON.stringify({
-	        				userId:$("#userId").val(),
-	        				poemTitle:$("#put-out-title").val(),
-	        				poemText:$("#put-out-content").val(),
-	        				poemImg:imgPath
-	        			}),
-	        			dataType:"json",
-	        			success:function(data){
-	        				if(!data.poemId){
-	        					alert("发表失败！");
-	        				}else{
-	        					addPoem(data);
-	        					alert("发表成功");
-	        				}
-	        				clearPutting();
-	        			}
-	        		});
-	        	}else{
-	        		alert("图片上传失败！");
-	        	}
-	        }
-	    });
-	}else{
-		$.ajax({
-			type:"POST",
-			url:"<%=basePath%>/poem/addPoem",
-			contentType:"application/json",
-			data:JSON.stringify({
-				userId:$("#userId").val(),
-				poemTitle:$("#put-out-title").val(),
-				poemText:$("#put-out-content").val(),
-			}),
-			dataType:"json",
-			success:function(data){
-				if(!data.poemId){
-					alert("发表失败！");
-				}else{
-					addPoem(data);
-					alert("发表成功");
-				}
-				
-				clearPutting();
-			}
-		});
-	
-	}
-});
-
-
-</script>
--->
 <script type="text/javascript">
 $(document).ready(function(){
 	if("${user}"!=""){

@@ -3,6 +3,7 @@ package com.crm.dao;
 import java.util.ArrayList;
 
 import com.crm.model.*;
+import com.crm.util.HomeUserUtil;
 import com.crm.util.UserUtil;
 
 public interface UserDao {
@@ -27,4 +28,6 @@ public interface UserDao {
 	public ArrayList<User> getConcernUserListById(Integer uid,int length);
 
 	public ArrayList<User> getFansListById(Integer uid, int concernsperpage);
+
+	public ArrayList<HomeUserUtil> getRecommendUsers();
 }

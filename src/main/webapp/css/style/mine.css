@@ -59,7 +59,7 @@ nav.mine-sidebar ul li.active a:hover {
     color: white !important;
 }
 
-.my-friends, .my-fans, .my-infos, .my-security, .my-collections, .my-poems, .aboutus{
+.my-friends, .my-fans, .my-infos, .my-security, .my-collections, .my-poems, .my-shares, .aboutus{
     padding-bottom: 25px;
     border: 2px solid #E1E1E1;
     background-color: white;
@@ -69,12 +69,12 @@ nav.mine-sidebar ul li.active a:hover {
     float: left;
     margin: 9px;
 }
-.my-friends .content, .my-fans .content, .my-infos .content, .my-collections .content, .my-poems .content{
+.my-friends .content, .my-fans .content, .my-infos .content, .my-collections .content, .my-poems .content, .my-shares .content{
     clear: both;
     padding-top: 10px;
     border-top: 2px solid #E1E1E1;
 }
-.no-friend, .no-fan, .no-collection, .no-poem{
+.no-friend, .no-fan, .no-collection, .no-poem, .no-share{
     margin: 60px 0;
     text-align: center;
     font-size: 25px;
@@ -321,13 +321,13 @@ input.labelauty + label{
 
 
 /*诗集与收藏共用样式*/
-.poem-remove, .col-remove{
+.poem-remove, .col-remove, .share-remove{
     float: right;
     margin: 0 -20px 5px 0;
     cursor: pointer;
     color: #949494;
 }
-.poem-remove:hover, .col-remove:hover{
+.poem-remove:hover, .col-remove:hover, .share-remove:hover{
     color: #333;
 }
 .poem-title a, .col-title a{
@@ -352,10 +352,10 @@ input.labelauty + label{
 }
 
 /*我的诗集*/
-.my-poems .content{
+.my-poems .content, .my-shares .content{
     padding-top: 20px;
 }
-.my-poems .poem{
+.my-poems .poem, .my-shares .share{
     font-family: "微软雅黑", Arial, sans-serif;
     vertical-align:middle;
     margin-left: 15px;
@@ -371,10 +371,11 @@ input.labelauty + label{
     padding: 0;
     overflow: hidden;
 }
-.my-poems .poem .img img{
-    width: 96%;
-    margin-left: 2%;
-    margin-right: 2%;
+.poem .img img{
+    /*width: 96%;*/
+    /*margin-left: 2%;*/
+    /*margin-right: 2%;*/
+    overflow: hidden;
 }
 .poem-title{
     width: 60%;
@@ -477,4 +478,53 @@ input.labelauty + label{
 }
 .col-remove{
     margin-right: 0px;
+}
+
+/*我的转发*/
+.my-shares .share{
+    position: relative;
+}
+.my-shares .share .share-time{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 13px;
+    color: #949494;
+}
+.my-shares .share .shared-reason{
+    margin-top: 25px;
+}
+.my-shares .share .orig{
+    position: relative;
+    margin: 5px 0;
+    padding: 7px 10px;
+    border: 1px dotted #8c8c8c;
+    border-radius: 5px;
+    background-color: rgb(245,245,245);
+}
+.my-shares .share .orig .img{
+    float: left;
+    width: 170px;
+    height: 100px;
+    overflow: hidden;
+}
+.my-shares .share .orig .orig-title{
+    display: inline-block;
+    width: 120px;
+    margin: 10px 0 0 10px;
+    text-decoration: none;
+    color: #949494;
+}
+.my-shares .share .orig .orig-author{
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    color: #E67E22;
+    display: inline-block;
+    width: 130px;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    text-overflow: ellipsis;
 }

@@ -43,14 +43,13 @@ button{
 }
 /*头部右上方相关链接*/
 .header{
-    width:100%;
     padding-top: 50px;
+    position: absolute;
+    right: 70px;
+    z-index: 300;
 }
 .header .header_content{
-    width: 90%;
     height:30px;
-    /*margin:0 auto;*/
-    /*padding-right: 20px;*/
 }
 .header .header_content .title{
     float:right;
@@ -58,7 +57,7 @@ button{
 .header .header_content .title li{
     display: inline-block;
     /*height:30px;*/
-    margin-left: 25px;
+    margin-left: 20px;
 }
 .header .header_content .title li a{
     display: block;
@@ -73,6 +72,7 @@ button{
     top: 40px;
     width: 100%;
     text-align: center;
+    z-index: 200;
 }
 .main-header .icon img{
     width: 140px;

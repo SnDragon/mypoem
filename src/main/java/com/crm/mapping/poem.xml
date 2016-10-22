@@ -25,6 +25,16 @@
 		<result property="poemPublishTime" column="poem_publish_time" />
 		<result property="poemImg" column="poem_img" />
 	</resultMap>
+	<resultMap type="com.crm.util.HomePoemUtil" id="homePoemUtilMap">
+		<result property="poemId" column="poem_id" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="poemImg" column="poem_img" />
+	</resultMap>
+	<resultMap type="com.crm.util.HomeOtherPoemUtil" id="homeOtherPoemUtilMap">
+		<result property="poemId" column="id" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="authorName" column="author_name" />
+	</resultMap>
 	
 	<sql id="poemColumns">
 		poem_id,user_id,poem_text,poem_title,poem_num_support,poem_num_comment,
@@ -70,7 +80,7 @@
 	
 	<select id="getPoemUtilById" resultMap="poemUtilMap">
 		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
-		where MP_user.user_id=#{0} and MP_Poem.poem_id=#{1}
+		where MP_Poem.poem_id=#{0} and MP_user.user_id=MP_poem.user_id
 	</select>
 	
 	<update id="addTransmit">
@@ -101,4 +111,12 @@
 		delete from MP_poem where poem_id=#{0} and user_id=#{1}
 	</delete>
 	
+	<select id="getHomePoemUtils" resultMap="homePoemUtilMap">
+		select poem_id,poem_title,poem_Img from MP_poem,MP_recommend_poem
+		where MP_recommend_poem.pid=MP_poem.poem_id limit 0,3
+	</select>
+	
+	<select id="getHomeOtherPoemUtils" resultMap="homeOtherPoemUtilMap">
+		select id,author_name,poem_title from MP_other_recommend limit 0,11;
+	</select>
 </mapper>

@@ -71,6 +71,42 @@ public class ConcernServiceImpl implements ConcernService{
 		return concernDao.getConcernUserByPageNum(userId,pageNum*PageUtil.CONCERNSPERPAGE-1);
 	}
 
+	@Override
+	public Integer isCocernedByUUId(Integer concernerId, Integer concernedId) {
+		if(concernDao.getConcernByUUId(concernerId,concernedId)>0){
+			return new Integer(1);
+		}else{
+			return null;
+		}
+	}
+
+	@Override
+	public boolean addConcern(Concern concern) {
+		if(concernDao.addConcern(concern)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@Override
+	public ArrayList<User> getFansByUId(Integer uid) {
+		if(uid==null){
+			return null;
+		}else{
+			return concernDao.getFansByUId(uid);
+		}
+	}
+
+	@Override
+	public ArrayList<User> getConcernsById(Integer uid) {
+		if(uid==null){
+			return null;
+		}else{
+			return concernDao.getConcernsById(uid);
+		}
+	}
+
 	
 
 	

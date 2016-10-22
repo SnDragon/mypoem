@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>我的关注</title>
+    <title>我的粉丝</title>
     <link rel="stylesheet" href="<%=basePath %>/css/lib/reset.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/lib/jquery.pagination.css" />
@@ -77,6 +77,13 @@ $(document).ready(function(){
 	}
 	$(".menu li:eq(3)").addClass("current-page");
 	$(".mine-sidebar li:eq(2)").addClass("active");
+	
+	var $title=$("span.title");
+	var num=$title.html().slice(5);
+    if(Number(num)==0){
+    	//$title.addClass("hide");
+    	$(".no-fan").removeClass("hide");
+    }
 });
 </script>
 </body>
