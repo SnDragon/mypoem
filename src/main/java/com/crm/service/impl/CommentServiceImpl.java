@@ -7,12 +7,16 @@ import javax.annotation.Resource;
 
 import org.omg.CORBA.INTF_REPOS;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.CommentDao;
 import com.crm.model.Comment;
 import com.crm.service.CommentService;
 import com.crm.service.PoemService;
 @Service("commentService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class CommentServiceImpl implements CommentService{
 
 	@Resource

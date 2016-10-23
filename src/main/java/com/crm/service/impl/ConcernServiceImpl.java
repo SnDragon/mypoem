@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.ConcernDao;
 import com.crm.model.Concern;
@@ -12,6 +14,7 @@ import com.crm.model.User;
 import com.crm.service.ConcernService;
 import com.crm.util.PageUtil;
 @Service("concernService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class ConcernServiceImpl implements ConcernService{
 	@Resource
 	private ConcernDao concernDao;

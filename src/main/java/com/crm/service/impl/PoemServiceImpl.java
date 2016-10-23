@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.PoemDao;
 import com.crm.model.Poem;
@@ -18,6 +20,7 @@ import com.crm.util.HomePoemUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
 @Service("poemService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class PoemServiceImpl implements PoemService{
 	@Resource
 	private PoemDao poemDao;

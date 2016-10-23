@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.ConcernDao;
 import com.crm.dao.UserDao;
@@ -16,6 +18,7 @@ import com.crm.util.HomeUserUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.UserUtil;
 @Service("userService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class UserServiceImpl implements UserService {
      @Resource
 	private UserDao userDao;

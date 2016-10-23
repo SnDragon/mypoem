@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.TransmitDao;
 import com.crm.model.Transmit;
@@ -13,6 +15,7 @@ import com.crm.service.TransmitService;
 import com.crm.util.PageUtil;
 import com.crm.util.TransmitUtil;
 @Service("transmitService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class TransmitServiceImpl implements TransmitService{
 	
 	@Resource

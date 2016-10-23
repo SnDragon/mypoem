@@ -3,12 +3,15 @@ package com.crm.service.impl;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.SupportDao;
 import com.crm.model.Support;
 import com.crm.service.PoemService;
 import com.crm.service.SupportService;
 @Service("supportService")
+@Transactional(propagation=Propagation.REQUIRED)
 public class SupportServiceImpl implements SupportService{
 	@Resource
 	private SupportDao supportDao;

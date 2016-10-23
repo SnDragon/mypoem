@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.CollectionDao;
 import com.crm.model.Collection;
@@ -12,6 +15,7 @@ import com.crm.service.CollectionService;
 import com.crm.util.CollectionUtil;
 import com.crm.util.PageUtil;
 @Service("collectionService")
+@Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT)
 public class CollectionServiceImpl implements CollectionService{
 	@Resource
 	private CollectionDao collectionDao;
