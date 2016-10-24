@@ -263,7 +263,7 @@
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script>
 $(document).ready(function(){
-	if("${user}"!=""){
+	if("${user.userId}"){
 		$(".friendCircle").removeClass("hide");
 		$(".person").removeClass("hide");
 	}

@@ -6,4 +6,5 @@ public class PageUtil {
 	public static final int CREATIONPERPAGE=2;//每页显示的诗歌数(原创)
 	public static final int COLLECTIONPERPAGE=2;//每页显示的收藏的诗歌数
 	public static final int TRANSMITPERPAGE=2;//每页显示的转发诗歌数
+	public static final int OTHERPOEMPERPAGE=4;
 }

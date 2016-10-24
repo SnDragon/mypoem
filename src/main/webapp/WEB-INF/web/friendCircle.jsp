@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="<%=basePath %>/css/style/main.css" />
     <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 	<script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/js/custom/commonFunction.js"></script>
+	
 </head>
 <body>
 <%@include file="header.jsp" %>
@@ -27,10 +29,10 @@
            <main class="col-md-10 col-md-push-1 main-content">
                 <!--发布-->
                 <div class="put-out">
-                    <h4>发布</h4>
+                     <i>在这里发布你的原创诗歌吧！</i>
                     <div class="input-group">
-                        <span class="input-group-addon">标题：</span>
-                        <input class="form-control" name="put-out-title" id="put-out-title" />
+                        <!--<span class="input-group-addon">标题：</span>-->
+                        <input class="form-control" name="put-out-title" id="put-out-title" placeholder="请输入标题" />
                     </div>
                     <div class="input-group">
                         <textarea class="form-control" name="put-out-content" id="put-out-content" cols="30" rows="10"></textarea>
@@ -47,8 +49,28 @@
                                 <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;公开</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;仅自己可见</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####"><span class="glyphicon glyphicon-globe"></span>&nbsp;&nbsp;公开</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####"><span class="glyphicon glyphicon-lock"></span>&nbsp;&nbsp;仅自己可见</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                         <div class="label">
+                            <div class="dropdown btn-group">
+                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown">
+                                    其他
+                                   <span class="caret"></span> 
+                                </button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-2">校园</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-3">友情</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-4">旅游</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-5">励志</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-6">日常</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-7">思乡</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-8">风景</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-9">哲理</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-10">爱情</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="####" id="label-1" class="selected">其他</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -159,12 +181,9 @@
                         </div>
                     </div>
                      <script type="text/javascript">
-                	var date=new Date(Number("${poemUtil.poemPublishTime.time}"));
-                	var Y = date.getFullYear() + '-';
-                	M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                	D = date.getDate() + ' ';
-                	var id="${poemUtil.poemId}";
-                	$("#time_"+id).html(Y+M+D);
+                     var time=transferTime("${poemUtil.poemPublishTime.time}")
+                 	var id="${poemUtil.poemId}";
+                 	$("#time_"+id).html(time);
                 </script>
                 </article>
                
@@ -233,7 +252,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user}"!=""){
+	if("${user.userId}"){
 		$(".friendCircle").removeClass("hide");
 		$(".person").removeClass("hide");
 	}

@@ -19,7 +19,6 @@ public class PoemUtil {
 	private Integer poemNumTransmit;
 	
 	
-	
 	@Override
 	public String toString() {
 		return "PoemUtil [poemId=" + poemId + ", userId=" + userId + ", poemTitle=" + poemTitle + ", poemText="

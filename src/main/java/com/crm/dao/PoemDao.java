@@ -2,6 +2,7 @@ package com.crm.dao;
 
 import java.util.ArrayList;
 
+import com.crm.model.OtherPoem;
 import com.crm.model.Poem;
 import com.crm.util.HomeOtherPoemUtil;
 import com.crm.util.HomePoemUtil;
@@ -39,6 +40,18 @@ public interface PoemDao {
 	public ArrayList<HomePoemUtil> getHomePoemUtils();
 
 	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
+
+	public ArrayList<PoemUtil> getPoemUtilsByLId(Integer lid);
+
+	public int getOtherPoemNumber();
+
+	public ArrayList<OtherPoem> getOtherPoemListByPage(int begin, int length);
+
+	public OtherPoem getOtherPoemById(Integer oid);
+
+	public OtherPoem getPrevOtherPoemById(Integer oid);
+
+	public OtherPoem getNextOtherPoemById(Integer oid);
 
 
 }

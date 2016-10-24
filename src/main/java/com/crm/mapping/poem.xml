@@ -12,6 +12,8 @@
 		<result property="poemNumTransmit" column="poem_num_transmit" />
 		<result property="poemPublishTime" column="poem_publish_time" />
 		<result property="poemImg" column="poem_img" />
+		<result property="labelId" column="label_id" />
+		<result property="labelName" column="label_name" />
 	</resultMap>
 	<resultMap type="com.crm.util.PoemUtil" id="poemUtilMap">
 		<id property="poemId" column="poem_id"/>
@@ -35,6 +37,13 @@
 		<result property="poemTitle" column="poem_title" />
 		<result property="authorName" column="author_name" />
 	</resultMap>
+	<resultMap type="com.crm.model.OtherPoem" id="otherPoemMap">
+		<result property="poemId" column="id" />
+		<result property="poemTitle" column="poem_title" />
+		<result property="authorName" column="author_name" />
+		<result property="poemText" column="poem_text" />
+		<result property="publishTime" column="publish_time" />
+	</resultMap>
 	
 	<sql id="poemColumns">
 		poem_id,user_id,poem_text,poem_title,poem_num_support,poem_num_comment,
@@ -44,11 +53,12 @@
 		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,
 		poem_num_comment,poem_num_transmit,poem_publish_time,poem_img
 	</sql>
+	
 	<insert id="insertPoem" parameterType="com.crm.model.Poem" useGeneratedKeys="true" keyProperty="poemId">
-		insert into MP_poem(user_id,poem_title,poem_text,poem_publish_time
+		insert into MP_poem(user_id,poem_title,poem_text,poem_publish_time,label_id,label_name
 		<if test="poemImg!=null">,poem_img</if>
 		)
-		values(#{userId},#{poemTitle},#{poemText},#{poemPublishTime}
+		values(#{userId},#{poemTitle},#{poemText},#{poemPublishTime},#{labelId},#{labelName}
 		<if test="poemImg!=null">,#{poemImg}</if>
 		)
 	</insert>
@@ -118,5 +128,34 @@
 	
 	<select id="getHomeOtherPoemUtils" resultMap="homeOtherPoemUtilMap">
 		select id,author_name,poem_title from MP_other_recommend limit 0,11;
+	</select>
+	
+	<select id="getPoemUtilsByLId" resultMap="poemUtilMap">
+		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
+		where MP_Poem.label_id=#{0} and MP_user.user_id=MP_poem.user_id
+	</select>
+	
+	<select id="getOtherPoemNumber" resultType="int">
+		select count(id) from MP_other_recommend
+	</select>
+	
+	<select id="getOtherPoemListByPage" resultMap="otherPoemMap">
+		select id,author_name,poem_title,poem_text,publish_time 
+		from MP_other_recommend limit #{0},#{1}
+	</select>
+	
+	<select id="getOtherPoemById" resultMap="otherPoemMap">
+		select id,author_name,poem_title,poem_text,publish_time 
+		from MP_other_recommend where id=#{0}
+	</select>
+	
+	<select id="getNextOtherPoemById" resultMap="otherPoemMap">
+		select id,poem_title from MP_other_recommend 
+		where id = (select id from MP_other_recommend where id &gt; #{0} order by id asc limit 1);  
+	</select>
+	<!-- <要转义 -->
+	<select id="getPrevOtherPoemById" resultMap="otherPoemMap">
+		select id,poem_title from MP_other_recommend 
+		where id = (select id from MP_other_recommend where id &lt; #{0} order by id desc limit 1);  
 	</select>
 </mapper>

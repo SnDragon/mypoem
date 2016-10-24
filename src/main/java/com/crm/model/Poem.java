@@ -12,8 +12,33 @@ public class Poem {
 	private Integer poemNumTransmit;
 	private Timestamp poemPublishTime;
 	private String poemImg;
+	private Integer labelId;
+	private String labelName;
 	
-	
+
+	@Override
+	public String toString() {
+		return "Poem [poemId=" + poemId + ", userId=" + userId + ", poemText=" + poemText + ", poemTitle=" + poemTitle
+				+ ", poemNumSupport=" + poemNumSupport + ", poemNumComment=" + poemNumComment + ", poemNumTransmit="
+				+ poemNumTransmit + ", poemPublishTime=" + poemPublishTime + ", poemImg=" + poemImg + ", labelId="
+				+ labelId + ", labelName=" + labelName + "]";
+	}
+
+	public Integer getLabelId() {
+		return labelId;
+	}
+
+	public void setLabelId(Integer labelId) {
+		this.labelId = labelId;
+	}
+
+	public String getLabelName() {
+		return labelName;
+	}
+
+	public void setLabelName(String labelName) {
+		this.labelName = labelName;
+	}
 
 	public Integer getPoemNumComment() {
 		return poemNumComment;
@@ -24,12 +49,7 @@ public class Poem {
 	}
 
 	
-	@Override
-	public String toString() {
-		return "Poem [poemId=" + poemId + ", userId=" + userId + ", poemText=" + poemText + ", poemTitle=" + poemTitle
-				+ ", poemNumSupport=" + poemNumSupport + ", poemNumComment=" + poemNumComment + ", poemNumTransmit="
-				+ poemNumTransmit + ", poemPublishTime=" + poemPublishTime + ", poemImg=" + poemImg + "]";
-	}
+	
 
 	public Integer getPoemNumTransmit() {
 		return poemNumTransmit;

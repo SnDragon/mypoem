@@ -304,6 +304,19 @@ $(function(){
         $btn_preview.css("border-color", "#E67E22");
         putting();
     });
+    
+    // 标签选择
+    var $label = $(".label");
+    var $label_btn = $label.find("button");
+    var $options2 = $label.find("a");
+    $options2.click(function () {
+    	$(".dropdown-menu li a").removeClass("selected");
+    	$(this).addClass("selected");
+        var text = $(this).text() + " <span class='caret'></span>";
+        $label_btn.html(text);
+//        alert($("a.selected").html());
+//        alert($("a.selected").attr("id").slice(6));
+    });
 });
 
 // “收藏”等被点击时的样式处理

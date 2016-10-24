@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.PoemDao;
+import com.crm.model.OtherPoem;
 import com.crm.model.Poem;
 import com.crm.service.CollectionService;
 import com.crm.service.PoemService;
@@ -271,6 +272,73 @@ public class PoemServiceImpl implements PoemService{
 	@Override
 	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils() {
 		return poemDao.getHomeOtherPoemUtils();
+	}
+
+
+	@Override
+	public ArrayList<PoemUtil> getPoemUtilsByLID(Integer userId,Integer lid) {
+		ArrayList<PoemUtil> poemUtils=poemDao.getPoemUtilsByLId(lid);
+		if(userId==null){
+			for(PoemUtil poemUtil:poemUtils){
+					poemUtil.setIsCollected(false);
+					poemUtil.setIsSupported(false);
+			}
+		}else{
+			for(PoemUtil poemUtil:poemUtils){
+				if(collectionService.isCollectionExisted(userId,poemUtil.getPoemId())){
+					poemUtil.setIsCollected(true);
+				}else{
+					poemUtil.setIsCollected(false);
+				}
+				if(supportService.isSupportExisted(userId,poemUtil.getPoemId())){
+					poemUtil.setIsSupported(true);
+				}else{
+					poemUtil.setIsSupported(false);
+				}
+			}
+		}
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+			String[] poemRow=poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
+		return poemUtils;
+	}
+
+
+	@Override
+	public int getOtherPoemNumber() {
+		return poemDao.getOtherPoemNumber();
+	}
+
+
+	@Override
+	public ArrayList<OtherPoem> getOtherPoemListByPage(Integer page) {
+		int begin=PageUtil.OTHERPOEMPERPAGE*(page-1);
+		ArrayList<OtherPoem> otherPoems=poemDao.getOtherPoemListByPage(begin,PageUtil.OTHERPOEMPERPAGE);
+		for(OtherPoem poem:otherPoems){
+			String text=poem.getPoemText();
+			poem.setPoemText(text.replaceAll("\\|", ""));
+		}
+		return otherPoems;
+	}
+
+
+	@Override
+	public OtherPoem getOtherPoemById(Integer oid) {
+		return poemDao.getOtherPoemById(oid);
+	}
+
+
+	@Override
+	public OtherPoem getPrevOtherPoemById(Integer oid) {
+		return poemDao.getPrevOtherPoemById(oid);
+	}
+
+
+	@Override
+	public OtherPoem getNextOtherPoemById(Integer oid) {
+		return poemDao.getNextOtherPoemById(oid);
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.crm.model.Label;
+import com.crm.model.OtherPoem;
 import com.crm.model.Poem;
 import com.crm.model.User;
+import com.crm.service.LabelService;
 import com.crm.service.PoemService;
+import com.crm.util.Page;
+import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
-import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 
 @Controller
@@ -32,6 +37,8 @@ import com.sun.org.apache.xpath.internal.operations.Mod;
 public class PoemController {
 	@Resource
 	private PoemService poemService;
+	@Resource
+	private LabelService labelServcie;
 	
 	@ResponseBody
 	@RequestMapping(value="/addPoem",method=RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -126,8 +133,55 @@ public class PoemController {
 //		String uid=request.getParameter("uid");
 //		return poemService.getPoemListByPage(page,uid);
 //	}
-	@RequestMapping(value="/oid/{pid}",method=RequestMethod.GET)
-	public ModelAndView showOtherPoem(){
-		return null;
+	
+	@RequestMapping(value="/lid/{lid}",method=RequestMethod.GET)
+	public ModelAndView showLabel(@PathVariable("lid")Integer lid,HttpSession session){
+		ModelAndView modelAndView=new ModelAndView("showLabel");
+		Label label=labelServcie.getLabelById(lid);
+		modelAndView.addObject("label",label);
+		User user=(User)session.getAttribute("user");
+		ArrayList<PoemUtil> poemUtils=null;
+		if(user!=null){
+			poemUtils=poemService.getPoemUtilsByLID(user.getUserId(),lid);
+		}else{
+			poemUtils=poemService.getPoemUtilsByLID(null,lid);
+		}
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+		}
+		modelAndView.addObject("poemUtilList",poemUtils);
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/oid/{oid}",method=RequestMethod.GET)
+	public ModelAndView showOtherPoem(@PathVariable("oid")Integer oid){
+		ModelAndView modelAndView=new ModelAndView("showOtherPoem");
+		OtherPoem poem=poemService.getOtherPoemById(oid);
+		System.out.println(poem);
+		modelAndView.addObject("poem",poem);
+		OtherPoem prev=poemService.getPrevOtherPoemById(oid);
+		OtherPoem next=poemService.getNextOtherPoemById(oid);
+		modelAndView.addObject("prev",prev);
+		modelAndView.addObject("next",next);
+		System.out.println(prev);
+		System.out.println(next);
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value="/others",method=RequestMethod.GET)
+	public ModelAndView showOtherPoems(@RequestParam(value="page",defaultValue="1")Integer page){
+		ModelAndView modelAndView=new ModelAndView("showOtherPoems");
+		int number=poemService.getOtherPoemNumber();
+		System.out.println("page:"+page);
+		System.out.println("number:"+number);
+		ArrayList<OtherPoem> otherPoemList=poemService.getOtherPoemListByPage(page);
+		for(OtherPoem poem:otherPoemList){
+			System.out.println(poem);
+		}
+		Page p=new Page(page,number,PageUtil.OTHERPOEMPERPAGE);
+		modelAndView.addObject("page",p);
+		modelAndView.addObject("otherPoemList",otherPoemList);
+		return modelAndView;
 	}
 }

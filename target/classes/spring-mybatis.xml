@@ -109,9 +109,8 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 	
-	<!--  
-	<tx:annotation-driven transaction-manager="transactionManager"  proxy-target-class="true"/>
-	-->
+	<!-- 开启注解驱动 --> 
+	<tx:annotation-driven transaction-manager="transactionManager" />
    	
 	
 </beans>

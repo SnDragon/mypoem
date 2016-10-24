@@ -105,7 +105,7 @@
 <script src="<%=basePath %>/js/style/mine.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user}"!=""){
+	if("${user.userId}"){
 		$(".friendCircle").removeClass("hide");
 		$(".person").removeClass("hide");
 	}

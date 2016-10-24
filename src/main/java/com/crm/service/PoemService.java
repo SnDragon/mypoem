@@ -2,6 +2,7 @@ package com.crm.service;
 
 import java.util.ArrayList;
 
+import com.crm.model.OtherPoem;
 import com.crm.model.Poem;
 import com.crm.util.HomeOtherPoemUtil;
 import com.crm.util.HomePoemUtil;
@@ -42,4 +43,16 @@ public interface PoemService {
 	public ArrayList<HomePoemUtil> getHomePoemUtils();
 
 	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
+
+	public ArrayList<PoemUtil> getPoemUtilsByLID(Integer userId,Integer lid);
+
+	public int getOtherPoemNumber();
+
+	public ArrayList<OtherPoem> getOtherPoemListByPage(Integer page);
+
+	public OtherPoem getOtherPoemById(Integer oid);
+
+	public OtherPoem getPrevOtherPoemById(Integer oid);
+
+	public OtherPoem getNextOtherPoemById(Integer oid);
 }

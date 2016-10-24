@@ -80,7 +80,9 @@ $("#addPoem").click(function(){
 	        				userId:$("#userId").val(),
 	        				poemTitle:$("#put-out-title").val(),
 	        				poemText:$("#put-out-content").val(),
-	        				poemImg:imgPath
+	        				poemImg:imgPath,
+	        				labelId:$("a.selected").attr("id").slice(6),
+	        				labelName:$("a.selected").html()
 	        			}),
 	        			dataType:"json",
 	        			success:function(data){
@@ -107,6 +109,8 @@ $("#addPoem").click(function(){
 				userId:$("#userId").val(),
 				poemTitle:$("#put-out-title").val(),
 				poemText:$("#put-out-content").val(),
+				labelId:$("a.selected").attr("id").slice(6),
+				labelName:$("a.selected").html()
 			}),
 			dataType:"json",
 			success:function(data){

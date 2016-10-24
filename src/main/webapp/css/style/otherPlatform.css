@@ -1,0 +1,43 @@
+.main-content{
+    background-color: white;
+    border: 2px solid #E1E1E1
+}
+.main-content>ul{
+    padding: 30px 8% 0 8%;
+}
+.plat{
+    display: inline-block;
+    padding: 15px 20px;
+    border-bottom: 1px dotted #8c8c8c;
+    cursor: pointer;
+}
+.plat:hover{
+    background-color: #f5f5f5;
+}
+.plat .plat-title{
+    font-weight: bold;
+}
+.plat .plat-title:hover{
+    color: black;
+}
+.plat .plat-author{
+    margin-left: 10px;
+    color: #aaa;
+}
+.plat .plat-content-wrapper{
+    margin: 10px 0 20px 0;
+}
+.plat .plat-content-wrapper .plat-content{
+    margin-left: 10px;
+    color: #717171;
+    font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 23px;
+}
+.pageWrap{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.pageWrap .m-pagination{
+    display: inline-block;
+}

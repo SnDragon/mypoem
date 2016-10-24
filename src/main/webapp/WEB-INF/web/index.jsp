@@ -60,7 +60,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">校园</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/2" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-2">
@@ -69,7 +69,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">旅游</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/4" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-3">
@@ -78,7 +78,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">日常</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/6" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-2">
@@ -87,7 +87,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">风景</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/8" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-3">
@@ -96,7 +96,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">爱情</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/10" target="_blank">进入标签页</a>
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">友情</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/3" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-2">
@@ -115,7 +115,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">励志</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/5" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-3">
@@ -124,7 +124,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">思乡</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/7" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-2">
@@ -133,7 +133,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">哲理</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/9" target="_blank">进入标签页</a>
                         </div>
                     </div>
                     <div class="col-xs-2">
@@ -142,7 +142,7 @@
                             <div class="mask-bottom"></div>
                             <span class="label-name">其他</span>
                             <div class="mask-all"></div>
-                            <a class="to-specific" href="zheyeshiyiqie.html" target="_blank">进入标签页</a>
+                            <a class="to-specific" href="<%=basePath %>/poem/lid/1" target="_blank">进入标签页</a>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
                 <div class="others-poem">
                     <div class="tip">
                         其他平台诗歌推荐
-                        <small><a href="zheyeshiyiqie.html" target="_blank">更多>></a></small>
+                        <small><a href="<%=basePath %>/poem/others" target="_blank">更多>></a></small>
                     </div>
                     <dl class="poems">
                     <c:forEach items="${otherPoemUtils }" var="poem">
@@ -280,7 +280,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	if("${user}"!=""){
+	if("${user.userId}"){
 		$(".friendCircle").removeClass("hide");
 		$(".person").removeClass("hide");
 	}
