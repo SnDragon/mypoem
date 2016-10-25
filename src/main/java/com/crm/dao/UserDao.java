@@ -30,4 +30,6 @@ public interface UserDao {
 	public ArrayList<User> getFansListById(Integer uid, int concernsperpage);
 
 	public ArrayList<HomeUserUtil> getRecommendUsers();
+
+	public ArrayList<User> getUserListByKey(String key);
 }

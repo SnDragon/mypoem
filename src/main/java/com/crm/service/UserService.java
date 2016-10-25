@@ -32,4 +32,6 @@ public interface UserService {
 	public ArrayList<User> getFansListById(Integer uid);
 
 	public ArrayList<HomeUserUtil> getRecommendUsers();
+
+	public ArrayList<User> getUserListByKey(String key);
 }

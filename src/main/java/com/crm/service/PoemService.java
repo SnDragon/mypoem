@@ -55,4 +55,6 @@ public interface PoemService {
 	public OtherPoem getPrevOtherPoemById(Integer oid);
 
 	public OtherPoem getNextOtherPoemById(Integer oid);
+
+	public ArrayList<PoemUtil> getPoemListByKey(String key);
 }

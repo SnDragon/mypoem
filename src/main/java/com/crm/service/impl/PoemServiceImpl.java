@@ -341,4 +341,15 @@ public class PoemServiceImpl implements PoemService{
 		return poemDao.getNextOtherPoemById(oid);
 	}
 
+
+	@Override
+	public ArrayList<PoemUtil> getPoemListByKey(String key) {
+		ArrayList<PoemUtil> poemList=poemDao.getPoemListByKey(key);
+		for(PoemUtil poem:poemList){
+			String text=poem.getPoemText();
+			poem.setPoemText(text.replaceAll("\\|", ""));
+		}
+		return poemList;
+	}
+
 }

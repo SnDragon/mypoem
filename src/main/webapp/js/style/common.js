@@ -36,3 +36,14 @@ function focusAndBlur(target, text){
         }
     });
 }
+
+$("#submit").click(function(){
+	var key=$.trim($("#search").val());
+	if(key=="" || $("#search").val()==$("#search").attr("placeholder")){
+		alert("搜索关键字不能为空！");
+		return false;
+	}
+	var action=$("#form-search").attr("action")+"?q="+$("#search").val();
+	$("#form-search").attr("action",action);
+	$("#form-search").submit();
+})

@@ -74,10 +74,10 @@
 
     <!--搜索框  样式有待改善-->
     <div id="main-search">
-        <form id="form-search" action="" method="post">
+        <form id="form-search" action="<%=path %>/search" method="post">
             <div class="input-group">
-                <input name="poem-search" type="text" class="form-control poem-search" value="搜索" />
-                <button class="btn btn-default" onclick="document.getElementById('form-search').submit()">
+                <input id="search" name="search" type="text" class="form-control poem-search" placeholder="搜索" />
+                <button class="btn btn-default" id="submit">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>
             </div>
@@ -93,3 +93,5 @@
         <li class="hide person"><a href="<%=path%>/user/uid/${user.userId}">个人中心</a></li>
     </ul>
 </div>
+
+

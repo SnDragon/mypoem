@@ -172,4 +172,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public ArrayList<User> getUserListByKey(String key) {
+		return userDao.getUserListByKey(key);
+	}
+
 }

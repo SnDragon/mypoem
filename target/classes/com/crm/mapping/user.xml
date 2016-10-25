@@ -98,4 +98,9 @@
         group by user_id
         order by num_of_concern desc,num_of_poem desc;
 	</select>
+	
+	<select id="getUserListByKey" resultMap="userMap">
+		select user_id,user_name,user_icon,user_sex
+		from MP_user where user_name like CONCAT('%',#{0},'%');
+	</select>
 </mapper>

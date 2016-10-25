@@ -53,5 +53,7 @@ public interface PoemDao {
 
 	public OtherPoem getNextOtherPoemById(Integer oid);
 
+	public ArrayList<PoemUtil> getPoemListByKey(String key);
+
 
 }

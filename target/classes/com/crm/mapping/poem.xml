@@ -158,4 +158,9 @@
 		select id,poem_title from MP_other_recommend 
 		where id = (select id from MP_other_recommend where id &lt; #{0} order by id desc limit 1);  
 	</select>
+	
+	<select id="getPoemListByKey" resultMap="poemUtilMap">
+		select poem_id,MP_user.user_id,MP_user.user_name,poem_title,poem_text
+		from MP_poem,MP_user where poem_title like CONCAT('%',#{0},'%') and MP_poem.user_id=MP_user.user_id
+	</select>
 </mapper>

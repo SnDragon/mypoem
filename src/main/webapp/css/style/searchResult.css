@@ -1,0 +1,120 @@
+.nav-pills > li > a, .nav-pills > li > a:hover{
+    width: 150px;
+    text-align: center;
+}
+.nav-pills > li > a{
+    background-color: white;
+}
+.nav-pills > li > a:hover{
+    background: #dedede;
+}
+.main-content{
+    margin-top: -2px;
+    padding: 10px 20px;
+    border: 2px solid #e1e1e1;
+    background-color: white;
+}
+/*诗人*/
+.main-content .authors .author{
+    float: left;
+    display: inline-block;
+    list-style: none;
+    width: 200px;
+    margin: 10px 15px;
+    text-align: left;
+    border: 1px dotted #E1E1E1;
+    background-color: #FAFAFA;
+    -webkit-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+    box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.5);
+}
+.main-content .authors .author a{
+    display: block;
+    text-decoration: none;
+    outline: none;
+}
+.main-content .authors .author .head a{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    margin: 20px 0 10px 50px;
+}
+.main-content .authors .author .head a img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    /*多重设置阴影*/
+    -webkit-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),  /*右*/
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    -moz-box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.5),
+    inset 0 -3px 4px -1px rgba(0, 0, 0, 0.2),
+    0 -10px 15px -1px rgba(255, 255, 255, 0.6),
+    inset 0 3px 4px -1px rgba(255, 255, 255, 0.2),
+    inset 0 0 5px 1px rgba(255, 255, 255, 0.8),
+    inset 0 20px 30px 0 rgba(255, 255, 255, 0.2);
+}
+.main-content .authors .author .info{
+    padding: 10px;
+    background-color: white;
+}
+.main-content .authors .author .info span{
+    margin-right: 10px;
+    color: rgb(68,68,68);
+}
+.main-content .authors .author .info span.name{
+    display: inline-block;
+    padding: 0;
+}
+.main-content .authors .author .info span.gender{
+    float: right;
+    margin: 2px 0 0 0;
+}
+.main-content .authors .author .info span.male{
+    color: rgb(3, 149, 136);
+}
+.main-content .authors .author .info span.female{
+    color: rgb(244, 180, 202);
+}
+
+
+.poems{
+    padding: 10px 20px;
+}
+.poem{
+    display: inline-block;
+    padding: 5px 20px;
+    border-bottom: 1px dotted #8c8c8c;
+}
+.poem .title{
+    font-size: 2rem;
+    line-height: 30px;
+    margin: 0 0 5px;
+    max-height: 60px;
+    cursor: pointer;
+    color: black;
+}
+.poem .author{
+    margin-left: 10px;
+    cursor: pointer;
+    color: #E67E22;
+}
+.poem .content-wrapper{
+    margin: 10px 0 20px 0;
+}
+.poem .content-wrapper .content{
+    margin-left: 10px;
+    color: #717171;
+    font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 23px;
+}

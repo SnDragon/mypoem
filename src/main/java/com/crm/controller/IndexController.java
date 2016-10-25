@@ -3,11 +3,13 @@ package com.crm.controller;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.model.Poem;
@@ -71,5 +73,24 @@ public class IndexController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/search",method=RequestMethod.POST)
+	public ModelAndView showSearchResult(@RequestParam(value="q",required=true)String key){
+		ModelAndView modelAndView=new ModelAndView("showSearch");
+		if("".equals(key.trim())){
+			return null;
+		}
+		ArrayList<User> userList=userService.getUserListByKey(key);
+		for(User user:userList){
+			System.out.println(user);
+		}
+		modelAndView.addObject("userList",userList);
+		ArrayList<PoemUtil> poemList=poemService.getPoemListByKey(key);
+		for(PoemUtil poem:poemList){
+			System.out.println(poem);
+		}
+		modelAndView.addObject("poemList",poemList);
+		modelAndView.addObject("key",key);
+		return modelAndView;
+	}
 	
 }
