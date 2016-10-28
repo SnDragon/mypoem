@@ -50,7 +50,7 @@ window.onresize = function () {
     var $ins_picture = $(".insert-picture");
     var $prev_picture = $(".preview-picture");
     if(clientWidth < 463){
-        $put_out.css("height", "300px");
+        $put_out.css("height", "280px");
 
         $ins_picture.css("clear", "both");
         $ins_picture.css("float", "right");
@@ -62,7 +62,7 @@ window.onresize = function () {
         $prev_picture.css("margin-right", "5%");
         $prev_picture.css("margin-top", "5px");
     }else{
-        $put_out.css("height", "250px");
+        $put_out.css("height", "235px");
 
         $ins_picture.css("clear", "none");
         $ins_picture.css("float", "left");
@@ -92,83 +92,43 @@ window.onresize = function () {
         $(".assit-menu").css("margin-top", "-105px");
         $(".menu-small").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
     }
+
+    // 设置转发格式中原文的图片
+    setImg($(".main-content"));
 };
-
-// 窗口滑动时，800px（平板）以上的屏幕设置导航栏绝对定位
-// 手机和平板不设置导航栏固定
-// window.onscroll = function(){
-//     if(parseInt(document.body.clientWidth) >= 800){
-//         var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-//         var $nav = $(".main-navigation");
-//         var $search = $("#main-search");
-//         if(scrollTop >= 211){
-//             $nav.css("top", scrollTop);
-//             $search.css("top", "12px");
-//         }else{
-//             $nav.css("top", "211px");
-//             $search.css("top", "-45px");
-//         }
-//     }else{     /*屏幕宽度小于800，不设置导航栏固定*/
-//         var $nav = $(".main-navigation");
-//         var $search = $("#main-search");
-//         $nav.css("top", "211px");
-//         $search.css("top", "-45px");
-//     }
-//
-//
-//     // 当搜索框位于导航栏上时，搜索框样式改变，设置为下拉模式
-//     // var $main_search = $("#main-search");
-//     // var $poem_search = $(".poem-search");
-//     // if($main_search.css("top") == "12px"){
-//     //     $poem_search.addClass("hide");
-//     // }else{
-//     //     $poem_search.removeClass("hide");
-//     // }
-//
-//     // 当搜索框位于导航栏上时，input缩短
-//     var $main_search = $("#main-search");
-//     var $poem_search = $(".poem-search");
-//     if($main_search.css("top") == "12px"){
-//         $poem_search.css("width", "140px");
-//     }else{
-//         $poem_search.css("width", "160px");
-//     }
-// }
-
-
-
 
 
 $(function(){
     window.onresize();
-
+   
     // 页面刚加载时，重置发布框为空
-    var $pre_title = $(".put-out .input-group-addon");
     var $put_out_title = $("#put-out-title");
-    $pre_title.click(function () {   /*点击“标题”，对应input获得焦点*/
-        $put_out_title.focus();
-    });
-    var $put_out = $("#put-out-content");
+    var $put_out_content = $("#put-out-content");
     $put_out_title.val("");
-    $put_out.val("");
-    // 检查发布框的内容，决定发布按钮的有效性
-    $put_out.keydown(function () {
+    $put_out_content.val("");
+    checkEmpty($put_out_title,$put_out_content);
+    // 检查发布框的标题及内容，决定发布按钮的有效性
+    /*
+    $put_out_content.keydown(function () {
         checkEmpty($(this), $put_out_title);
     });
-    $put_out.keypress(function () {
+    $put_out_content.keypress(function () {
         checkEmpty($(this), $put_out_title);
     });
-    $put_out.keyup(function () {
+    */
+    $put_out_content.keyup(function () {
         checkEmpty($(this), $put_out_title);
     });
+    /*
     $put_out_title.keydown(function () {
-        checkEmpty($(this), $put_out);
+        checkEmpty($(this), $put_out_content);
     });
     $put_out_title.keypress(function () {
-        checkEmpty($(this), $put_out);
+        checkEmpty($(this), $put_out_content);
     });
+    */
     $put_out_title.keyup(function () {
-        checkEmpty($(this), $put_out);
+        checkEmpty($(this), $put_out_content);
     });
 
     // 选择发布内容公开或仅自己可见
@@ -286,8 +246,8 @@ $(function(){
     $put_button.attr("disabled", false);   /*初始化为可用*/
     $btn_preview.attr("disabled", false);  /*初始化为可用*/
     $btn_visi.attr("disabled", false);     /*初始化为可用*/
-    $("#put-out-title").attr("disabled", false);
-    $("#put-out-content").attr("disabled", false);
+    $put_out_title.attr("disabled", false);
+    $put_out_content.attr("disabled", false);
     $put_button.click(function () {
         $(this).html("发布中");
         $(this).addClass("disabled");                /*禁用发布按钮*/
@@ -296,26 +256,28 @@ $(function(){
         $pic_insert.unbind("click");                 /*禁用选择图片*/
         $btn_preview.attr("disabled", true);         /*禁用预览*/
         $btn_visi.attr("disabled", true);            /*禁止调节可见性*/
-        $("#put-out-title").attr("disabled", true);
-        $("#put-out-title").css("background-color", "white");
-        $("#put-out-content").attr("disabled", true);
-        $("#put-out-content").css("background-color", "white");
+        $put_out_title.attr("disabled", true);
+        $put_out_title.css("background-color", "white");
+        $put_out_content.attr("disabled", true);
+        $put_out_content.css("background-color", "white");
         $btn_preview.css("background-color", "#E67E22");
         $btn_preview.css("border-color", "#E67E22");
         putting();
     });
-    
+
     // 标签选择
     var $label = $(".label");
     var $label_btn = $label.find("button");
     var $options2 = $label.find("a");
     $options2.click(function () {
-    	$(".dropdown-menu li a").removeClass("selected");
-    	$(this).addClass("selected");
         var text = $(this).text() + " <span class='caret'></span>";
         $label_btn.html(text);
-//        alert($("a.selected").html());
-//        alert($("a.selected").attr("id").slice(6));
+    });
+
+    // 加载更多
+    $(".more").click(function () {
+        $(this).addClass("hide");
+        $(".loading").removeClass("hide");
     });
 });
 
@@ -329,11 +291,21 @@ $(function(){
         target.removeClass("orangeLi").addClass("grayLi");
     }
 }*/
-
+//检查发布框是否为空
+function checkEmpty(target1, target2) {
+    var $btn = $(".put-out-footer .wrapper").find("button");
+    var value1 = target1.val().replace(/\s+/g,"");  /*消除字符串所有空格*/
+    var value2 = target2.val().replace(/\s+/g,"");
+    if(value1 == "" || value2 == ""){
+        $btn.removeClass("btn-valid").addClass("btn-invalid").addClass("disabled");
+    }else{
+        $btn.removeClass("btn-invalid").addClass("btn-valid").removeClass("disabled");
+    }
+}
 // 发布中...
 function putting() {
     var $put_button = $(".put-out-footer .wrapper").find("button");
-    $put_button.css("width", "80px");
+    $put_button.css("width", "70px");
     $put_button.css("border-color", "#E67E22");
     var pre = $put_button.html();
     var text = "发布中";
@@ -369,19 +341,11 @@ function clearPutting() {
     $(".preview-picture").find("span").click(function () {
         $(".preview-picture").addClass("hide");
     });
+    
+
 }
 
-// 检查发布框是否为空
-function checkEmpty(target1, target2) {
-    var $btn = $(".put-out-footer .wrapper").find("button");
-    var value1 = target1.val().replace(/\s+/g,"");  /*消除字符串所有空格*/
-    var value2 = target2.val().replace(/\s+/g,"");
-    if(value1 == "" || value2 == ""){
-        $btn.removeClass("btn-valid").addClass("btn-invalid").addClass("disabled");
-    }else{
-        $btn.removeClass("btn-invalid").addClass("btn-valid").removeClass("disabled");
-    }
-}
+
 
 // 获得并显示用户上传的图片
 function readFile(){
@@ -423,4 +387,30 @@ function setImgSize(target) {
     }else if(diffHeight > 0){
         target.height = innerHeight * 0.9;
     }
+}
+
+
+// 图片根据宽高超出容器宽高的比例，进行合适的大小设置
+function setImg(target) {
+    var $img = target.find(".img");
+    var img_w = $img.width();
+    var img_h = $img.height();
+    $img.each(function () {
+        var $inner = $(this).find("img");
+        var inner_w = $inner.width();
+        var inner_h = $inner.height();
+        var ratio_w = inner_w / img_w;
+        var ratio_h = inner_h / img_h;
+        if(ratio_w >= ratio_h){
+            $inner.css("height", "100%");
+            var inner_new_w = $inner.css("width");
+            var margin_w = (parseInt(inner_new_w) - img_w) / 2;
+            $inner.css("margin-left", - margin_w)
+        }else{
+            $inner.css("width", "100%");
+            var inner_new_h = $inner.css("height");
+            var margin_h = (parseInt(inner_new_h) - img_h) / 2;
+            $inner.css("margin-top", - margin_h);
+        }
+    });
 }

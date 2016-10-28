@@ -20,7 +20,7 @@ public interface PoemService {
 
 	public boolean subSupport(Integer poemId);
 
-	public ArrayList<PoemUtil> getRecommendPoemUtils();
+	public ArrayList<PoemUtil> getRecommendPoemUtils(String page);
 
 	public PoemUtil getPoemUtilById(Integer userId, Integer pid);
 
@@ -44,7 +44,7 @@ public interface PoemService {
 
 	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
 
-	public ArrayList<PoemUtil> getPoemUtilsByLID(Integer userId,Integer lid);
+	public ArrayList<PoemUtil> getPoemUtilsByLID(Integer lid,String page);
 
 	public int getOtherPoemNumber();
 

@@ -76,6 +76,9 @@ public class ConcernServiceImpl implements ConcernService{
 
 	@Override
 	public Integer isCocernedByUUId(Integer concernerId, Integer concernedId) {
+		if(concernerId==null){
+			return null;
+		}
 		if(concernDao.getConcernByUUId(concernerId,concernedId)>0){
 			return new Integer(1);
 		}else{

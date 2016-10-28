@@ -34,9 +34,6 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		User user=userDao.getUserByEmail(email);
-		System.out.println(user);
-		System.out.println(user.getUserPassword());
-		System.out.println(Encryption.md5(password));
 		if(user!=null&&user.getUserPassword().equals(Encryption.md5(password))){
 			return user;
 		}

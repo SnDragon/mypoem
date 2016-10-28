@@ -20,6 +20,41 @@ $(function () {
             });
         }
     });
+    
+ // 判断搜索框是否为空
+    var $input = $("input.poem-search");
+    var $btn = $input.next();
+    $input.val("搜索");
+    $btn.addClass("disabled");
+    $input.keydown(function (event) {
+        checkSearchEmpty($(this), $btn);
+        if(event.keyCode == 13 && $btn.hasClass("disabled")){
+            return false;
+        }
+    });
+    $input.keypress(function () {
+        checkSearchEmpty($(this), $btn);
+        if(event.keyCode == 13 && $btn.hasClass("disabled")){
+            return false;
+        }
+    });
+    $input.keyup(function () {
+        checkSearchEmpty($(this), $btn);
+        if(event.keyCode == 13 && $btn.hasClass("disabled")){
+            return false;
+        }
+    });
+    //根据用户是否登录决定是否显示四个导航栏
+    if($("#userId").val()){
+    	$(".friendCircle").removeClass("hide");
+		$(".person").removeClass("hide");
+    }
+    var $assit_menu = $(".assit-menu .menu");
+	if($assit_menu.find("li").eq(2).hasClass("hide")){
+	    $(".content-wrap").css("margin-top", "100px");
+	}else{
+	    $(".content-wrap").css("margin-top", "20px");
+	}
 });
 
 // 输入框获得焦点与失去焦点
@@ -39,7 +74,7 @@ function focusAndBlur(target, text){
 
 $("#submit").click(function(){
 	var key=$.trim($("#search").val());
-	if(key=="" || $("#search").val()==$("#search").attr("placeholder")){
+	if(key==""){
 		alert("搜索关键字不能为空！");
 		return false;
 	}
@@ -47,3 +82,12 @@ $("#submit").click(function(){
 	$("#form-search").attr("action",action);
 	$("#form-search").submit();
 })
+
+function checkSearchEmpty(target, btn) {
+    var value = target.val().replace(/\s+/g,"");  /*消除字符串所有空格*/
+    if(value == ""){
+        btn.addClass("disabled");
+    }else{
+        btn.removeClass("disabled");
+    }
+}

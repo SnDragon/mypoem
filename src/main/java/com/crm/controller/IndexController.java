@@ -3,6 +3,7 @@ package com.crm.controller;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.crm.model.Poem;
@@ -17,6 +19,9 @@ import com.crm.model.User;
 import com.crm.service.PoemService;
 import com.crm.service.UserService;
 import com.crm.util.PoemUtil;
+
+import junit.framework.Test;
+
 import com.crm.util.HomeOtherPoemUtil;
 import com.crm.util.HomePoemUtil;
 import com.crm.util.HomeUserUtil;
@@ -30,15 +35,15 @@ public class IndexController {
 	private UserService userService;
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public ModelAndView Index(HttpSession session){
-		User user=new User();
-		user.setUserId(2);
-		user.setUserName("dragon");
-		user.setUserEmail("1803240383@qq.com");
-		user.setUserIcon("user1.jpeg");
-		user.setUserMotto("hello world");
-		user.setUserPassword("e10adc3949ba59abbe56e057f20f883e");
-		user.setUserSex(0);
-		session.setAttribute("user", user);
+//		User user=new User();
+//		user.setUserId(2);
+//		user.setUserName("dragon");
+//		user.setUserEmail("1803240383@qq.com");
+//		user.setUserIcon("user1.jpeg");
+//		user.setUserMotto("hello world");
+//		user.setUserPassword("e10adc3949ba59abbe56e057f20f883e");
+//		user.setUserSex(0);
+//		session.setAttribute("user", user);
 		ModelAndView modelAndView=new ModelAndView("index");
 		ArrayList<HomePoemUtil> homePoemUtils=poemService.getHomePoemUtils();
 		modelAndView.addObject("homePoemUtils",homePoemUtils);
@@ -65,12 +70,20 @@ public class IndexController {
 		return "register";
 	}
 	
-	@RequestMapping(value="/recommend",method=RequestMethod.GET)
-	public ModelAndView getRecommend(){
+	@RequestMapping(value="/recommend")
+	public ModelAndView getRecommend(HttpServletRequest request){
 		ModelAndView modelAndView=new ModelAndView("recommend");
-		ArrayList<PoemUtil> poemUtilList=poemService.getRecommendPoemUtils();
+		ArrayList<PoemUtil> poemUtilList=poemService.getRecommendPoemUtils(null);
 		modelAndView.addObject("poemUtilList",poemUtilList);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/getRecommendByAjax")
+	@ResponseBody
+	public ArrayList<PoemUtil> getRecommendByPage(HttpServletRequest request){
+		String page=request.getParameter("page");
+		ArrayList<PoemUtil> poemUtilList=poemService.getRecommendPoemUtils(page);
+		return poemUtilList;
 	}
 	
 	@RequestMapping(value="/search",method=RequestMethod.POST)
@@ -93,4 +106,8 @@ public class IndexController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/noPermission")
+	public ModelAndView noPermission(){
+		return new ModelAndView("noPermission");
+	}
 }

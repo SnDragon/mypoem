@@ -199,3 +199,11 @@ button{
     margin: 0;
     background-color: #F2F2F5;
 }
+
+#loginModal .modal-dialog{
+    width: 400px;
+}
+#loginModal .modal-footer button{
+    background-color: #E67E22;
+    border-color: #E67E22;
+}

@@ -18,6 +18,8 @@ body{
     height:280px;
     background: url("../../img/common/head.jpg");
     padding-top: 50px;
+    background-size: cover;
+    width: 100%;
 }
 .header .header_content{
     width: 80%;

@@ -132,7 +132,7 @@
 	
 	<select id="getPoemUtilsByLId" resultMap="poemUtilMap">
 		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
-		where MP_Poem.label_id=#{0} and MP_user.user_id=MP_poem.user_id
+		where MP_Poem.label_id=#{0} and MP_user.user_id=MP_poem.user_id limit #{1},#{2}
 	</select>
 	
 	<select id="getOtherPoemNumber" resultType="int">
@@ -162,5 +162,10 @@
 	<select id="getPoemListByKey" resultMap="poemUtilMap">
 		select poem_id,MP_user.user_id,MP_user.user_name,poem_title,poem_text
 		from MP_poem,MP_user where poem_title like CONCAT('%',#{0},'%') and MP_poem.user_id=MP_user.user_id
+	</select>
+	
+	<select id="getRecommendPoemUtils" resultMap="poemUtilMap">
+		select <include refid="poemUtilColumns" />
+		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id order by poem_num_support limit #{0},#{1}
 	</select>
 </mapper>

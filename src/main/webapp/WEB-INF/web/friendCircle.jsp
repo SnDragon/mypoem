@@ -191,23 +191,6 @@
 
                 </div>
             </main>
-            <!--查找好友及分类占4列-->
-            <!-- 
-            <aside class="col-md-3 sidebar">
-                <div class="widget">
-                    <h4 class="side-title">
-                        查找好友
-                    </h4>
-                    <div class="side-search"></div>
-                </div>
-                <div class="widget">
-                    <h4 class="side-title">
-                        分类
-                    </h4>
-                    <div class="side-classify"></div>
-                </div>
-            </aside>
-             -->
         </div>
     </div>
 </div>
@@ -252,10 +235,6 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
 	$(".menu li:eq(2)").addClass("current-page");
 });
 	

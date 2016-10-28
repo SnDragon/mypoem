@@ -73,9 +73,10 @@
 				<value>classpath:com/crm/mapping/*.xml</value>
 			</list>
 		</property>
-		 <!-- 开启缓存支持 -->
+		 
         <property name="configurationProperties">
             <props>
+            	<!-- 开启缓存支持 -->
                 <prop key="cacheEnabled">true</prop>
                 <!-- 查询时，关闭关联对象即时加载以提高性能 -->
                 <prop key="lazyLoadingEnabled">false</prop>

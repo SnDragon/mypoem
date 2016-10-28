@@ -26,6 +26,7 @@
             </ul>
             <main class="col-xs-10 col-xs-push-1 main-content">
                 <div class="authors">
+               	 	<div class="no-author hide" id="no-author">没有相应搜索结果</div>
                     <ul>
                     <c:forEach items="${userList }" var="author">
                      <li class="author">
@@ -60,6 +61,7 @@
                 </div>
 
                 <div class="poems hide">
+                 <div class="no-poem hide" id="no-poem" >没有相应搜索结果</div>
                     <ul>
                        <c:forEach items="${poemList }" var="poem">
                        	 <li class="poem">
@@ -77,6 +79,7 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="${user.userId }" id="userId"/>
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
@@ -85,17 +88,6 @@
 <script src="<%=basePath %>/js/style/searchResult.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
-	
-	 var $assit_menu = $(".assit-menu .menu");
-	    if($assit_menu.find("li").eq(2).hasClass("hide")){
-	        $(".content-wrap").css("margin-top", "100px");
-	    }else{
-	        $(".content-wrap").css("margin-top", "20px");
-	    }
 
 	    var $nav = $(".nav-pills");
 	    var $authors = $(".authors");
@@ -113,6 +105,14 @@ $(document).ready(function(){
 	            $authors.addClass("hide");
 	        }
 	    });
+	    
+	    if($(".authors li").length==0){
+	    	$("#no-author").removeClass("hide");
+	    }
+	    if($(".poems li").length==0){
+	    	$("#no-poem").removeClass("hide");
+	    	
+	    }
 });
 </script>
 <script type="text/javascript">
@@ -126,6 +126,19 @@ $(document).ready(function(){
 		}
 		$(this).html(text);
 	});
+	
+	 var txt = 110;
+	    var o = document.getElementsByClassName("content");
+	    for(var i = 0; i < o.length; i ++){
+	        var s = o[i].innerHTML;
+	        var p = document.createElement("span");
+	        var n = document.createElement("font");
+	        p.innerHTML = s.substring(0,txt);
+	        n.innerHTML = s.length > txt ? "..." : "";
+	        o[i].innerHTML = "";
+	        o[i].appendChild(p);
+	        o[i].appendChild(n);
+	    }
 </script>
 </body>
 </html>

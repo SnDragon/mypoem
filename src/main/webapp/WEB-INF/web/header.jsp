@@ -24,7 +24,7 @@
 	             	<li><a href="<%=path %>/register">注册</a></li>
           		</c:when>
           		<c:otherwise>
-          			<li><a href="">欢迎,${user.userName }</a></li>
+          			<li><a href="<%=path%>/user/uid/${user.userId}">欢迎,${user.userName }</a></li>
           			<li><a href="<%=path %>/user/logout">退出</a></li>
           		</c:otherwise>
           	</c:choose>
@@ -36,6 +36,7 @@
             </ul>
         </div>
     </div>
+    <c:if test="${user!=null }">
     <div class="icon">
     	<c:choose>
     		<c:when test="${user.userIcon!=null }">
@@ -58,6 +59,8 @@
         	
         </p>
     </div>
+    </c:if>
+    
 </header>
 <!--导航栏-->
 <nav class="main-navigation">
@@ -76,7 +79,7 @@
     <div id="main-search">
         <form id="form-search" action="<%=path %>/search" method="post">
             <div class="input-group">
-                <input id="search" name="search" type="text" class="form-control poem-search" placeholder="搜索" />
+                <input id="search" name="search" type="text" class="form-control poem-search" value="搜索" />
                 <button class="btn btn-default" id="submit">
                     <span class="glyphicon glyphicon-search"></span>
                 </button>

@@ -9,20 +9,20 @@
     <title>注册</title>
     <script type="text/javascript" src="<%=basePath %>/js/lib/jquery-1.11.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/style/style.css" />
+    <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/style/loginStyle.css" />
 </head>
 <body>
     <div class="header">
           <div class="header_content">
             <a href="#" id="logo"><img src="<%=basePath %>/img/common/logo.png" /></a>
             <ul class="title">
-                <li><a href="#">关于我们</a></li>
-                <li><a href="#">常见问题</a></li>
-                <li><a href="#">注册</a></li>
-                <li><a href="#">登录</a></li>
+                <li><a href="<%=basePath%>/login">登录</a></li>
+		        <li><a href="<%=basePath%>/register">注册</a></li>
+		        <li><a href="#">常见问题</a></li>
+	            <li><a href="#">关于我们</a></li>
             </ul>
           </div>
-          <h1>注册</h1>
+          <!--<h1>注册</h1>  -->
     </div>
     <div class="content">
          <form class="form-horizontal" role="form" method="post" action="<%=basePath %>/user/doRegister">
@@ -57,11 +57,7 @@
           </div>
           
         </form>
-        <div class="form-group">
-              <div class="col-sm-offset-3 col-sm-7">
-                <button id="test"  class="btn btn-success" >&nbsp;&nbsp;&nbsp;&nbsp;测试&nbsp;&nbsp;&nbsp;&nbsp;</button>
-              </div>
-          </div>
+        
     </div>
 
     <div class="footer">

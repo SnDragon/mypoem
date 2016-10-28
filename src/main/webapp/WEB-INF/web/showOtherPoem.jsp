@@ -40,17 +40,13 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="${user.userId }" id="userId"/>
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
-	
 	var poemText="${poem.poemText}".split("|");
 	var str="";
 	for(var i in poemText){

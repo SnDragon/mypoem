@@ -82,7 +82,7 @@
                         			<button id="addConcern" class="hide btn btn-default add-concern">+关注</button>
                         		</c:when>
                         		<c:otherwise>
-                        			<button id="addConcern" class="btn btn-default add-concern">+关注</button>
+                        			<button id="addConcern" class="btn btn-default add-concern login">+关注</button>
                         			<button id="removeConcern" class="hide btn btn-default cancel-concern">取消关注</button>
                         		</c:otherwise>
                         	</c:choose>
@@ -160,21 +160,21 @@
                     <div class="dynamic-action">
                         <div class="row">
                             <ul id="${poemUtil.poemId }">
-                                <li class="col-xs-3 keep collection 
+                                <li class="col-xs-3 keep collection login 
                                 <c:choose><c:when test="${poemUtil.isCollected }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
                                 " >
                                     <span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>
                                 </li>
                                 <li class="col-xs-3 share">
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" class="login">
                                         <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
-                                <li class="col-xs-3 comment" >
+                                <li class="col-xs-3 comment login" >
                                     <span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-${poemUtil.poemId }">${poemUtil.poemNumComment }</span>
                                 </li>
-                                <li class="col-xs-3 thumb support
+                                <li class="col-xs-3 thumb support login
                                 <c:choose><c:when test="${poemUtil.isSupported }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
                                 ">
                                     <span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">${poemUtil.poemNumSupport }</span>
@@ -250,10 +250,30 @@
         </div>
     </div>
 </div>
+<!--提示登录或注册框-->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4>登录提示</h4>
+            </div>
+            <div class="modal-body">
+                请先登录才能执行该操作
+            </div>
+            <div class="modal-footer">
+                <a href="<%=basePath%>/login"><button class="btn btn-primary">登录</button></a>
+                <a href="<%=basePath%>/register"><button class="btn btn-primary">注册</button></a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" id="userId" value="${user.userId }" />
 <input type="hidden" id="authorId" value="${author.userId }" />
 <input type="hidden" id="basePath" value="<%=basePath %>" />
 <input type="hidden" id="userName" value="${user.userName }" />
+
 
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>
@@ -262,21 +282,26 @@
 <script src="<%=basePath %>/js/custom/comment.js"></script>
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script>
-$(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
-});
+if(!"${user.userId}"){
+	$(".login").click(function(){
+		$("#loginModal").modal("show");
+		return false;
+	});
+}
 //有用到user的属性
 $("#addConcern").click(function(){
+	var concernedId=$("#authorId").val();
+	var concernerId=$("#userId").val();
+	if(!concernedId || !concernerId){
+		return false;
+	}
 	$.ajax({
 		type:"POST",
 		url:$("#basePath").val()+"/concern/addConcernByAjax",
 		contentType:"application/json",
 		data:JSON.stringify({
-			concernedId:$("#authorId").val(),
-			concernerId:$("#userId").val()
+			concernedId:concernedId,
+			concernerId:concernerId
 		}),
 		dataType:"text",
 		success:function(data){

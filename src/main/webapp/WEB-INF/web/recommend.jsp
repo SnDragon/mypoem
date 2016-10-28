@@ -69,11 +69,16 @@
                 </script>
                 </c:forEach>
 
-                
+                <div class="footer" id="recommend-more">
+                    <span class="more">加载更多>></span>
+                    <span class="loading hide"><img src="img/common/loading.gif" alt="加载中"></span>
+                </div>
             </main>
         </div>
     </div>
 </div>
+<input type="hidden" value="${user.userId }" id="userId"/>
+<input type="hidden" value="<%=basePath %>" id="basePath" />
 
 <script src="js/style/recommend.js"></script>
 <script src="js/style/common.js"></script>
@@ -81,14 +86,82 @@
 <script src="js/style/main.js"></script>
 -->
 <script type="text/javascript">
-$(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
 	$(".menu li:eq(1)").addClass("current-page");
-	
-});
+	var finish=false;
+	$(window).scroll(function() {  
+		 var ks_area = $(window).height();
+		    var wholeHeight = $(document).height();
+		    var scrollTop = $(window).scrollTop();
+		    if(ks_area + scrollTop >= wholeHeight){
+		    	if(finish){
+		    		return;
+		    	}
+		    	$(".more").addClass("hide");
+		    	$(".loading").removeClass("hide");
+		    	if(!this.index){
+					this.index=2;
+					this.finish=false;
+				}else{
+					this.index++;
+				}
+				var index=this.index;
+				$.ajax({
+					type:"POST",
+					url:$("#basePath").val()+"/getRecommendByAjax",
+					data:{
+						page:index
+					},
+					dataType:"json",
+					success:function(data){
+						$.each(data,function(){
+							var str='<div class="recommend"><div class="row"><div class="img col-sm-4">'
+		                    		+'<div class="img-wrap">';
+		                    if(this.poemImg){
+		                    	str=str+'<img src="'+$("#basePath").val()+'/img/poem/'+this.poemImg+'" alt="今日推荐" />';                    			
+		                    }else{
+		                    	str=str+'<img src="'+$("#basePath").val()+'/img/attached/zheyeshiyiqie.jpg" alt="今日推荐" />';
+		                    }
+		                     str+='</div></div><div class="words col-sm-8"><div class="recom-title">'
+		                     	+'<a href="'
+		                     	+$("#basePath").val()
+		                     	+'/poem/pid/'+this.poemId+'">'
+								+this.poemTitle
+								+'</a></div><div class="recom-content">';
+							for(var i=0;i<3;i++){
+								str=str+'<p>'+this.poemRow[i];
+								if(i==2){
+									str+='...</p>';
+								}else{
+									str+='</p>';
+								}
+							}
+		                    str=str+'</div><div class="recom-meta"><span class="recom-author">'
+		                    	+'<a target="_blank" href="'
+		                    	+$("#basePath").val()+'/user/aid/'
+		                    	+this.userId+'">'
+		                    	+this.userName
+		                    	+'</a></span><time class="recom-time" id="time_'
+		                    	+this.poemId
+		                    	+'">2016-9-3</time></div></div></div></div>';
+		            		
+		                    $("#recommend-more").before(str);
+		                    var time=transferTime(this.poemPublishTime);
+		                    $("#time_"+this.poemId).html(time);
+						});
+						$(".more").removeClass("hide");
+				        $(".loading").addClass("hide");
+				        setImg($(".main-content"));
+						if(data.length<5){
+							finish=true;
+							$(".more").addClass("hide");
+						}
+						
+					}
+				});
+		    }
+	});  
+
+
 </script>
 </body>
 </html>

@@ -150,79 +150,26 @@
                 <div class="recom-author">
                     <div class="tip">推荐诗人</div>
                     <dl class="authors">
+                        <c:forEach items="${homeUserUtils }" var="author" begin="6" end="10">
                         <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五1王五1王五1王五1</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">103</span>个人关注<span class="gender">他</span>）
+                            <a href="<%=basePath %>/user/aid/${author.userId}" target="_blank" class="mytooltip">
+                                <span class="name">${author.userName }</span>
+                                （<span class="num-of-poem">${author.numOfPoem }</span>首诗
+                                <span class="num-of-fans">${author.numOfConcern }</span>个人关注<span class="gender">他</span>）
                             </a>
                         </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五2</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">99</span>个人关注<span class="gender">她</span>）
-                            </a>
-                        </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五3</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">80</span>个人关注<span class="gender">她</span>）
-                            </a>
-                        </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五4</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">78</span>个人关注<span class="gender">他</span>）
-                            </a>
-                        </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五5</span>
-                                （<span class="num-of-poem">18</span>首诗
-                                <span class="num-of-fans">78</span>个人关注<span class="gender">她</span>）
-                            </a>
-                        </dd>
+                        </c:forEach>
                     </dl>
                     <dl class="authors">
+                        <c:forEach items="${homeUserUtils }" var="author" begin="11" end="15">
                         <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五6</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">69</span>个人关注<span class="gender">他</span>）
+                            <a href="<%=basePath %>/user/aid/${author.userId}" target="_blank" class="mytooltip">
+                                <span class="name">${author.userName }</span>
+                                （<span class="num-of-poem">${author.numOfPoem }</span>首诗
+                                <span class="num-of-fans">${author.numOfConcern }</span>个人关注<span class="gender">他</span>）
                             </a>
                         </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五7</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">60</span>个人关注<span class="gender">他</span>）
-                            </a>
-                        </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五8王五8王五8王五8</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">55</span>个人关注<span class="gender">他</span>）
-                            </a>
-                        </dd>
-                        
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五9</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">50</span>个人关注<span class="gender">她</span>）
-                            </a>
-                        </dd>
-                        <dd class="author">
-                            <a href="wangsai.html" target="_blank" class="mytooltip">
-                                <span class="name">王五0</span>
-                                （<span class="num-of-poem">20</span>首诗
-                                <span class="num-of-fans">49</span>个人关注<span class="gender">他</span>）
-                            </a>
-                        </dd>
+                        </c:forEach>
                     </dl>
                     <div class="icons">
                     	<c:forEach items="${homeUserUtils }" var="author" begin="0" end="5">
@@ -270,6 +217,7 @@
         <!--</div>-->
     <!--</div>-->
 </div>
+<input type="hidden" value="${user.userId }" id="userId"/>
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
@@ -279,20 +227,7 @@
 <script src="<%=basePath %>/js/style/home.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
-	
 	$(".menu li:eq(0)").addClass("current-page");
-	
-	var $assit_menu = $(".assit-menu .menu");
-	if($assit_menu.find("li").eq(2).hasClass("hide")){
-	    $(".content-wrap").css("margin-top", "100px");
-	}else{
-	    $(".content-wrap").css("margin-top", "20px");
-	}
 });
 	
 </script>

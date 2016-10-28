@@ -43,6 +43,7 @@
     </div>
 </div>
 <input type="hidden" id="basePath" value="<%=basePath %>" />
+<input type="hidden" value="${user.userId }" id="userId"/>
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
@@ -51,11 +52,6 @@
 <script src="<%=basePath %>/js/style/otherPlatform.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
-	
 	var totalItems = Number("${page.totalNum}");
     var itemsEachPage = Number("${page.itemsPerPage}");
     var pages = Math.ceil(totalItems / itemsEachPage);

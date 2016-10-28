@@ -17,9 +17,6 @@
 </head>
 <body>
 <%@include file="header.jsp" %>
-
-
-<!--好友动态-->
 <div class="content-wrap">
     <div class="container">
         <div class="row">
@@ -62,21 +59,21 @@
                     <div class="dynamic-action">
                         <div class="row">
                             <ul id="${poemUtil.poemId }">
-                                <li class="col-xs-3 keep collection 
+                                <li class="col-xs-3 keep collection login 
                                 <c:choose><c:when test="${poemUtil.isCollected }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
                                 " >
                                     <span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>
                                 </li>
                                 <li class="col-xs-3 share">
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" class="login">
                                         <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
-                                <li class="col-xs-3 comment" >
+                                <li class="col-xs-3 comment login" >
                                     <span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-${poemUtil.poemId }">${poemUtil.poemNumComment }</span>
                                 </li>
-                                <li class="col-xs-3 thumb support
+                                <li class="col-xs-3 thumb support login 
                                 <c:choose><c:when test="${poemUtil.isSupported }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
                                 ">
                                     <span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">${poemUtil.poemNumSupport }</span>
@@ -97,7 +94,7 @@
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
                                 <br />
-                                <button class="btn-comment btn btn-default">
+                                <button class="btn-comment btn btn-default login">
                                     评论
                                 </button>
                             </div>
@@ -109,6 +106,10 @@
                         </div>
                     </div>
                 </article>
+                <div class="footer">
+                    <span class="more">加载更多>></span>
+                    <span class="loading hide"><img src="<%=basePath %>/img/common/loading.gif" alt="加载中"></span>
+                </div>
             </main>
         </div>
     </div>
@@ -119,7 +120,7 @@
         <div class="modal-content">
         	<input type="hidden" id="modal-poemId" value="" />
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" id="close-button"><span>&times;</span></button>
                 <h4 class="modal-title">转发</h4>
             </div>
             <div class="modal-body">
@@ -139,6 +140,25 @@
         </div>
     </div>
 </div>
+
+<!--提示登录或注册框-->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4>登录提示</h4>
+            </div>
+            <div class="modal-body">
+                请先登录才能执行该操作
+            </div>
+             <div class="modal-footer">
+                <a href="<%=basePath%>/login"><button class="btn btn-primary">登录</button></a>
+                <a href="<%=basePath%>/register"><button class="btn btn-primary">注册</button></a>
+            </div>
+        </div>
+    </div>
+</div>
 <input type="hidden" value="<%=basePath%>" id="basePath"/>
 <input type="hidden" value="${user.userId }" id="userId"/>
 <input type="hidden" value="${user.userName }" id="userName"/>
@@ -150,16 +170,16 @@
 <script src="<%=basePath %>/js/style/dynamic.js"></script>
 <script src="<%=basePath %>/js/custom/commonFunction.js"></script>
 <script src="<%=basePath %>/js/custom/comment.js"></script>
+<script src="<%=basePath %>/js/custom/poem.js"></script>
 <script>
 	$("#time").html(transferTime("${poemUtil.poemPublishTime.time}"));
-</script>
-<script type="text/javascript">
-$(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
+	
+	if(!"${user.userId}"){
+		$(".login").click(function(){
+			$("#loginModal").modal("show");
+			return false;
+		});
 	}
-});
+	
 </script>
-<script src="<%=basePath %>/js/custom/poem.js"></script>
 </html>

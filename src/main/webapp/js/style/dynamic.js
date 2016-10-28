@@ -19,90 +19,14 @@ $(function () {
         // $(this).parent().css("color", "#E67E22");
         $(this).css("cursor", "pointer");
     });
-    // $(document).on("mouseout","li.col-xs-3 span",function(){
-    //     if(!$(this).parent().hasClass("orangeLi")){
-    //         $(this).parent().css("color", "#808080");
-    //     }
-    // });
-//
-//    $(document).on("click","li.col-xs-3 span",function () {
-//        var $li = $(this).parent();
-//        // 当“转发”被点击时，由于其还被<a>包裹，做下面处理
-//        if(!$li.hasClass("col-xs-3")){
-//            $li = $li.parent();
-//        }
-//        // var index = $li.index();
-//        //var get_value = $li.attr("get");
-//        // 收藏处理
-//        if($li.hasClass("collection")){
-////            clickLi($li);
-//        }
-//
-//        // 转发处理
-//        else if($li.hasClass("share")){
-//            // $('#myModal').modal({
-//            //     show: false,
-//            //     backdrop: "static",
-//            //     keyboard: true  /*按下Esc可关闭弹出框*/
-//            // });
-//            // 从该条动态取得作者和诗，并显示在弹出框
-//            // var content = $(".modal .modal-body .share-content");
-//            // var $current_article = $li.parents(".dynamic");
-//            // var author = $current_article.find(".dynamic-author a").html();
-//            // var title = $current_article.find(".dynamic-title a").html();
-//            // content.find(".share-author").html(author);
-//            // content.find(".share-title").html(title);
-//        }
-//
-//        // 评论处理，还要设置“加载中”的样式
-//        else if($li.hasClass("comment")){
-////            clickLi($li);
-////            var $current_article = $li.parents(".dynamic");
-////            $current_article.css("border-bottom", "none");
-////            var $current_comment = $current_article.find(".comment-wrap");
-////            $current_comment.toggle("slow");
-//            // 如果是页面显示的最后一条动态，设置scroll
-//            if(!$current_article.next().hasClass("dynamic")){
-//                // alert("最后一条动态");
-//                // $current_article.scrollTop("100");
-//            }
-//
-//            // // 动画下滑显示
-//            // // 正常显示评论框及避免下一条动态非正常显示，需考虑评论框的高度
-//            // var comment_height = $current_comment.height();
-//            // $current_comment.animate({"bottom": -comment_height}, "normal");
-//            // var $next_article = $current_article.next();
-//            // // $next_article.css("margin-top", comment_height + 15);
-//            // $next_article.animate({"margin-top": comment_height + 15}, "normal");
-//        }
-//
-//        // 点赞处理
-//        else if($li.hasClass("thumb")){
-//            // var $thumb_number = $li.find(".thumb-number");
-//            // var thumb_number_text = parseInt($thumb_number.html());   /*parseInt转换为数字*/
-//            // // 由于需要更新点赞次数，就不调用clickLi()仅改变颜色
-//            // if($li.hasClass("grayLi")){
-//            //     var new_thumb = thumb_number_text + 1;  /*new_thumb需传送给后台*/
-//            //     $thumb_number.html(new_thumb);  /*不能用++*/
-//            //     $li.removeClass("grayLi").addClass("orangeLi");
-//            // }else if($li.hasClass("orangeLi")){
-//            //     var new_thumb = thumb_number_text - 1;
-//            //     $thumb_number.html(new_thumb);
-//            //     $li.removeClass("orangeLi").addClass("grayLi");
-//            // }
-//        }
-//    });
-
-    // 若header的图片无法显示，显示header的文字
-
-
+    
 
 
     // 转发
     // 重置转发框内容
     var $share_word = $("#share-word");
     var $remain_word = $(".remain-word");
-    var $share_button = $(".modal-footer").find("button");
+    var $share_button = $("#share-button");
     $share_word.attr("disabled", false);
     resetShare($share_word, $remain_word, $share_button, 120);
     // 转发理由输入框设置focus样式
@@ -123,7 +47,7 @@ $(function () {
         checkLength($(this), $remain_word, 120);
     });
     // 转发框关掉后，重置转发框
-    var $close_button = $(".modal-header").find("button");
+    var $close_button = $("#close-button");
     $close_button.click(function () {
         resetShare($share_word, $remain_word, $share_button, 120);
     });
@@ -435,7 +359,7 @@ function resetShare(share_word, remain_word, share_button, maxLength) {
 
 // 转发中...
 function buffering() {
-    var $share_button = $(".modal-footer").find("button");
+    var $share_button = $("#share-button");
     $share_button.css("width", "80px");
     $share_button.css("border-color", "#E67E22");
     var pre = $share_button.html();
@@ -450,8 +374,8 @@ function buffering() {
 // 停止转发
 function  clearBuffering() {
     clearTimeout(t2);
-    var $btn_share = $(".modal-footer").find("button");
-    $(".modal-header").find("button").click();
+    var $btn_share = $("#share-button");
+    $("#close-button").click();
     $btn_share.attr("disabled", false);
     $btn_share.html("转发");
     $btn_share.css("width", "55px");

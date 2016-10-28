@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.ws.rs.Path;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -108,7 +109,13 @@ public class PoemController {
 	@RequestMapping(value="/pid/{pid}",method=RequestMethod.GET)
 	public ModelAndView getPoem(@PathVariable("pid")Integer pid,HttpSession session){
 		User user=(User)session.getAttribute("user");
-		PoemUtil poemUtil=poemService.getPoemUtilById(user.getUserId(),pid);
+		PoemUtil poemUtil=null;
+		if(user==null){
+			poemUtil=poemService.getPoemUtilById(null,pid);
+		}else{
+			poemUtil=poemService.getPoemUtilById(user.getUserId(),pid);
+		}
+		
 		System.out.println(poemUtil);
 		ModelAndView modelAndView=new ModelAndView("showPoem");
 		modelAndView.addObject("poemUtil",poemUtil);
@@ -126,32 +133,30 @@ public class PoemController {
 			return "fail";
 		}
 	}
-//	@RequestMapping(value="/getPoemListByPage")
-//	@ResponseBody
-//	public ArrayList<Poem> getPoemListByPage(HttpServletRequest request){
-//		String page=request.getParameter("page");
-//		String uid=request.getParameter("uid");
-//		return poemService.getPoemListByPage(page,uid);
-//	}
 	
 	@RequestMapping(value="/lid/{lid}",method=RequestMethod.GET)
 	public ModelAndView showLabel(@PathVariable("lid")Integer lid,HttpSession session){
 		ModelAndView modelAndView=new ModelAndView("showLabel");
 		Label label=labelServcie.getLabelById(lid);
 		modelAndView.addObject("label",label);
-		User user=(User)session.getAttribute("user");
-		ArrayList<PoemUtil> poemUtils=null;
-		if(user!=null){
-			poemUtils=poemService.getPoemUtilsByLID(user.getUserId(),lid);
-		}else{
-			poemUtils=poemService.getPoemUtilsByLID(null,lid);
-		}
+		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByLID(lid,null);
 		for(PoemUtil poemUtil:poemUtils){
 			System.out.println(poemUtil);
 		}
 		modelAndView.addObject("poemUtilList",poemUtils);
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/label/{lid}/page/{page}",method=RequestMethod.GET)
+	@ResponseBody
+	public ArrayList<PoemUtil> showLabelByAjax(@PathVariable("lid")Integer lid,@PathVariable("page")String page){
+		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByLID(lid,page);
+		for(PoemUtil poemUtil:poemUtils){
+			System.out.println(poemUtil);
+		}
+		return poemUtils;
+	}
+	
 	
 	@RequestMapping(value="/oid/{oid}",method=RequestMethod.GET)
 	public ModelAndView showOtherPoem(@PathVariable("oid")Integer oid){

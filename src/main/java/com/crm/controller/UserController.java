@@ -96,7 +96,7 @@ public class UserController {
 			response.addCookie(rememberPassCookie);
 			response.addCookie(accountCookie);
 			response.addCookie(passCookie);
-			return new ModelAndView("redirect:/index");
+			return new ModelAndView("redirect:/");
 		}else{
 			return new ModelAndView("fail");
 		}
@@ -128,7 +128,7 @@ public class UserController {
 		User user=(User)session.getAttribute("user");
 		
 		if(user==null){
-			return null;
+			return new ModelAndView("redirct:/");
 		}
 		System.out.println("userId:"+user.getUserId());
 		ModelAndView modelAndView=new ModelAndView("friendCircle");
@@ -158,14 +158,15 @@ public class UserController {
 	@RequestMapping(value="/aid/{aid}",method=RequestMethod.GET)
 	public ModelAndView showAuthor(@PathVariable("aid") Integer aid,HttpSession session){
 		User user=(User)session.getAttribute("user");
-		if(user==null){
-			return null;
-		}
 		ModelAndView modelAndView=new ModelAndView("showAuthor");
 		UserUtil author=userService.getUserUtilById(aid);
 		System.out.println(author);
-		Integer isConcerned=concernService.isCocernedByUUId(user.getUserId(),author.getUserId());
-		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUUID(user.getUserId(),aid);
+		Integer isConcerned=null;
+		if(user!=null){
+			isConcerned=concernService.isCocernedByUUId(user.getUserId(),author.getUserId());
+		}
+		
+		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUUID(user!=null?user.getUserId():null,aid);
 		modelAndView.addObject("author",author);
 		modelAndView.addObject("isConcerned",isConcerned);
 		modelAndView.addObject("poemUtilList",poemUtils);

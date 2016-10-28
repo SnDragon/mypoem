@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%String basePath=request.getContextPath(); %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +9,21 @@
     <title>登录</title>
     <script type="text/javascript" src="<%=basePath %>/js/lib/jquery-1.11.1.min.js"></script>
     <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/style/style.css" />
+    <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/style/loginStyle.css" />
 </head>
 <body>
-   <%@include file="header.jsp" %>
+   <div class="header">
+    <div class="header_content">
+        <a href="#" id="logo"><img src="img/common/logo.png" /></a>
+        <ul class="title">
+	        <li><a href="<%=basePath%>/login">登录</a></li>
+	        <li><a href="<%=basePath%>/register">注册</a></li>
+	        <li><a href="#">常见问题</a></li>
+            <li><a href="#">关于我们</a></li>
+        </ul>
+    </div>
+    <!-- <h1>登录</h1> -->
+	</div>
     <div class="content">
          <form class="form-horizontal" role="form" id="login"  method="post" action="<%=basePath%>/user/doLogin">
           <div class="form-group" id="email-group">
@@ -59,9 +71,10 @@
     
 
     <div class="footer">
-        <p>&copy;2016华南理工大学软件学院饭饼虫尾</p>
+        <p>&copy;2016华南理工大学软件学院</p>
     </div>
 </body>
+<script type="text/javascript" src="<%=basePath%>/js/style/common.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#email").blur(function(){

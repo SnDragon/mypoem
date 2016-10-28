@@ -47,6 +47,8 @@
         </div>
     </div>
 </div>
+<input type="hidden" value="${user.userId }" id="userId"/>
+
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
@@ -56,10 +58,6 @@
 <script src="<%=basePath %>/js/style/mine.js"></script>
 <script>
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
 	$(".menu li:eq(3)").addClass("current-page");
 	$(".mine-sidebar li:eq(6)").addClass("active");
 });

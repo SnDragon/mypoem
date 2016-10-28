@@ -30,7 +30,5 @@
 		<li><a href="<%=path %>/user/security/${user.userId}"
 			title="安全中心"> <span class="security">安全中心</span>
 		</a></li>
-		<li><a href="about.html" title="关于"> <span class="about">关于</span>
-		</a></li>
 	</ul>
 </nav>

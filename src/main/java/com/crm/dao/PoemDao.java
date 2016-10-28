@@ -41,7 +41,7 @@ public interface PoemDao {
 
 	public ArrayList<HomeOtherPoemUtil> getHomeOtherPoemUtils();
 
-	public ArrayList<PoemUtil> getPoemUtilsByLId(Integer lid);
+	public ArrayList<PoemUtil> getPoemUtilsByLId(Integer lid,int begin,int length);
 
 	public int getOtherPoemNumber();
 
@@ -54,6 +54,8 @@ public interface PoemDao {
 	public OtherPoem getNextOtherPoemById(Integer oid);
 
 	public ArrayList<PoemUtil> getPoemListByKey(String key);
+
+	public ArrayList<PoemUtil> getRecommendPoemUtils(int begin, int length);
 
 
 }

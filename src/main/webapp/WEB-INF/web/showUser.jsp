@@ -107,10 +107,6 @@
 <script src="<%=basePath %>/js/style/mine.js"></script>
 <script>
 $(document).ready(function(){
-	if("${user.userId}"){
-		$(".friendCircle").removeClass("hide");
-		$(".person").removeClass("hide");
-	}
 	$(".menu li:eq(3)").addClass("current-page");
 	$(".mine-sidebar li:eq(0)").addClass("active");
 });
