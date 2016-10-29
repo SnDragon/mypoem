@@ -64,9 +64,9 @@
                                 " >
                                     <span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>
                                 </li>
-                                <li class="col-xs-3 share">
+                                <li class="col-xs-3 share" >
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal" class="login">
+                                    <a href="#"  data-toggle="modal" data-target="#myModal" class="login button <c:if test="${poemUtil.userId==user.userId }">btn disabled</c:if>">
                                         <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
@@ -106,10 +106,6 @@
                         </div>
                     </div>
                 </article>
-                <div class="footer">
-                    <span class="more">加载更多>></span>
-                    <span class="loading hide"><img src="<%=basePath %>/img/common/loading.gif" alt="加载中"></span>
-                </div>
             </main>
         </div>
     </div>
@@ -173,6 +169,10 @@
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script>
 	$("#time").html(transferTime("${poemUtil.poemPublishTime.time}"));
+	
+	if($(".comment-number").html()==0){
+		$(".more-comment").addClass("hide");
+	}
 	
 	if(!"${user.userId}"){
 		$(".login").click(function(){

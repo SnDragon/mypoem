@@ -98,7 +98,104 @@
                 </table>
 	<div id="articleDiv">
                <c:forEach items="${poemUtilList }" var="poemUtil">
-               	 <article  class="dynamic" id="article-${poemUtil.poemId }">
+               <c:choose>
+               	<c:when test="${poemUtil.transmitId!=null }">
+               	<article id="transmit-${poemUtil.transmitId }" class="dynamic">
+                    <c:if test="${poemUtil.userId==user.userId }">
+                    <button type="button" class="del btn btn-default" data-toggle="modal" data-target="#myModal2">删除</button>
+                    </c:if>
+                    <div class="shared-head">
+                        <img src="<%=basePath %>/img/user/${poemUtil.userIcon}" alt="">
+                        <a href="<%=basePath %>/user/aid/${poemUtil.userId}" target="_blank">${poemUtil.userName }</a>
+                        <time class="dynamic-time">${poemUtil.poemPublishTime }</time>
+                    </div>
+                    <div class="shared-reason">${poemUtil.transmitComment }</div>
+                    <div class="original">
+                        <div class="row">
+                            <div class="img col-sm-4">
+                                <div class="img-wrap">
+                                    <c:choose>
+                                    	<c:when test="${poemUtil.poemImg!=null }">
+                                    	<img src="<%=basePath %>/img/poem/${poemUtil.poemImg}" alt="今日推荐" />
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    	<img src="<%=basePath %>/img/common/head.jpg" alt="今日推荐" />
+                                    	</c:otherwise>
+                                    </c:choose>
+                                </div>
+                            </div>
+                            <div class="words col-sm-8">
+                                <div class="original-head">
+                                    <a href="<%=basePath %>/poem/pid/${poemUtil.poemId}" target="_blank" title="进入原文">${poemUtil.poemTitle }</a>
+                                    <span class="original-author">
+                                        <a target="_blank" href="<%=basePath %>/user/aid/${poemUtil.authorId}" title="王赛">${poemUtil.authorName }</a>
+                                    </span>
+                                </div>
+                                <div class="original-content">
+                                    <c:forEach items="${poemUtil.poemRow }" var="row" begin="0" end="2" varStatus="status">
+                                    	<p>${row}<c:if test="${status.count==3 }"><span>...</span></c:if></p>
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dynamic-action">
+                        <div class="row">
+                            <ul>
+                                <li class="col-xs-3 keep">
+                                    <!--<span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>-->
+                                </li>
+                                <li class="col-xs-3 share">
+                                    <!--<a href="#" data-toggle="modal" data-target="#myModal">-->
+                                        <!--<span class="glyphicon glyphicon-share"></span><span class="share-number">4</span>-->
+                                    <!--</a>-->
+                                </li>
+                                <li class="col-xs-3 transmitComment">
+                                    <span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="transmit-number-${poemUtil.transmitId }">${poemUtil.poemNumComment }</span>
+                                </li>
+                                <li class="col-xs-3 thumb supportTransmit  
+                                <c:choose><c:when test="${poemUtil.isSupported }">orangeLi</c:when><c:otherwise>grayLi</c:otherwise></c:choose>
+                                ">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">${poemUtil.poemNumSupport }</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!--点击转发后，出现遮罩层-->
+
+
+                    <!--点击评论后，显示的评论记录及评论框-->
+                    <div class="comment-wrap">
+                        <div class="dynamic-comment">
+                            <div class="send-transmit-comment">
+                                <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
+                                <a class="head-icon" href="mine.html" target="_blank">
+                                    <img src="<%=basePath %>/img/user/${user.userIcon}" alt="进入我的个人中心" />
+                                </a>
+                                <textarea name="comment" class="input-comment" rows="2"></textarea>
+                                <br />
+                                <button class="btn-comment btn btn-default">
+                                    评论
+                                </button>
+                            </div>
+
+                            
+                            <div class="more-comment">
+                                <span class="more-transmit-comment-span">加载更多</span>
+                                <span class="no-more hide">没有更多评论了</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+               	</c:when>
+               	<c:otherwise>
+               	<article  class="dynamic" id="article-${poemUtil.poemId }">
+               	  <c:if test="${poemUtil.userId==user.userId }">
+               	  <button type="button" class="del btn btn-default" data-toggle="modal" data-target="#myModal2">
+               	  删除
+               	  </button>
+               	  </c:if>
                     <div class="dynamic-head">
                         <h1 class="dynamic-title">
                             <a href="<%=basePath %>/poem/pid/${poemUtil.poemId}" class="poem-title">${poemUtil.poemTitle }</a>   <!--如何跳转到作者的相应页面，参考ghost网站-->
@@ -108,7 +205,7 @@
                                 作者：
                                 <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                             </span>
-                            <time id="time_${poemUtil.poemId }" class="dynamic-time">2016年</time>
+                            <time id="time_${poemUtil.poemId }" class="dynamic-time">${poemUtil.poemPublishTime }</time>
                         </div>
                     </div>
                     <div class="dynamic-content">
@@ -139,9 +236,9 @@
                                 " >
                                     <span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>
                                 </li>
-                                <li class="col-xs-3 share">
+                                <li class="col-xs-3 share ">
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" class="<c:if test="${poemUtil.userId==user.userId }">btn disabled</c:if>">
                                         <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
@@ -165,7 +262,7 @@
                             <div class="send-comment">
                                 <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
                                 <a class="head-icon" href="<%=basePath %>/user/uid/${user.userId}" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon-mine.jpg" alt="进入我的个人中心" />
+                                    <img src="<%=basePath %>/img/user/${user.userIcon}" alt="进入我的个人中心" />
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
                                 <br />
@@ -180,12 +277,11 @@
                             </div>
                         </div>
                     </div>
-                     <script type="text/javascript">
-                     var time=transferTime("${poemUtil.poemPublishTime.time}")
-                 	var id="${poemUtil.poemId}";
-                 	$("#time_"+id).html(time);
-                </script>
+                    
                 </article>
+               	</c:otherwise>
+               </c:choose>
+               	 
                
                </c:forEach>
 
@@ -221,14 +317,36 @@
         </div>
     </div>
 </div>
+
+<!--“删除动态”模态框-->
+<div class="modal" id="myModal2" data-backdrop="false" data-keyboard="false" del-id="" del-type="">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <h4 class="modal-title">删除</h4>
+            </div>
+            <div class="modal-body">
+                确定要删除<span></span> ？
+            </div>
+            <div class="modal-footer">
+                <button class="yes btn btn-primary">确定</button>
+                <button type="button" class="no btn btn-primary" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <input type="hidden" value="<%=basePath%>" id="basePath"/>
 <input type="hidden" value="${user.userId }" id="userId"/>
 <input type="hidden" value="${user.userName }" id="userName"/>
+<input type="hidden" value="${user.userIcon }" id="userIcon"/>
 </body>
 <script src="<%=basePath %>/js/style/main.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>
 <script src="<%=basePath %>/js/style/dynamic.js"></script>
 <script src="<%=basePath %>/js/custom/comment.js"></script>
+<script src="<%=basePath %>/js/custom/transmitComment.js"></script>
 <script type="text/javascript" src="<%=basePath %>/js/lib/jquery.ajaxfileupload.js"></script>
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script src="<%=basePath %>/js/custom/addPoem.js"></script>
@@ -236,6 +354,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".menu li:eq(2)").addClass("current-page");
+	$.each($(".dynamic-time"),function(){
+		$(this).html($(this).html().slice(0,16));
+	});
 });
 	
 </script>

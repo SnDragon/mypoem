@@ -44,4 +44,5 @@
 	<select id="getCommentNumberByThread" resultType="int">
 		select count(comment_id) from MP_comment where comment_thread like CONCAT(#{0},'%');
 	</select>
+	
 </mapper>

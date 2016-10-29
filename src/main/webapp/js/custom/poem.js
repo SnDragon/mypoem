@@ -47,7 +47,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	//点赞处理
+	//诗歌点赞处理
 	$(document).on("click","li.support span",function(){
 		$li=$(this).parent();
 		var $thumb_number = $li.find(".thumb-number");
@@ -99,12 +99,64 @@ $(document).ready(function(){
             
         }
 	});
+	//转发点赞处理
+	$(document).on("click","li.supportTransmit span",function(){
+		$li=$(this).parent();
+		var $thumb_number = $li.find(".thumb-number");
+        var thumb_number_text = parseInt($thumb_number.html());   /*parseInt转换为数字*/
+        // 由于需要更新点赞次数，就不调用clickLi()仅改变颜色
+        if($li.hasClass("grayLi")){
+        	$.ajax({
+        		type:"POST",
+        		url:basePath+"/support/addTransmitSupport",
+        		contentType:"application/json",
+        		data:JSON.stringify({
+        			userId:$("#userId").val(),
+        			transmitId:$li.parents("article").attr("id").slice(9)
+        		}),
+        		dataType:"text",
+        		success:function(json){
+        			if(json=="success"){
+        				alert("成功");
+        				var new_thumb = thumb_number_text + 1;  /*new_thumb需传送给后台*/
+        	            $thumb_number.html(new_thumb);  /*不能用++*/
+        	            $li.removeClass("grayLi").addClass("orangeLi");
+        			}else{
+        				alert("失败");
+        			}
+        		}
+        	});
+            
+        }else if($li.hasClass("orangeLi")){
+        	$.ajax({
+        		type:"POST",
+        		url:basePath+"/support/removeTransmitSupport",
+        		contentType:"application/json",
+        		data:JSON.stringify({
+        			userId:$("#userId").val(),
+        			transmitId:$li.parents("article").attr("id").slice(9)
+        		}),
+        		dataType:"text",
+        		success:function(json){
+        			if(json=="success"){
+        				alert("成功");
+        				var new_thumb = thumb_number_text - 1;
+        	            $thumb_number.html(new_thumb);
+        	            $li.removeClass("orangeLi").addClass("grayLi");
+        			}else{
+        				alert("失败");
+        			}
+        		}
+        	});
+            
+        }
+	});
 	//转发处理
 	$(document).on("click","li.share span",function(){
 		$current_article=$(this).parents(".dynamic");
 		$ul=$(this).parents("ul");
 		var author = $current_article.find(".dynamic-author a").html();
-		var title = $current_article.find(".dynamic-title a").html();
+		var title = $current_article.find(".dynamic-title").text();
 		var poemId=$current_article.find().html();
 		$("#myModal .share-author").html(author);
 		$("#myModal .share-title").html(title);

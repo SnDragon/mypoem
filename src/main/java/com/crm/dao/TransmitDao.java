@@ -14,5 +14,13 @@ public interface TransmitDao {
 	ArrayList<TransmitUtil> getTransmitsByPage(Integer uid, int begin, int length);
 
 	int removeTransmitById(Integer transmitId);
+
+	int addTransmitSupport(Integer transmitId);
+
+	int subTransmitSupport(Integer transmitId);
+
+	int addComment(Integer poemId);
+
+	int subComment(int pid, int num);
 	
 }

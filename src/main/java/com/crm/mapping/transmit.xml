@@ -8,6 +8,8 @@
 		<result property="poemId" column="poem_id" />
 		<result property="transmitComment" column="transmit_comment" />
 		<result property="transmitTime" column="transmit_time" />
+		<result property="numOfComment" column="num_of_comment" />
+		<result property="numOfSupport" column="num_of_support" />
 	</resultMap>
 	<resultMap type="com.crm.util.TransmitUtil" id="transmitUtilMap">
 		<result property="transmitId" column="transmit_id" />
@@ -43,4 +45,24 @@
 	<delete id="removeTransmitById">
 		delete from MP_transmit where transmit_id=#{0}
 	</delete>
+	
+	<update id="addTransmitSupport">
+		update MP_transmit set num_of_support=num_of_support+1
+		where transmit_id=#{0}
+	</update>
+	
+	<update id="subTransmitSupport">
+		update MP_transmit set num_of_support=num_of_support-1
+		where transmit_id=#{0}
+	</update>
+	
+	<update id="addComment">
+		update MP_transmit set num_of_comment=num_of_comment+1
+		where transmit_id=#{0}
+	</update>
+	
+	<update id="subComment">
+		update MP_transmit set num_of_comment=num_of_comment-#{1}
+		where transmit_id=#{0}
+	</update>
 </mapper>

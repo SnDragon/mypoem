@@ -4,9 +4,9 @@ import java.sql.Timestamp;
 
 public class TransmitUtil {
 	private Integer transmitId;
-	private Integer poemId;
 	private String transmitComment;
 	private Timestamp transmitTime;
+	private Integer poemId;
 	private Integer authorId;
 	private String authorName;
 	private String poemTitle;

@@ -155,7 +155,7 @@
                             <a href="<%=basePath %>/user/aid/${author.userId}" target="_blank" class="mytooltip">
                                 <span class="name">${author.userName }</span>
                                 （<span class="num-of-poem">${author.numOfPoem }</span>首诗
-                                <span class="num-of-fans">${author.numOfConcern }</span>个人关注<span class="gender">他</span>）
+                                <span class="num-of-fans">${author.numOfConcern }</span>个粉丝）
                             </a>
                         </dd>
                         </c:forEach>
@@ -166,7 +166,7 @@
                             <a href="<%=basePath %>/user/aid/${author.userId}" target="_blank" class="mytooltip">
                                 <span class="name">${author.userName }</span>
                                 （<span class="num-of-poem">${author.numOfPoem }</span>首诗
-                                <span class="num-of-fans">${author.numOfConcern }</span>个人关注<span class="gender">他</span>）
+                                <span class="num-of-fans">${author.numOfConcern }</span>个粉丝）
                             </a>
                         </dd>
                         </c:forEach>

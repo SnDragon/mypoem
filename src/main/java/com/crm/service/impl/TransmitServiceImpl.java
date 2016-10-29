@@ -67,5 +67,39 @@ public class TransmitServiceImpl implements TransmitService{
 			return false;
 		}
 	}
+	@Override
+	public boolean addTransmitSupport(Integer transmitId) {
+		if(transmitDao.addTransmitSupport(transmitId)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
+	public boolean subTransmitSupport(Integer transmitId) {
+		if(transmitDao.subTransmitSupport(transmitId)>0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
+	public boolean addComment(Integer poemId) {
+		if (poemId == null) {
+			return false;
+		}
+		if (transmitDao.addComment(poemId) > 0) {
+			return true;
+		}
+		return false;
+	}
+	@Override
+	public boolean subComment(int pid, int num) {
+		if (transmitDao.subComment(pid, num) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

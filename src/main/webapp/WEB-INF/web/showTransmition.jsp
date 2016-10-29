@@ -51,7 +51,7 @@
                             	</c:choose>
                             </div>
                             <a class="orig-title" href="<%=basePath %>/poem/pid/${transmit.poemId}" target="_blank" title="${transmit.poemTitle }">${transmit.poemTitle }</a>
-                            <a class="orig-author" target="_blank" href="<%=basePath %>/user/uid/${transmit.authorId } " title="${transmit.authorName }">${transmit.authorName }</a>
+                            <a class="orig-author" target="_blank" href="<%=basePath %>/user/aid/${transmit.authorId } " title="${transmit.authorName }">${transmit.authorName }</a>
                         </div>
                     </div>
                     

@@ -8,14 +8,30 @@ public class Transmit {
 	private Integer poemId;
 	private String transmitComment;
 	private Timestamp transmitTime;
-	
+	private Integer numOfComment;
+	private Integer numOfSupport;
 	
 	
 	@Override
 	public String toString() {
 		return "Transmit [transmitId=" + transmitId + ", userId=" + userId + ", poemId=" + poemId + ", transmitComment="
-				+ transmitComment + ", transmitTime=" + transmitTime + "]";
+				+ transmitComment + ", transmitTime=" + transmitTime + ", numOfComment=" + numOfComment
+				+ ", numOfSupport=" + numOfSupport + "]";
 	}
+	
+	public Integer getNumOfComment() {
+		return numOfComment;
+	}
+	public void setNumOfComment(Integer numOfComment) {
+		this.numOfComment = numOfComment;
+	}
+	public Integer getNumOfSupport() {
+		return numOfSupport;
+	}
+	public void setNumOfSupport(Integer numOfSupport) {
+		this.numOfSupport = numOfSupport;
+	}
+	
 	public Integer getTransmitId() {
 		return transmitId;
 	}

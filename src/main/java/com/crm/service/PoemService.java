@@ -57,4 +57,6 @@ public interface PoemService {
 	public OtherPoem getNextOtherPoemById(Integer oid);
 
 	public ArrayList<PoemUtil> getPoemListByKey(String key);
+
+	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByUID(Integer userId);
 }

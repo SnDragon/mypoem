@@ -57,5 +57,7 @@ public interface PoemDao {
 
 	public ArrayList<PoemUtil> getRecommendPoemUtils(int begin, int length);
 
+	public ArrayList<PoemUtil> getPoemAndTransmitUtils();
+
 
 }

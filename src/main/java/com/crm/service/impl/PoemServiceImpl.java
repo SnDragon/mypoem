@@ -327,4 +327,37 @@ public class PoemServiceImpl implements PoemService {
 		return poemList;
 	}
 
+	@Override
+	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByUID(Integer uid) {
+		ArrayList<PoemUtil> poemUtils = poemDao.getPoemAndTransmitUtils();
+		for (PoemUtil poemUtil : poemUtils) {
+
+			if(poemUtil.getTransmitId()==null){
+				if (collectionService.isCollectionExisted(uid, poemUtil.getPoemId())) {
+					poemUtil.setIsCollected(true);
+				} else {
+					poemUtil.setIsCollected(false);
+				}
+				if (supportService.isSupportExisted(uid, poemUtil.getPoemId())) {
+					poemUtil.setIsSupported(true);
+				} else {
+					poemUtil.setIsSupported(false);
+				}
+			}else{
+				if(supportService.isTransmitSupportExisted(uid,poemUtil.getTransmitId())){
+					poemUtil.setIsSupported(true);
+				}else{
+					poemUtil.setIsSupported(false);
+				}
+			}
+		}
+		System.out.println("poemUtis:");
+		for (PoemUtil poemUtil : poemUtils) {
+			System.out.println(poemUtil);
+			String[] poemRow = poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
+		return poemUtils;
+	}
+
 }

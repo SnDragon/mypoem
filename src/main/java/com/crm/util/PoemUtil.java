@@ -3,6 +3,8 @@ package com.crm.util;
 import java.sql.Timestamp;
 import java.util.Arrays;
 
+import com.sun.beans.editors.IntegerEditor;
+
 
 public class PoemUtil {
 	private Integer poemId;
@@ -17,15 +19,65 @@ public class PoemUtil {
 	private Integer poemNumSupport;
 	private Integer poemNumComment;
 	private Integer poemNumTransmit;
+	private Timestamp poemPublishTime;
+	private Integer transmitId;
+	private String transmitComment;
+	private Integer authorId;
+	private String authorName;
+	private String userIcon;
 	
+
+
 	
+
 	@Override
 	public String toString() {
 		return "PoemUtil [poemId=" + poemId + ", userId=" + userId + ", poemTitle=" + poemTitle + ", poemText="
 				+ poemText + ", poemRow=" + Arrays.toString(poemRow) + ", isCollected=" + isCollected + ", isSupported="
 				+ isSupported + ", userName=" + userName + ", poemImg=" + poemImg + ", poemNumSupport=" + poemNumSupport
 				+ ", poemNumComment=" + poemNumComment + ", poemNumTransmit=" + poemNumTransmit + ", poemPublishTime="
-				+ poemPublishTime + "]";
+				+ poemPublishTime + ", transmitId=" + transmitId + ", transmitComment=" + transmitComment
+				+ ", authorId=" + authorId + ", authorName=" + authorName + ", userIcon=" + userIcon + "]";
+	}
+
+	public String getUserIcon() {
+		return userIcon;
+	}
+
+	public void setUserIcon(String userIcon) {
+		this.userIcon = userIcon;
+	}
+
+	public Integer getTransmitId() {
+		return transmitId;
+	}
+
+	public void setTransmitId(Integer transmitId) {
+		this.transmitId = transmitId;
+	}
+
+	public String getTransmitComment() {
+		return transmitComment;
+	}
+
+	public void setTransmitComment(String transmitComment) {
+		this.transmitComment = transmitComment;
+	}
+
+	public Integer getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Integer authorId) {
+		this.authorId = authorId;
+	}
+
+	public String getAuthorName() {
+		return authorName;
+	}
+
+	public void setAuthorName(String authorName) {
+		this.authorName = authorName;
 	}
 
 	public Integer getPoemNumComment() {
@@ -43,7 +95,7 @@ public class PoemUtil {
 	public void setPoemNumTransmit(Integer poemNumTransmit) {
 		this.poemNumTransmit = poemNumTransmit;
 	}
-	private Timestamp poemPublishTime;
+	
 	
 
 

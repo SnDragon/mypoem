@@ -1,8 +1,6 @@
-/*
-.content-wrap{
-    margin-top: 110px;
-}
-*/
+/*.content-wrap{*/
+    /*margin-top: 110px;*/
+/*}*/
 .main-content{
     width: 1020px;
     margin: auto;
@@ -185,21 +183,28 @@
     line-height: 30px;
     list-style-type: none;
 }
+.main-content .recom-author dl dd a{
+    text-decoration: none;
+    color: rgb(140,140,140);
+}
 .main-content .recom-author dl dd a .name{
+    font-size: 13px;
+    color: rgb(102,102,102);
     display: inline-block;
     margin-bottom: -10px;
     margin-right: 2px;
-    max-width: 80px;
+    max-width: 100px;
     overflow: hidden;
     white-space: nowrap;
     -ms-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
+.main-content .recom-author dl dd a:hover, .main-content .recom-author dl dd a:hover .name{
+    color: black;
+}
+
 .main-content .others-poem dl dd{
     width: 365px;
-}
-.main-content .recom-author dl dd a{
-    color: rgb(102,102,102);
 }
 .main-content .others-poem dl dd a{
     color: rgb(102,102,102);

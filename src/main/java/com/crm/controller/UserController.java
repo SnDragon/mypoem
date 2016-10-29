@@ -98,7 +98,7 @@ public class UserController {
 			response.addCookie(passCookie);
 			return new ModelAndView("redirect:/");
 		}else{
-			return new ModelAndView("fail");
+			return new ModelAndView("redirect:/login?fail");
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class UserController {
 		}
 		System.out.println("userId:"+user.getUserId());
 		ModelAndView modelAndView=new ModelAndView("friendCircle");
-		ArrayList<PoemUtil> poemUtils=poemService.getPoemUtilsByUID(user.getUserId());
+		ArrayList<PoemUtil> poemUtils=poemService.getPoemAndTransmitUtilsByUID(user.getUserId());
 		modelAndView.addObject("poemUtilList",poemUtils);
 		return modelAndView;
 	}

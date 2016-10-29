@@ -140,17 +140,6 @@ $(function () {
         				 // 将新评论放入评论框
         	            var $send = $this.parent();
         	            var $head = $send.find(".head-icon img");
-//        	            var $first_comment = $(this).parents(".dynamic-comment").find(".comment").eq(0);
-
-//        	            var new_comment = '<div class="comment" id="comment-'+data.commentId+'"><div class="head-icon"><img src="' +
-//        	                $("#basePath").val()+'/img/attached/head-icon-mine.jpg"'+              /*用户头像*/
-//        	                ' alt="" /></div><div class="content"><a target="_blank" href="' +
-//        	                'mine.html' +                 /*用户的个人中心链接*/
-//        	                '" class="reviewer">' +
-//        	                $("#userName").val() +                        /*用户名，后端拿*/
-//        	                '</a><div class="reviewer-words"><div class="triangle"></div><div class="words">' +
-//        	                $content.val() +  /*用户评论的内容*/
-//        	                '</div></div></div><span class="reply-or-delete">删除</span></div>';
         	            var new_comment='<div class="comment" id="comment-'+data.commentId+'"><div class="content">'
                             			+'<a target="_blank" href="#" class="reviewer">'+$("#userName").val()
                             			+'</a><div class="reviewer-words"><div class="triangle"></div><div class="words">'
@@ -158,9 +147,6 @@ $(function () {
                             			+'</div></div></div><span class="reply-or-delete">删除</span>'
                             			+'<input type="hidden" id="hidden-input-'+data.commentId+'" value="'+data.commentThread+'" />'
                             			+'</div>';
-        	            // 使用insertBefore方法，调用者用$包含，参数必须转换为DOM对象
-//        	            $(new_comment).insertBefore($first_comment[0]);
-        	            
         	            $(new_comment).insertAfter($send);
         	            // 清除评论框内容
         	            $send.find("textarea").val("");
@@ -219,6 +205,9 @@ $(function () {
     });
     // 点击“提交回复”
     $(document).on("click", ".reply button", function(){
+    	if($(this).parents(".dynamic").attr("id").slice(0,1)!='a'){
+    		return;
+    	}
         // 提交回复时，检查回复框内容
         var $input_reply = $(this).prev();
         var reply_value = $input_reply.val().replace(/\s+/g,"");  /*消除字符串所有空格*/
@@ -320,6 +309,55 @@ $(function () {
         $(this).siblings("span").removeClass("hide");
         $(this).addClass("hide");
     });
+    
+ // 删除
+    if($(".del").length != 0){
+        // 设置删除框内容
+        $(document).on("click", ".del", function () {
+            var id = $(this).parent().attr("id");   /*将模态框的自定义属性del-id设为要删除的动态的id*/
+            $("#myModal2").attr("del-id", id);
+            // 判断要删除的是原创还是转发的，从而决定删除框的文本
+            if($(this).siblings(".original").length != 0){
+            	$("#myModal2").attr("del-type","transmit");//将删除的类型设为转发
+                var author = $(this).siblings(".original").find(".original-author a").html();
+                var title = $(this).siblings(".original").find(".original-head>a").html();
+                $("#myModal2 .modal-body span").html('转自“' + author + '”的《' + title + '》');
+            }else{
+            	$("#myModal2").attr("del-type","original");//将删除的类型设为原创
+                var title = $(this).next().find("h1 a").html();
+                $("#myModal2 .modal-body span").html('《' + title + '》');
+            }
+        });
+        // “确定删除”或“取消”
+        $(document).on("click", "#myModal2 .yes", function () {
+        	var type=$("#myModal2").attr("del-type");
+        	var id="";
+        	if(type=="original"){
+        		id = $(this).parents("#myModal2").attr("del-id").slice(8);
+        		$.ajax({
+        			type:"POST",
+        			url:$("#basePath").val()+"/poem/removePoem",
+        			data:{
+        				poemId:id,
+        				userId:$("#userId").val()
+        			},
+        			success:function(data){
+        				if(data=="success"){
+        					alert("成功");
+        					$("#article-"+id).remove();
+        				}else{
+        					alert("失败");
+        				}
+        			}
+        		});
+        	}else{
+        		
+        	}
+        	
+            // 关闭模态框
+            $(this).next().click();
+        });
+    }
 });
 
 function clickLi(target){
