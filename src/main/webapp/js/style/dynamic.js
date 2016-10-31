@@ -16,10 +16,27 @@ $(function () {
     //  $test=$("li.col-xs-3 span");
     //传入字符串，而不是对象
     $(document).on("mouseover","li.col-xs-3 span",function () {
-        // $(this).parent().css("color", "#E67E22");
-        $(this).css("cursor", "pointer");
+    	 $(this).css("cursor", "pointer");
     });
-    
+    /*
+    $(document).on("click","li.col-xs-3 span",function () {
+    	var $li = $(this).parent();
+        // $(this).parent().css("color", "#E67E22");
+        if($li.hasClass("comment")){
+            var $current_article = $li.parents(".dynamic");
+            $current_article.css("border-bottom", "none");
+            var $current_comment = $current_article.find(".comment-wrap");
+            var isDisplay = $current_comment.css("display") == "block";
+            $current_comment.toggle("slow", function () {
+                if(!$current_article.next().hasClass("dynamic") && !isDisplay){
+                    var scrollT = $(window).scrollTop();
+                    scrollT += 300;
+                    $("html,body").animate({scrollTop: scrollT}, 300);
+                }
+            });
+        }
+    });
+    */
 
 
     // 转发
@@ -95,12 +112,12 @@ $(function () {
                         var num=Number($span.html());
                         $span.html(num+1);
                         $("#share-word").val("");//清除转发内容
+                        
                     }else{
                         alert("转发失败！");
                     }
                 }
             });
-
             clearBuffering();
         }
     });
@@ -350,8 +367,20 @@ $(function () {
         				}
         			}
         		});
-        	}else{
-        		
+        	}else if(type=="transmit"){
+        		id = $(this).parents("#myModal2").attr("del-id").slice(9);
+        		$.ajax({
+        			type:"POST",
+        			url:$("#basePath").val()+"/transmit/remove/"+id,
+        			success:function(data){
+        				if(data=="success"){
+        					alert("成功");
+        					$("#transmit-"+id).remove();
+        				}else{
+        					alert("失败");
+        				}
+        			}
+        		});
         	}
         	
             // 关闭模态框

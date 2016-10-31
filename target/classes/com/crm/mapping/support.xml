@@ -8,31 +8,31 @@
 	</resultMap>
 	
 	<select id="getSupportByUPId" resultMap="supportMap">
-		select user_id,poem_id from MP_support 
+		select user_id,poem_id from mp_support 
 		where user_id=#{0} and poem_id=#{1}
 	</select>
 	
 	<insert id="insertSupport" parameterType="com.crm.model.Support">
-		insert into MP_support(user_id,poem_id)
+		insert into mp_support(user_id,poem_id)
 		values(#{userId},#{poemId})
 	</insert>
 	
 	<delete id="removeSupport" parameterType="com.crm.model.Support">
-		delete from MP_support where user_id=#{userId} and poem_id=#{poemId}
+		delete from mp_support where user_id=#{userId} and poem_id=#{poemId}
 	</delete>
 	
 	<select id="getTransmitSupportByUPId" resultType="int">
-		select count(*) from MP_transmit_support 
+		select count(*) from mp_transmit_support 
 		where user_id=#{0} and transmit_id=#{1}
 	</select>
 	
 	<insert id="addTransmitSupport">
-		insert into MP_transmit_support(transmit_id,user_id)
+		insert into mp_transmit_support(transmit_id,user_id)
 		values(#{transmitId},#{userId})
 	</insert>
 	
 	<delete id="removeTransmitSupport">
-		delete from MP_transmit_support
+		delete from mp_transmit_support
 		where user_id=#{userId} and transmit_id=#{transmitId}
 	</delete>
 </mapper>

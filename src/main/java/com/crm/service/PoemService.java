@@ -59,4 +59,6 @@ public interface PoemService {
 	public ArrayList<PoemUtil> getPoemListByKey(String key);
 
 	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByUID(Integer userId);
+
+	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByPage(String userId, String page);
 }

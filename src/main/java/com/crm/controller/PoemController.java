@@ -78,9 +78,9 @@ public class PoemController {
 			try {
 				if(!file.isEmpty()){
 					byte[] bytes=file.getBytes();
-//					filePath=new File(request.getSession().getServletContext().getRealPath("/img"));
+					filePath=new File(request.getSession().getServletContext().getRealPath("/img/poem"));
 					//由于eclipse内置配置问题，此处手动配置，实际发布时只需使用上面的就行了
-					filePath=new File("D:\\javaEEd1\\mypoem\\src\\main\\webapp\\img\\poem");
+//					filePath=new File("D:\\javaEEd1\\mypoem\\src\\main\\webapp\\img\\poem");
 					System.out.println(filePath);
 					if(!filePath.exists()){
 						filePath.mkdirs();

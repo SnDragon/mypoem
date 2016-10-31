@@ -134,7 +134,7 @@
                                 作者：
                                 <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                             </span>
-                            <time id="time_${poemUtil.poemId }" class="dynamic-time">2016年</time>
+                            <time id="time_${poemUtil.poemId }" class="dynamic-time">${poemUtil.poemPublishTime }</time>
                         </div>
                     </div>
                     <div class="dynamic-content">
@@ -167,7 +167,7 @@
                                 </li>
                                 <li class="col-xs-3 share">
                                     <!--触发弹出框的元素设置data-toggle和data-target才可以正常关闭-->
-                                    <a href="#" data-toggle="modal" data-target="#myModal" class="login">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" class="login<c:if test="${poemUtil.userId==user.userId }"> btn disabled</c:if>">
                                         <span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-${poemUtil.poemId }">${poemUtil.poemNumTransmit }</span>
                                     </a>
                                 </li>
@@ -206,14 +206,6 @@
                             </div>
                         </div>
                     </div>
-                     <script type="text/javascript">
-                	var date=new Date(Number("${poemUtil.poemPublishTime.time}"));
-                	var Y = date.getFullYear() + '-';
-                	M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-                	D = date.getDate() + ' ';
-                	var id="${poemUtil.poemId}";
-                	$("#time_"+id).html(Y+M+D);
-                </script>
                 </article>
                
                </c:forEach>
@@ -230,7 +222,7 @@
         <div class="modal-content">
         	<input type="hidden" id="modal-poemId" value="" />
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" id="close-button"><span>&times;</span></button>
                 <h4 class="modal-title">转发</h4>
             </div>
             <div class="modal-body">
@@ -288,6 +280,12 @@ if(!"${user.userId}"){
 		return false;
 	});
 }
+function formatTime(){
+	$.each($(".dynamic-time"),function(){
+		$(this).html($(this).html().slice(0,16));
+	});
+}
+formatTime();
 //有用到user的属性
 $("#addConcern").click(function(){
 	var concernedId=$("#authorId").val();
@@ -397,7 +395,7 @@ $("#span-fans").click(function(){
 							+'" title="进入作者主页" target="_blank">';
 					var imgStr='';
 					if(this.userIcon){
-						imgStr='<img src="'+$("#basePath")+'/img/user/'+this.userIcon+'" alt="" />';
+						imgStr='<img src="'+$("#basePath").val()+'/img/user/'+this.userIcon+'" alt="" />';
 					}else{
 						imgStr='<img src="'+$("#basePath").val()+'/img/attached/head-icon1.jpg" alt="" />'	
 					}
@@ -441,7 +439,7 @@ $("#span-concern").click(function(){
 							+'" title="进入作者主页" target="_blank">';
 					var imgStr='';
 					if(this.userIcon){
-						imgStr='<img src="'+$("#basePath")+'/img/user/'+this.userIcon+'" alt="" />';
+						imgStr='<img src="'+$("#basePath").val()+'/img/user/'+this.userIcon+'" alt="" />';
 					}else{
 						imgStr='<img src="'+$("#basePath").val()+'/img/attached/head-icon1.jpg" alt="" />'	
 					}

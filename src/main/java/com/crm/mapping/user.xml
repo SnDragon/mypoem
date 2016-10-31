@@ -38,62 +38,62 @@
 	</sql>
 	
 	<insert id="insertUser" parameterType="com.crm.model.User">
-		insert into MP_user(user_name,user_email,user_password)
+		insert into mp_user(user_name,user_email,user_password)
 		values(#{userName},#{userEmail},#{userPassword})
 	</insert>
 	
 	<select id="getUserByEmail" parameterType="String" resultMap="userMap">
-		select <include refid="userColumns" /> from MP_user
+		select <include refid="userColumns" /> from mp_user
 		where user_email=#{_parameter}
 	</select>
 	
 	<update id="updateUserIcon">
-		update MP_user set user_icon=#{1}
+		update mp_user set user_icon=#{1}
 		where user_id=#{0}
 	</update>
 	
 	<update id="updateUserIntro">
-		update MP_user set user_intro=#{1}
+		update mp_user set user_intro=#{1}
 		where user_id=#{0}
 	</update>
 	
 	<update id="updateUserMotto">
-		update MP_user set user_motto=#{1}
+		update mp_user set user_motto=#{1}
 		where user_id=#{0}
 	</update>
 	
 	<update id="updateUserPass">
-		update MP_user set user_password=#{1}
+		update mp_user set user_password=#{1}
 		where user_id=#{0}
 	</update>
 	
 	<update id="updateUserSexById">
-		update MP_user set user_sex=#{1}
+		update mp_user set user_sex=#{1}
 		where user_id=#{0}
 	</update>
 	
 	<select id="getUserUtilById" resultMap="userUtilMap">
-		select <include refid="userUtilColumns" /> from MP_user
+		select <include refid="userUtilColumns" /> from mp_user
 		where user_id=#{0}
 	</select>
 	
 	<select id="getConcernUserListById" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerner_id=#{0} and user_id=concerned_id limit 0,#{1}
 	</select>
 	
 	<select id="getFansListById" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerned_id=#{0} and user_id=concerner_id limit 0,#{1}
 	</select>
 	
 	<select id="getRecommendUsers" resultMap="recommendUserMap">
 		select user_id,user_icon,user_name,num_of_poem,count(c.concerner_id) as num_of_concern
 		from (select  u.user_id,u.user_icon,u.user_name,count(p.poem_id) as num_of_poem
-		from MP_user u,MP_poem p
+		from mp_user u,mp_poem p
 		where u.user_id=p.user_id
         group by user_id
-        order by num_of_poem) as n,MP_concern as c
+        order by num_of_poem) as n,mp_concern as c
         where n.user_id=c.concerned_id
         group by user_id
         order by num_of_concern desc,num_of_poem desc;
@@ -101,6 +101,6 @@
 	
 	<select id="getUserListByKey" resultMap="userMap">
 		select user_id,user_name,user_icon,user_sex
-		from MP_user where user_name like CONCAT('%',#{0},'%');
+		from mp_user where user_name like CONCAT('%',#{0},'%');
 	</select>
 </mapper>

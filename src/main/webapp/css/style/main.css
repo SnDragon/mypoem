@@ -274,3 +274,17 @@
 .put-out-footer .wrapper button{
     outline: none;    /*边框边缘的线，并不影响边框*/
 }
+
+/*加载更多*/
+.footer{
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 30px;
+}
+.footer .more{
+    color: #E67E22;
+    cursor: pointer;
+}
+.footer .loading img{
+    width: 30px;
+}

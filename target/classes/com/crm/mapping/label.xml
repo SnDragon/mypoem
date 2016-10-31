@@ -9,7 +9,7 @@
   	</resultMap>
   	
   	<select id="getLabelById" resultMap="labelMap">
-  		select label_id,label_name,label_description from MP_label
+  		select label_id,label_name,label_description from mp_label
   		where label_id=#{0}
   	</select>
   </mapper>

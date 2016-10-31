@@ -10,10 +10,10 @@
     <title>今日推荐</title>
     <link rel="stylesheet" href="<%=basePath %>/css/lib/reset.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/lib/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/style/head.css" />
+	<link rel="stylesheet" href="<%=basePath %>/css/style/head.css" />
     <link rel="stylesheet" href="<%=basePath %>/css/style/recommend.css" />
     <script src="<%=basePath %>/js/lib/jquery.min.js"></script>
-	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/js/custom/commonFunction.js"></script>
 	
 </head>
@@ -58,15 +58,12 @@
                                 <span class="recom-author">
                                     <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                                 </span>
-                                <time class="recom-time" id="time_${poemUtil.poemId }">2016-9-3</time>
+                                <time class="recom-time">${poemUtil.poemPublishTime }</time>
                             </div>
                         </div>
                     </div>
                 </div>
-                <script>
-                	var time=transferTime("${poemUtil.poemPublishTime.time}")
-                	$("#time_${poemUtil.poemId }").html(time);
-                </script>
+                
                 </c:forEach>
 
                 <div class="footer" id="recommend-more">
@@ -87,6 +84,12 @@
 -->
 <script type="text/javascript">
 	$(".menu li:eq(1)").addClass("current-page");
+	function formatTime(){
+		$.each($(".recom-time"),function(){
+			$(this).html($(this).html().slice(0,16));
+		});
+	}
+	formatTime();
 	var finish=false;
 	$(window).scroll(function() {  
 		 var ks_area = $(window).height();
@@ -142,11 +145,9 @@
 		                    	+this.userName
 		                    	+'</a></span><time class="recom-time" id="time_'
 		                    	+this.poemId
-		                    	+'">2016-9-3</time></div></div></div></div>';
-		            		
+		                    	+'">'+this.poemPublishTime+'</time></div></div></div></div>';
 		                    $("#recommend-more").before(str);
-		                    var time=transferTime(this.poemPublishTime);
-		                    $("#time_"+this.poemId).html(time);
+		                    $("#time_"+this.poemId).html(transferTime(this.poemPublishTime));
 						});
 						$(".more").removeClass("hide");
 				        $(".loading").addClass("hide");
@@ -155,6 +156,7 @@
 							finish=true;
 							$(".more").addClass("hide");
 						}
+						
 						
 					}
 				});

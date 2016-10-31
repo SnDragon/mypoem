@@ -55,18 +55,18 @@
 		poem_num_transmit,poem_publish_time,poem_img
 	</sql>
 	<sql id="poemUtilColumns">
-		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,
+		poem_id,mp_user.user_id,user_name,poem_text,poem_title,poem_num_support,
 		poem_num_comment,poem_num_transmit,poem_publish_time,poem_img
 	</sql>
 	<sql id="poemAndTransmitColumns">
 		poem_id,a.user_id,a.user_name,poem_text,poem_title,num_of_support as poem_num_support,
 		num_of_comment as poem_num_comment,poem_num_transmit,
 		transmit_time as poem_publish_time,poem_img,transmit_id,transmit_comment,author_id,
-		u.user_name as author_name,user_icon
+		u.user_name as author_name,a.user_icon
 	</sql>
 	
 	<insert id="insertPoem" parameterType="com.crm.model.Poem" useGeneratedKeys="true" keyProperty="poemId">
-		insert into MP_poem(user_id,poem_title,poem_text,poem_publish_time,label_id,label_name
+		insert into mp_poem(user_id,poem_title,poem_text,poem_publish_time,label_id,label_name
 		<if test="poemImg!=null">,poem_img</if>
 		)
 		values(#{userId},#{poemTitle},#{poemText},#{poemPublishTime},#{labelId},#{labelName}
@@ -75,119 +75,139 @@
 	</insert>
 	
 	<select id="getPoemById" resultMap="poemMap">
-		select <include refid="poemColumns" /> from MP_poem
+		select <include refid="poemColumns" /> from mp_poem
 		where poem_id=#{0}
 	</select>
 	
 	<select id="getPoemUtils" resultMap="poemUtilMap">
 		select <include refid="poemUtilColumns" />
-		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id; 	
+		from mp_poem,mp_user where mp_poem.user_id=mp_user.user_id; 	
 	</select>
 	
 	<select id="getPoemUtilsByAId" resultMap="poemUtilMap">
 		select <include refid="poemUtilColumns" />
-		from MP_poem,MP_user where MP_poem.user_id=#{0} and MP_poem.user_id=MP_user.user_id
+		from mp_poem,mp_user where mp_poem.user_id=#{0} and mp_poem.user_id=mp_user.user_id
+		order by poem_publish_time desc
 	</select>
 	
 	<update id="addSupport">
-		update MP_poem set poem_num_support=poem_num_support+1
+		update mp_poem set poem_num_support=poem_num_support+1
 		where poem_id=#{0}
 	</update>
 	
 	<update id="subSupport">
-		update MP_poem set poem_num_support=poem_num_support-1
+		update mp_poem set poem_num_support=poem_num_support-1
 		where poem_id=#{0}
 	</update>
 	
 	<select id="getPoemUtilById" resultMap="poemUtilMap">
-		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
-		where MP_Poem.poem_id=#{0} and MP_user.user_id=MP_poem.user_id
+		select <include refid="poemUtilColumns" /> from mp_poem,mp_user
+		where mp_poem.poem_id=#{0} and mp_user.user_id=mp_poem.user_id
 	</select>
 	
 	<update id="addTransmit">
-		update MP_poem set poem_num_transmit=poem_num_transmit+1
+		update mp_poem set poem_num_transmit=poem_num_transmit+1
 		where poem_id=#{0}
 	</update>
 	
 	<update id="addComment">
-		update MP_poem set poem_num_comment=poem_num_comment+1
+		update mp_poem set poem_num_comment=poem_num_comment+1
 		where poem_id=#{0}
 	</update>
 	
 	<update id="subComment">
-		update MP_poem set poem_num_comment=poem_num_comment-#{1}
+		update mp_poem set poem_num_comment=poem_num_comment-#{1}
 		where poem_id=#{0}
 	</update>
 	
 	<select id="getCreationsByUId" resultMap="poemMap">
-		select <include refid="poemColumns" /> from MP_poem
+		select <include refid="poemColumns" /> from mp_poem
 		where user_id=#{0} limit #{1},#{2}
 	</select>
 	
 	<select id="getPoemNumberByUId" resultType="int">
-		select count(poem_id) from MP_poem where user_id=#{0}
+		select count(poem_id) from mp_poem where user_id=#{0}
 	</select>
 	
 	<delete id="removePoem">
-		delete from MP_poem where poem_id=#{0} and user_id=#{1}
+		delete from mp_poem where poem_id=#{0} and user_id=#{1}
 	</delete>
 	
 	<select id="getHomePoemUtils" resultMap="homePoemUtilMap">
-		select poem_id,poem_title,poem_Img from MP_poem,MP_recommend_poem
-		where MP_recommend_poem.pid=MP_poem.poem_id limit 0,3
+		select poem_id,poem_title,poem_Img from mp_poem,mp_recommend_poem
+		where mp_recommend_poem.pid=mp_poem.poem_id limit 0,3
 	</select>
 	
 	<select id="getHomeOtherPoemUtils" resultMap="homeOtherPoemUtilMap">
-		select id,author_name,poem_title from MP_other_recommend limit 0,11;
+		select id,author_name,poem_title from mp_other_recommend limit 0,11;
 	</select>
 	
 	<select id="getPoemUtilsByLId" resultMap="poemUtilMap">
-		select <include refid="poemUtilColumns" /> from MP_poem,MP_user
-		where MP_Poem.label_id=#{0} and MP_user.user_id=MP_poem.user_id limit #{1},#{2}
+		select <include refid="poemUtilColumns" /> from mp_poem,mp_user
+		where mp_poem.label_id=#{0} and mp_user.user_id=mp_poem.user_id limit #{1},#{2}
 	</select>
 	
 	<select id="getOtherPoemNumber" resultType="int">
-		select count(id) from MP_other_recommend
+		select count(id) from mp_other_recommend
 	</select>
 	
 	<select id="getOtherPoemListByPage" resultMap="otherPoemMap">
 		select id,author_name,poem_title,poem_text,publish_time 
-		from MP_other_recommend limit #{0},#{1}
+		from mp_other_recommend limit #{0},#{1}
 	</select>
 	
 	<select id="getOtherPoemById" resultMap="otherPoemMap">
 		select id,author_name,poem_title,poem_text,publish_time 
-		from MP_other_recommend where id=#{0}
+		from mp_other_recommend where id=#{0}
 	</select>
 	
 	<select id="getNextOtherPoemById" resultMap="otherPoemMap">
-		select id,poem_title from MP_other_recommend 
-		where id = (select id from MP_other_recommend where id &gt; #{0} order by id asc limit 1);  
+		select id,poem_title from mp_other_recommend 
+		where id = (select id from mp_other_recommend where id &gt; #{0} order by id asc limit 1);  
 	</select>
 	<!-- <要转义 -->
 	<select id="getPrevOtherPoemById" resultMap="otherPoemMap">
-		select id,poem_title from MP_other_recommend 
-		where id = (select id from MP_other_recommend where id &lt; #{0} order by id desc limit 1);  
+		select id,poem_title from mp_other_recommend 
+		where id = (select id from mp_other_recommend where id &lt; #{0} order by id desc limit 1);  
 	</select>
 	
 	<select id="getPoemListByKey" resultMap="poemUtilMap">
-		select poem_id,MP_user.user_id,MP_user.user_name,poem_title,poem_text
-		from MP_poem,MP_user where poem_title like CONCAT('%',#{0},'%') and MP_poem.user_id=MP_user.user_id
+		select poem_id,mp_user.user_id,mp_user.user_name,poem_title,poem_text
+		from mp_poem,mp_user where poem_title like CONCAT('%',#{0},'%') and mp_poem.user_id=mp_user.user_id
 	</select>
 	
 	<select id="getRecommendPoemUtils" resultMap="poemUtilMap">
 		select <include refid="poemUtilColumns" />
-		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id order by poem_num_support limit #{0},#{1}
+		from mp_poem,mp_user where mp_poem.user_id=mp_user.user_id order by poem_num_support desc limit #{0},#{1}
 	</select>
 	
 	<select id="getPoemAndTransmitUtils" resultMap="poemUtilMap">
 		select <include refid="poemAndTransmitColumns" />
-		from (select t.transmit_id,u.user_id,u.user_name,t.transmit_comment,t.transmit_time,t.num_of_comment,t.num_of_support,p.poem_id,p.poem_title,p.poem_num_transmit,p.poem_text,p.poem_img,p.user_id as author_id
-		from MP_transmit t,MP_poem p,MP_user u where t.poem_id=p.poem_id and t.user_id=u.user_id) a,MP_user u where a.author_id=u.user_id
+		from (select t.transmit_id,u.user_id,u.user_name,t.transmit_comment,t.transmit_time,t.num_of_comment,t.num_of_support,p.poem_id,p.poem_title,p.poem_num_transmit,p.poem_text,p.poem_img,p.user_id as author_id,u.user_icon
+		from mp_transmit t,mp_poem p,mp_user u where t.poem_id=p.poem_id and t.user_id=u.user_id
+		and t.user_id in(select concerned_id from mp_concern where concerner_id=#{0} union select #{0})
+		) a,mp_user u where a.author_id=u.user_id
 		union
-		select 
-		poem_id,MP_user.user_id,user_name,poem_text,poem_title,poem_num_support,poem_num_comment,poem_num_transmit,poem_publish_time,poem_img,NULL,NULL,NULL,NULL,NULL
-		from MP_poem,MP_user where MP_poem.user_id=MP_user.user_id order by poem_publish_time desc;
-		
+		(select 
+		poem_id,mp_user.user_id,user_name,poem_text,poem_title,poem_num_support,poem_num_comment,poem_num_transmit,poem_publish_time,poem_img,NULL,NULL,NULL,NULL,NULL
+		from mp_poem,mp_user where mp_poem.user_id=mp_user.user_id 
+		and mp_poem.user_id in(select concerned_id from mp_concern where concerner_id=#{0} union select #{0})
+		)
+		order by poem_publish_time desc limit 0,5;
+	</select>
+	
+	<select id="getPoemAndTransmitUtilsByPage" resultMap="poemUtilMap">
+		select <include refid="poemAndTransmitColumns" />
+		from (select t.transmit_id,u.user_id,u.user_name,t.transmit_comment,t.transmit_time,t.num_of_comment,t.num_of_support,p.poem_id,p.poem_title,p.poem_num_transmit,p.poem_text,p.poem_img,p.user_id as author_id,u.user_icon
+		from mp_transmit t,mp_poem p,mp_user u where t.poem_id=p.poem_id and t.user_id=u.user_id
+		and t.user_id in(select concerned_id from mp_concern where concerner_id=#{0} union select #{0})
+		) a,mp_user u where a.author_id=u.user_id
+		union
+		(select 
+		poem_id,mp_user.user_id,user_name,poem_text,poem_title,poem_num_support,poem_num_comment,poem_num_transmit,poem_publish_time,poem_img,NULL,NULL,NULL,NULL,NULL
+		from mp_poem,mp_user where mp_poem.user_id=mp_user.user_id 
+		and mp_poem.user_id in(select concerned_id from mp_concern where concerner_id=#{0} union select #{0})
+		)
+		order by poem_publish_time desc limit #{1},#{2};
 	</select>
 </mapper>

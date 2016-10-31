@@ -275,10 +275,10 @@ $(function(){
     });
 
     // 加载更多
-    $(".more").click(function () {
-        $(this).addClass("hide");
-        $(".loading").removeClass("hide");
-    });
+//    $(".more").click(function () {
+//        $(this).addClass("hide");
+//        $(".loading").removeClass("hide");
+//    });
 });
 
 // “收藏”等被点击时的样式处理

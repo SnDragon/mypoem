@@ -76,6 +76,7 @@ $("#modifyPass").click(function(){
 		success:function(data){
 			if(data=="success"){
 				alert("修改成功");
+				$("#passwordForm input").val("");
 			}else if(data=="wrong"){
 				alert("原密码错误！");
 			}else{

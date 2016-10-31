@@ -77,8 +77,8 @@ $(function () {
 //        				alert(data);
         				var str='<li class="friend" id="author-'+data.userId+'"><div class="head">'
 						+'<a href="'+$("#basePath").val()+'/user/aid/'+data.userId+'" title="进入作者主页" target="_blank">';
-						if(this.user_icon){
-							str+='<img src="'+$("#basePath").val()+'/img/user/'+data.user_icon+'" alt="" />';
+						if(this.userIcon){
+							str+='<img src="'+$("#basePath").val()+'/img/user/'+data.userIcon+'" alt="" />';
 						}else{
 							str+='<img src="'+$("#basePath").val()+'/img/attached/head-icon2.PNG" alt="" />';
 						}
@@ -118,7 +118,7 @@ $(function () {
     // 粉丝
     if($(".my-fans").length != 0){
         totalItems = parseInt($(".my-fans .title").html().slice(5));
-        itemsEachPage = 2;
+        itemsEachPage = 6;
         pages = Math.ceil(totalItems / itemsEachPage);
         if(pages != 1 && $("#fansPage").length != 0){
             showPage($("#fansPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
@@ -136,8 +136,8 @@ $(function () {
             			$.each(data,function(){
             				var str='<li class="fan" id="author-'+this.userId+'"><div class="head">'
             						+'<a href="'+$("#basePath").val()+'/user/aid/'+this.userId+'" title="进入作者主页" target="_blank">';
-            				if(this.user_icon){
-            					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.user_icon+'" alt="" />';
+            				if(this.userIcon){
+            					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.userIcon+'" alt="" />';
             				}else{
             					str+='<img src="'+$("#basePath").val()+'/img/attached/head-icon2.PNG" alt="" />';
             				}
@@ -416,7 +416,7 @@ $(function () {
         });
 
         totalItems = parseInt($(".my-poems .title").html().slice(5));
-        itemsEachPage = 2;
+        itemsEachPage = 4;
         pages = Math.ceil(totalItems / itemsEachPage);
         if(pages != 1 && $("#poemPage").length != 0){
             showPage($("#poemPage"), totalItems, itemsEachPage);  //调用实现分页插件的函数
@@ -665,7 +665,7 @@ function initConcernPage(){
 	
 	// “关注”中的分页
     var total = parseInt($(".my-friends .title").html().slice(5));   //总共关注的人数
-    var itemsEachPage = 2; 
+    var itemsEachPage = 6; 
     //每页的条目数量
     pages = Math.ceil(total / itemsEachPage);
     if(pages != 1 && $("#conPage").length != 0){
@@ -685,8 +685,8 @@ function initConcernPage(){
         			$.each(data,function(){
         				var str='<li class="friend" id="author-'+this.userId+'"><div class="head">'
         						+'<a href="'+$("#basePath").val()+'/user/aid/'+this.userId+'" title="进入作者主页" target="_blank">';
-        				if(this.user_icon){
-        					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.user_icon+'" alt="" />';
+        				if(this.userIcon){
+        					str+='<img src="'+$("#basePath").val()+'/img/user/'+this.userIcon+'" alt="" />';
         				}else{
         					str+='<img src="'+$("#basePath").val()+'/img/attached/head-icon2.PNG" alt="" />';
         				}
@@ -712,7 +712,7 @@ function initConcernPage(){
 function initCollectionPage(){
 	// “收藏”中的分页
     var total = parseInt($(".my-collections .title").html().slice(5));   //总共关注的人数
-    var itemsEachPage = 2; 
+    var itemsEachPage = 4; 
     //每页的条目数量
     pages = Math.ceil(total / itemsEachPage);
     if(pages != 1 && $("#colPage").length != 0){

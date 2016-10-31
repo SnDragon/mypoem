@@ -72,15 +72,11 @@
                                 <span class="recom-author">
                                     <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                                 </span>
-                                <time class="recom-time" id="time_${poemUtil.poemId }">2016-9-3</time>
+                                <time class="recom-time" id="time_${poemUtil.poemId }">${poemUtil.poemPublishTime }</time>
                             </div>
                         </div>
                     </div>
                 </div>
-                <script>
-                	var time=transferTime("${poemUtil.poemPublishTime.time}")
-                	$("#time_${poemUtil.poemId }").html(time);
-                </script>
                 </c:forEach>
 
                 <div class="footer" id="recommend-more">
@@ -102,6 +98,12 @@
 <script src="<%=basePath %>/js/style/label.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>
 <script type="text/javascript">
+	function formatTime(){
+		$.each($(".recom-time"),function(){
+			$(this).html($(this).html().slice(0,16));
+		});
+	}
+	formatTime();
 	var finish=false;
 	var length=$(".recommend").length;
 	if(length==0){
@@ -164,11 +166,10 @@
 	                    	+this.userName
 	                    	+'</a></span><time class="recom-time" id="time_'
 	                    	+this.poemId
-	                    	+'">2016-9-3</time></div></div></div></div>';
+	                    	+'">'+this.poemPublishTime+'</time></div></div></div></div>';
 	            		
 	                    $("#recommend-more").before(str);
-	                    var time=transferTime(this.poemPublishTime);
-	                    $("#time_"+this.poemId).html(time);
+	                    $("#time_"+this.poemId).html(transferTime(this.poemPublishTime));
 					});
 					$(".more").removeClass("hide");
 			        $(".loading").addClass("hide");

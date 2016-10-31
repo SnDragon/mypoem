@@ -1,12 +1,16 @@
 var basePath=$("#basePath").val();
 function addPoem(data){
 	var str='<article  class="dynamic" id="article-'+data.poemId+'">';
+	str=str+'<button type="button" class="del btn btn-default" data-toggle="modal" data-target="#myModal2">'
+        +'删除</button>'
 	str+='<div class="dynamic-head">';
 	str+=' <h1 class="dynamic-title">';
-	str+='<a href="zheyeshiyiqie.html">';
+	str=str+'<a href="'
+		+$("#basePath").val()+'/poem/pid/'+data.poemId+'">';
 	str+=data.poemTitle;
 	str+='</a></h1><div class="dynamic-meta"><span class="dynamic-author">';
-	str+='作者:<a target="_blank" href="wangsai.html">';
+	str=str+'作者:<a target="_blank" href="'
+		+$("#basePath").val()+'/user/aid/'+$("#userId").val()+'">';
 	str+=$("#userName").val();
 	str+='</a></span><time class="dynamic-time">刚刚</time></div></div>';
 	str+='<div class="dynamic-content">';
@@ -37,7 +41,7 @@ function addPoem(data){
 	str+=data.poemId+'">'
 	str+='<li class="col-xs-3 keep grayLi collection" >';
 	str+='<span class="glyphicon glyphicon-heart-empty"></span><span>收藏</span>';
-	str+='</li><li class="col-xs-3 share"><a href="#" data-toggle="modal" data-target="#myModal">';
+	str+='</li><li class="col-xs-3 share"><a href="#" data-toggle="modal" data-target="#myModal" class="btn disabled">';
 	str+='<span class="glyphicon glyphicon-share"></span><span class="share-number" id="share-span-'+data.poemId+'">0</span></a></li>';
 	str+='<li class="col-xs-3 comment"><span class="glyphicon glyphicon-comment"></span><span class="comment-number" id="comment-span-'+data.poemId+'">0</span>';
 	str+='</li><li class="col-xs-3 thumb support grayLi"><span class="glyphicon glyphicon-thumbs-up"></span><span class="thumb-number">0</span>';
@@ -46,7 +50,7 @@ function addPoem(data){
 	str+='<div class="comment-wrap"><div class="dynamic-comment"><div class="send-comment">';
 	str+='<a href="mine.html"><img src="'
 	str+=basePath;
-	str+='/img/common/writeComment.jpg" alt="输入你的评论" />';
+	str=str+'/img/user/'+$("#userIcon").val()+'" alt="输入你的评论" />';
 	str+='</a><textarea name="comment" class="input-comment" rows="2"></textarea><br />';
 	str+='<button class="btn-comment btn btn-default">评论</button></div>';
 	str+='<div class="more-comment"><span>加载更多</span><span class="no-more hide">没有更多评论了</span></div>';

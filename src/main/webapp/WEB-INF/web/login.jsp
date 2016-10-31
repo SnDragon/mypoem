@@ -26,6 +26,7 @@
 	</div>
     <div class="content">
          <form class="form-horizontal" role="form" id="login"  method="post" action="<%=basePath%>/user/doLogin">
+          <span class="error hide">该邮箱未注册或密码错误</span>
           <div class="form-group" id="email-group">
             <label for="inputEmail3" class="col-sm-3 control-label">邮箱</label>
             <div class="col-sm-8">
@@ -77,6 +78,9 @@
 <script type="text/javascript" src="<%=basePath%>/js/style/common.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	if(window.location.href.indexOf("fail")!=-1){
+		$(".error").removeClass("hide");
+	}
 	$("#email").blur(function(){
 		var email=$("#email").val();
 		var emailReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;

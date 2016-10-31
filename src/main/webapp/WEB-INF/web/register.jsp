@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%String basePath=request.getContextPath(); %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,53 +11,55 @@
     <link type="text/css" rel="stylesheet" href="<%=basePath %>/css/style/loginStyle.css" />
 </head>
 <body>
-    <div class="header">
-          <div class="header_content">
-            <a href="#" id="logo"><img src="<%=basePath %>/img/common/logo.png" /></a>
-            <ul class="title">
-                <li><a href="<%=basePath%>/login">登录</a></li>
-		        <li><a href="<%=basePath%>/register">注册</a></li>
-		        <li><a href="#">常见问题</a></li>
-	            <li><a href="#">关于我们</a></li>
-            </ul>
-          </div>
-          <!--<h1>注册</h1>  -->
+<div class="header">
+    <div class="header_content">
+        <a href="#" id="logo"><img src="<%=basePath %>/img/common/logo.png" /></a>
+        <ul class="title">
+        	<li><a href="<%=basePath%>/login">登录</a></li>
+        	 <li><a href="<%=basePath%>/register">注册</a></li>
+        	 <li><a href="#">常见问题</a></li>
+            <li><a href="#">关于我们</a></li>
+        </ul>
     </div>
-    <div class="content">
-         <form class="form-horizontal" role="form" method="post" action="<%=basePath %>/user/doRegister">
-          <div class="form-group" id="email-group">
+    <!--<h1>注册</h1>-->
+</div>
+<div class="content">
+    <form class="form-horizontal" role="form"  method="post" action="<%=basePath %>/user/doRegister">
+        <span id="register-error" class="error hide">注册失败</span>
+        <div class="form-group" id="email-group">
             <label for="inputEmail3" class="col-sm-3 control-label">邮箱</label>
             <div class="col-sm-8">
-              <input name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
+                <input name="email" type="email" class="form-control" id="email" placeholder="请输入邮箱">
             </div>
-          </div>
-          <div class="form-group" id="name-group">
+            <label id="email-error" class="error hide" for="inputEmail3">该邮箱已被注册</label>
+        </div>
+        <div class="form-group" id="name-group">
             <label for="inputPassword3" class="col-sm-3 control-label">昵称</label>
             <div class="col-sm-8">
-              <input name="username" type="text" class="form-control" id="name" placeholder="请输入您的笔名">
+                <input name="username" type="text" class="form-control" id="name" placeholder="请输入您的笔名">
             </div>
-          </div>
-         <div class="form-group has-feedback" id="password1-group">
+        </div>
+        <div class="form-group has-feedback" id="password1-group">
             <label for="inputPassword3" class="col-sm-3 control-label">密码</label>
             <div class="col-sm-8">
-              <input name="password1" type="password" class="form-control" id="password1" placeholder="6个及以上的数字或字符">
+                <input name="password1" type="password" class="form-control" id="password1" placeholder="6个及以上的数字或字符">
             </div>
-          </div>
-          <div class="form-group" id="password2-group">
+        </div>
+        <div class="form-group" id="password2-group">
             <label for="inputPassword3" class="col-sm-3 control-label">确认密码</label>
             <div class="col-sm-8">
-              <input name="password2" type="password" class="form-control" id="password2" placeholder="请输入您上面填写的密码">
+                <input name="password2" type="password" class="form-control" id="password2" placeholder="请输入您上面填写的密码">
             </div>
-          </div>
-           <div class="form-group">
-              <div class="col-sm-offset-3 col-sm-7">
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-7">
                 <button type="submit" id="submit"  class="btn btn-success" >&nbsp;&nbsp;&nbsp;&nbsp;注册成为诗人&nbsp;&nbsp;&nbsp;&nbsp;</button>
-              </div>
-          </div>
-          
-        </form>
-        
-    </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
 
     <div class="footer">
         <!-- helloworld -->
@@ -67,6 +68,9 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	if(window.location.href.indexOf("fail")!=-1){
+		$("#register-error").removeClass("hide");
+	}
 	$("#email").blur(function(){
 		var email=$("#email").val();
 		var emailReg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
@@ -83,7 +87,11 @@ $(document).ready(function(){
 				dataType:"text",
 				success:function(json){
 					if("true"==json){
-						alert("邮箱已存在");
+						$("#email-error").removeClass("hide");
+						$("#email-group").addClass("has-error");
+					}else{
+						$("#email-error").addClass("hide");
+						$("#email-group").remove("has-error");
 					}
 				}
 			});
@@ -126,7 +134,6 @@ $(document).ready(function(){
 	$("#submit").click(function(){
 		
 		if($(".form-group").hasClass("has-error")){
-			alert("hello");
 			return false;
 		}
 		var email=$("#email").val();

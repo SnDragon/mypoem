@@ -6,5 +6,7 @@ function transferTime(timeStr) {
 			.getMonth() + 1)
 			+ '-';
 	D = date.getDate() + ' ';
-	return Y + M + D;
+	m=date.getHours()+":";
+	s=(date.getMinutes()<10)? '0' +date.getMinutes():date.getMinutes();
+	return Y + M + D+m+s;
 }

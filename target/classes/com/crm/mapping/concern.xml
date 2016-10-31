@@ -14,47 +14,47 @@
 	</resultMap>
 	
 	<select id="getConcernNumberById" resultType="int">
-		select count(*) from MP_concern where concerner_id=#{0}
+		select count(*) from mp_concern where concerner_id=#{0}
 	</select>
 	
 	<select id="getConcernedNumberById" resultType="int">
-		select count(*) from MP_concern where concerned_id=#{0}
+		select count(*) from mp_concern where concerned_id=#{0}
 	</select>
 	
 	<delete id="removeConcern" parameterType="com.crm.model.Concern">
-		delete from MP_concern where concerned_id=#{concernedId} and concerner_id=#{concernerId}
+		delete from mp_concern where concerned_id=#{concernedId} and concerner_id=#{concernerId}
 	</delete>
 	
 	<select id="getConcernUserByPage" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerner_id=#{0} and concerned_id=user_id limit #{1},#{2}
 	</select>
 	
 	<select id="getFansByPage" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerned_id=#{0} and concerner_id=user_id limit #{1},#{2}
 	</select>
 	
 	<select id="getConcernUserByPageNum" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerner_id=#{0} and concerned_id=user_id limit #{1},1
 	</select>
 	
 	<select id="getConcernByUUId" resultType="int">
-		select count(*) from MP_concern where concerner_id=#{0} and concerned_id=#{1}
+		select count(*) from mp_concern where concerner_id=#{0} and concerned_id=#{1}
 	</select>
 	
 	<insert id="addConcern" parameterType="com.crm.model.Concern">
-		insert into MP_concern (concerner_id,concerned_id) values(#{concernerId},#{concernedId})
+		insert into mp_concern (concerner_id,concerned_id) values(#{concernerId},#{concernedId})
 	</insert>
 	
 	<select id="getFansByUId" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerned_id=#{0} and concerner_id=user_id
 	</select>
 	
 	<select id="getConcernsById" resultMap="userMap">
-		select user_id,user_name,user_icon,user_sex from MP_user,MP_concern
+		select user_id,user_name,user_icon,user_sex from mp_user,mp_concern
 		where concerner_id=#{0} and concerned_id=user_id 
 	</select>
 </mapper>

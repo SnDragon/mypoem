@@ -58,7 +58,8 @@ body{
 }
 
 .content{
-    width:30%;
+    /*width:30%;*/
+    width: 400px;
     /*height:200px;*/
     margin:50px auto;
     /*border:1px solid grey;*/
@@ -83,4 +84,29 @@ body{
 .footer p{
     /*margin:0 auto;*/
     color:white;
+}
+
+
+#login{
+    position: relative;
+}
+.error{
+    position: absolute;
+    /*top: 7px;*/
+    top: -30px;
+    left: 115px;
+    /*left: 375px;*/
+    white-space: nowrap;
+    color: red;
+    font-weight: normal;
+}
+#register-error{
+    left: 165px;
+}
+#email-group{
+    position: relative;
+}
+#email-error{
+    top: 7px;
+    left: 375px;
 }

@@ -61,7 +61,7 @@ public class UserController {
 		User user=userService.checkLogin(email, password);
 		if(user!=null){
 			session.setAttribute("user", user);
-			final int EXPIRE_TIME=60*60*24*7;//cookie过期时间
+			final int EXPIRE_TIME=60*60*24*7;//cookie过期时间7天
 			Cookie accountCookie=new Cookie("email", email);
 			accountCookie.setMaxAge(EXPIRE_TIME);
 			Cookie rememberPassCookie=null;
@@ -98,7 +98,10 @@ public class UserController {
 			response.addCookie(passCookie);
 			return new ModelAndView("redirect:/");
 		}else{
-			return new ModelAndView("redirect:/login?fail");
+//			ModelAndView modelAndView=new ModelAndView("redirect:/login");
+//			modelAndView.addObject("message","该邮箱未注册或密码错误");
+			return new ModelAndView("redirect:/login?fail=true");
+//			return modelAndView;
 		}
 	}
 	
@@ -112,7 +115,7 @@ public class UserController {
 		if(userService.register(username,email,password1,password2)){
 			modelAndView.setViewName("redirect:/login");
 		}else{
-			modelAndView.setViewName("fail");
+			modelAndView.setViewName("redirect:/register?fail=true");
 		}
 		return modelAndView;
 	}
@@ -135,6 +138,14 @@ public class UserController {
 		ArrayList<PoemUtil> poemUtils=poemService.getPoemAndTransmitUtilsByUID(user.getUserId());
 		modelAndView.addObject("poemUtilList",poemUtils);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/getPoemAndTransmitUtilsByAjax",method=RequestMethod.POST)
+	@ResponseBody
+	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByAjax(HttpServletRequest request){
+		String userId=request.getParameter("uid");
+		String page=request.getParameter("page");
+		return poemService.getPoemAndTransmitUtilsByPage(userId,page);
 	}
 	
 	@RequestMapping(value="/isAccountExisted",method=RequestMethod.POST)
@@ -177,11 +188,13 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/changeIcon/{uid}",method=RequestMethod.POST)
-	public ModelAndView updateIcon(@PathVariable("uid") Integer uid,@RequestParam("file") MultipartFile file){
+	public ModelAndView updateIcon(@PathVariable("uid") Integer uid,@RequestParam("file") MultipartFile file,HttpSession session){
 		ModelAndView modelAndView=new ModelAndView();
 		boolean success=true;
 		String iconName="user"+uid+".";
-		String path="D:\\javaEEd1\\mypoem\\src\\main\\webapp\\img\\user";
+//		String path="D:\\javaEEd1\\mypoem\\src\\main\\webapp\\img\\user";
+		String contextPath=session.getServletContext().getRealPath("/img/user");
+		System.out.println("contextPath:"+contextPath);
 		if(!file.isEmpty()){  
             String contentType=file.getContentType();  
             //获得文件后缀名称  
@@ -191,7 +204,8 @@ public class UserController {
             System.out.println("type:"+type);
             if("image".equals(type)){
             	 try {
-					file.transferTo(new File(path+"/"+iconName));
+//					file.transferTo(new File(path+"/"+iconName));
+            		 file.transferTo(new File(contextPath+"/"+iconName));
 				} catch (IOException e) {
 					e.printStackTrace();
 				} 
@@ -204,6 +218,9 @@ public class UserController {
 		if(success && userService.updateUserIcon(uid,iconName)){
 //			String introduction="hello world";
 //			userService.updateIconAndIntro(iconName,introduction);
+			User user=(User)session.getAttribute("user");
+			user.setUserIcon(iconName);
+			session.setAttribute("user", user);
 			modelAndView.setViewName("showUser");
 		}else{
 			modelAndView.setViewName("fail");
@@ -216,6 +233,9 @@ public class UserController {
 	public String updateUserIntro(@PathVariable("uid") Integer uid,HttpServletRequest request){
 		String user_intro=request.getParameter("user_intro");
 		if(userService.updateUserIntro(uid,user_intro)){
+			User user=(User)request.getSession().getAttribute("user");
+			user.setUserIntro(user_intro);
+			request.getSession().setAttribute("user", user);
 			return "success";
 		}else{
 			return "fail";
@@ -233,6 +253,13 @@ public class UserController {
 		}else if("sex".equals(type)){
 			if(userService.updateUserSex(uid,data)){
 				result="success";
+				User user=(User)request.getSession().getAttribute("user");
+				if("female".equals(data)){
+					user.setUserSex(0);
+				}else{
+					user.setUserSex(1);
+				}
+				request.getSession().setAttribute("user", user);
 			}
 		}
 		return result;
@@ -243,6 +270,9 @@ public class UserController {
 	public String updateUserMotto(@PathVariable("uid") Integer uid,HttpServletRequest request){
 		String user_intro=request.getParameter("user_intro");
 		if(userService.updateUserMotto(uid,user_intro)){
+			User user=(User)request.getSession().getAttribute("user");
+			user.setUserMotto(user_intro);
+			request.getSession().setAttribute("user", user);
 			return "success";
 		}else{
 			return "fail";

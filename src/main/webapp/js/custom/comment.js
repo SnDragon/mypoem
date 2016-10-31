@@ -2,16 +2,28 @@ $(function(){
 	$(document).on("click","li.comment span",function(){
 		var $more_comment=$(this).parents(".dynamic-action").next().find(".more-comment");
 		var $li = $(this).parent();
+		/*
 		var $current_article = $li.parents(".dynamic");
 		$current_article.css("border-bottom", "none");
         var $current_comment = $current_article.find(".comment-wrap");
         $current_comment.toggle("slow");
-        
+        */
+		var $current_article = $li.parents(".dynamic");
+        $current_article.css("border-bottom", "none");
+        var $current_comment = $current_article.find(".comment-wrap");
+        var isDisplay = $current_comment.css("display") == "block";
+        $current_comment.toggle("slow", function () {
+            if(!$current_article.next().hasClass("dynamic") && !isDisplay){
+                var scrollT = $(window).scrollTop();
+                scrollT += 300;
+                $("html,body").animate({scrollTop: scrollT}, 300);
+            }
+        });
         
 		if($current_article.attr("count")){
-			alert("no");
+//			alert("no");
 		}else{
-			alert("yes");
+//			alert("yes");
 			$current_article.attr("count",1);
 //			var $article=$li.parents("article");
 			var poemId=$current_article.attr("id").slice(8);
@@ -36,7 +48,9 @@ $(function(){
 					
 					$.each(data,function(){
 						var str='<div class="comment" id="comment-'+this.commentId
-								+'"><div class="content"><a target="_blank" href="#" class="reviewer">'+this.commentorName
+								+'"><div class="content"><a target="_blank" href="'
+								+$("#basePath").val()+'/user/aid/'
+								+this.commentorId+'" class="reviewer">'+this.commentorName
 								+'</a><div class="reviewer-words"><div class="triangle"></div><div class="words">'
 								+this.commentText+'</div></div></div><span class="reply-or-delete">';
 						if(this.commentorId==$("#userId").val()){
@@ -53,7 +67,8 @@ $(function(){
 						str+=remainStr;
 						$.each(this.children,function(){
 							
-							var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="#" class="reviewer">'
+							var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="'
+										+$("#basePath").val()+"/user/aid/"+this.commentorId+'" class="reviewer">'
 										+ this.commentorName+
 										'</a>回复<a target="_blank" href="#" class="reviewer">'
 										+this.parentUserName
@@ -94,7 +109,7 @@ $(function(){
 		$more_comment=$(this).parent();
 		$current_article=$(this).parents(".dynamic");
 		var count=Number($current_article.attr("count"));
-		alert("count"+count);
+//		alert("count"+count);
 		$current_article.attr("count",count+1)
 		var poemId=$current_article.attr("id").slice(8);
 		$more_div=$(this).parent();
@@ -114,7 +129,8 @@ $(function(){
 				$.each(data,function(){
 					
 					var str='<div class="comment" id="comment-'+this.commentId
-							+'"><div class="content"><a target="_blank" href="#" class="reviewer">'+this.commentorName
+							+'"><div class="content"><a target="_blank" href="'
+							+$("#basePath").val()+'/user/aid/'+this.commentorId+'" class="reviewer">'+this.commentorName
 							+'</a><div class="reviewer-words"><div class="triangle"></div><div class="words">'
 							+this.commentText+'</div></div></div><span class="reply-or-delete">'
 					if(this.commentorId==$("#userId").val()){
@@ -131,7 +147,8 @@ $(function(){
 					str+=remainStr;
 					$.each(this.children,function(){
 						
-						var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="#" class="reviewer">'
+						var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="'
+									+$("#basePath").val()+'/user/aid/'+this.commentorId+'" class="reviewer">'
 									+ this.commentorName+
 									'</a>回复<a target="_blank" href="#" class="reviewer">'
 									+this.parentUserName
@@ -169,16 +186,28 @@ $(function(){
 	$(document).on("click","li.transmitComment span",function(){
 		var $more_comment=$(this).parents(".dynamic-action").next().find(".more-comment");
 		var $li = $(this).parent();
+		/*
 		var $current_article = $li.parents(".dynamic");
 		$current_article.css("border-bottom", "none");
         var $current_comment = $current_article.find(".comment-wrap");
         $current_comment.toggle("slow");
-        
+        */
+		var $current_article = $li.parents(".dynamic");
+        $current_article.css("border-bottom", "none");
+        var $current_comment = $current_article.find(".comment-wrap");
+        var isDisplay = $current_comment.css("display") == "block";
+        $current_comment.toggle("slow", function () {
+            if(!$current_article.next().hasClass("dynamic") && !isDisplay){
+                var scrollT = $(window).scrollTop();
+                scrollT += 300;
+                $("html,body").animate({scrollTop: scrollT}, 300);
+            }
+        });
         
 		if($current_article.attr("count")){
-			alert("no");
+//			alert("no");
 		}else{
-			alert("yes");
+//			alert("yes");
 			$current_article.attr("count",1);
 //			var $article=$li.parents("article");
 			var poemId=$current_article.attr("id").slice(9);
@@ -207,7 +236,9 @@ $(function(){
 					
 					$.each(data,function(){
 						var str='<div class="comment" id="comment-'+this.commentId
-								+'"><div class="content"><a target="_blank" href="#" class="reviewer">'+this.commentorName
+								+'"><div class="content"><a target="_blank" href="'
+								+$("#basePath").val()+'/user/aid/'+this.commentorId
+								+'" class="reviewer">'+this.commentorName
 								+'</a><div class="reviewer-words"><div class="triangle"></div><div class="words">'
 								+this.commentText+'</div></div></div><span class="reply-or-delete-transmit">';
 						if(this.commentorId==$("#userId").val()){
@@ -224,7 +255,8 @@ $(function(){
 						str+=remainStr;
 						$.each(this.children,function(){
 							
-							var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="#" class="reviewer">'
+							var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="'
+										+$("#basePath").val()+'/user/aid/'+this.commentorId+'" class="reviewer">'
 										+ this.commentorName+
 										'</a>回复<a target="_blank" href="#" class="reviewer">'
 										+this.parentUserName
@@ -265,7 +297,7 @@ $(function(){
 		$more_comment=$(this).parent();
 		$current_article=$(this).parents(".dynamic");
 		var count=Number($current_article.attr("count"));
-		alert("count"+count);
+//		alert("count"+count);
 		$current_article.attr("count",count+1)
 		var poemId=$current_article.attr("id").slice(9);
 		$more_div=$(this).parent();
@@ -285,7 +317,8 @@ $(function(){
 				$.each(data,function(){
 					
 					var str='<div class="comment" id="comment-'+this.commentId
-							+'"><div class="content"><a target="_blank" href="#" class="reviewer">'+this.commentorName
+							+'"><div class="content"><a target="_blank" href="'
+							+$("#basePath").val()+'/user/aid/'+this.commentorId+'" class="reviewer">'+this.commentorName
 							+'</a><div class="reviewer-words"><div class="triangle"></div><div class="words">'
 							+this.commentText+'</div></div></div><span class="reply-or-delete-transmit">'
 					if(this.commentorId==$("#userId").val()){
@@ -302,7 +335,8 @@ $(function(){
 					str+=remainStr;
 					$.each(this.children,function(){
 						
-						var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="#" class="reviewer">'
+						var strChild='<div class="reply-n" id="comment-'+this.commentId+'"><div class="content"><a target="_blank" href="'
+									+$("basePath").val()+'/user/aid/'+this.commentorId+'" class="reviewer">'
 									+ this.commentorName+
 									'</a>回复<a target="_blank" href="#" class="reviewer">'
 									+this.parentUserName

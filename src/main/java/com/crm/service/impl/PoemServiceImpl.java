@@ -19,6 +19,7 @@ import com.crm.util.HomeOtherPoemUtil;
 import com.crm.util.HomePoemUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
+import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
 
 @Service("poemService")
 @Transactional(propagation = Propagation.REQUIRED)
@@ -329,9 +330,49 @@ public class PoemServiceImpl implements PoemService {
 
 	@Override
 	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByUID(Integer uid) {
-		ArrayList<PoemUtil> poemUtils = poemDao.getPoemAndTransmitUtils();
+		
+		ArrayList<PoemUtil> poemUtils = poemDao.getPoemAndTransmitUtils(uid);
 		for (PoemUtil poemUtil : poemUtils) {
 
+			if(poemUtil.getTransmitId()==null){
+				if (collectionService.isCollectionExisted(uid, poemUtil.getPoemId())) {
+					poemUtil.setIsCollected(true);
+				} else {
+					poemUtil.setIsCollected(false);
+				}
+				if (supportService.isSupportExisted(uid, poemUtil.getPoemId())) {
+					poemUtil.setIsSupported(true);
+				} else {
+					poemUtil.setIsSupported(false);
+				}
+			}else{
+				if(supportService.isTransmitSupportExisted(uid,poemUtil.getTransmitId())){
+					poemUtil.setIsSupported(true);
+				}else{
+					poemUtil.setIsSupported(false);
+				}
+			}
+		}
+		System.out.println("poemUtis:");
+		for (PoemUtil poemUtil : poemUtils) {
+			System.out.println(poemUtil);
+			String[] poemRow = poemUtil.getPoemText().split("\\|");
+			poemUtil.setPoemRow(poemRow);
+		}
+		return poemUtils;
+	}
+
+	@Override
+	public ArrayList<PoemUtil> getPoemAndTransmitUtilsByPage(String userId, String page) {
+		Integer uid=Integer.parseInt(userId);
+		Integer pageInt=Integer.parseInt(page);
+		if(uid==null || pageInt==null){
+			return null;
+		}
+		int begin=(pageInt-1)*PageUtil.POEMS_PER_PAGE;
+		ArrayList<PoemUtil> poemUtils = poemDao.getPoemAndTransmitUtilsByPage(uid,begin,PageUtil.POEMS_PER_PAGE);
+		
+		for (PoemUtil poemUtil : poemUtils) {
 			if(poemUtil.getTransmitId()==null){
 				if (collectionService.isCollectionExisted(uid, poemUtil.getPoemId())) {
 					poemUtil.setIsCollected(true);

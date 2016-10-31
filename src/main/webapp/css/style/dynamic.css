@@ -8,6 +8,17 @@
     border: 1px solid #E1E1E1;
     border-top: 5px solid #E1E1E1;
 }
+.main-content .none-dynamic{
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 100px 0;
+    background-color: white;
+    border: 1px solid #E1E1E1;
+    border-top: 5px solid #E1E1E1;
+    text-align: center;
+    font-size: 25px;
+    color: #a0a0a0;
+}
 .dynamic-title{
     margin: 0;
     margin-left: 10%;
@@ -23,7 +34,7 @@
     margin-top: 10px;
     position: relative;   /*发布时间需相对meta设置绝对定位，top: 2px*/
     text-align: right;    /*设置作者和时间始终在右方*/
-    padding-right: 110px;
+    padding-right: 160px;
 }
 .dynamic-author{
     font-size: 14px;

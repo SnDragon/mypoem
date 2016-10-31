@@ -32,7 +32,7 @@
                                 作者：
                                 <a target="_blank" href="<%=basePath%>/user/aid/${poemUtil.userId}">${poemUtil.userName }</a>
                             </span>
-                            <time id="time" class="dynamic-time">2016年</time>
+                            <time id="time" class="dynamic-time">${poemUtil.poemPublishTime }</time>
                         </div>
                     </div>
                     <div class="dynamic-content">
@@ -89,8 +89,8 @@
                         <div class="dynamic-comment">
                             <div class="send-comment">
                                 <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
-                                <a class="head-icon" href="mine.html" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon-mine.jpg" alt="进入我的个人中心" />
+                                <a class="head-icon" href="<%=basePath %>/user/aid/${user.userId}" target="_blank">
+                                    <img src="<%=basePath %>/img/user/${user.userIcon}" alt="进入我的个人中心" />
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
                                 <br />
@@ -168,7 +168,7 @@
 <script src="<%=basePath %>/js/custom/comment.js"></script>
 <script src="<%=basePath %>/js/custom/poem.js"></script>
 <script>
-	$("#time").html(transferTime("${poemUtil.poemPublishTime.time}"));
+	$(".dynamic-time").html($(".dynamic-time").html().slice(0,16));
 	
 	if($(".comment-number").html()==0){
 		$(".more-comment").addClass("hide");

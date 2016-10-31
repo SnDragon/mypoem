@@ -22,7 +22,9 @@ public class TransmitServiceImpl implements TransmitService{
 	private TransmitDao transmitDao;
 	@Resource 
 	private PoemService poemService;
+	
 	@Override
+	@Transactional(propagation=Propagation.REQUIRED)
 	public boolean addTransmit(Transmit transmit) {
 		if(transmit==null){
 			return false;

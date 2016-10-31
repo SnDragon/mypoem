@@ -83,9 +83,15 @@
 	
 	<mvc:interceptors>
 		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.crm.interceptor.CharacterInterceptor" >
+			</bean>
+		</mvc:interceptor>
+		<mvc:interceptor>
 			<mvc:mapping path="/user/**" />
 			<mvc:exclude-mapping path="/user/do*" />
 			<mvc:exclude-mapping path="/user/aid/**" />
+			<mvc:exclude-mapping path="/user/isAccountExisted" />
 			<bean class="com.crm.interceptor.LoginInterceptor" >
 			</bean>
 		</mvc:interceptor>
@@ -95,6 +101,8 @@
 			<mvc:exclude-mapping path="/user/aid/**" />
 			<mvc:exclude-mapping path="/user/friendCircle" />
 			<mvc:exclude-mapping path="/user/logout" />
+			<mvc:exclude-mapping path="/user/getPoemAndTransmitUtilsByAjax" />
+			<mvc:exclude-mapping path="/user/isAccountExisted" />
 			<bean class="com.crm.interceptor.UserInterceptor" >
 			</bean>
 		</mvc:interceptor>
