@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.crm.dao.PoemDao;
+import com.crm.dao.cache.RedisDao;
 import com.crm.model.OtherPoem;
 import com.crm.model.Poem;
 import com.crm.service.CollectionService;
@@ -19,13 +20,15 @@ import com.crm.util.HomeOtherPoemUtil;
 import com.crm.util.HomePoemUtil;
 import com.crm.util.PageUtil;
 import com.crm.util.PoemUtil;
-import com.sun.org.apache.bcel.internal.generic.ReturnaddressType;
+import com.sun.org.apache.xerces.internal.impl.xs.SchemaSymbols;
 
 @Service("poemService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class PoemServiceImpl implements PoemService {
 	@Resource
 	private PoemDao poemDao;
+	@Resource
+	private RedisDao redisDao;
 	@Resource
 	private CollectionService collectionService;
 	@Resource
@@ -116,6 +119,9 @@ public class PoemServiceImpl implements PoemService {
 		}
 	}
 
+	/*
+	 * 这里使用redis缓存
+	 */
 	@Override
 	public ArrayList<PoemUtil> getRecommendPoemUtils(String page) {
 		Integer pageInt=1;
@@ -123,7 +129,25 @@ public class PoemServiceImpl implements PoemService {
 			pageInt=Integer.parseInt(page);
 		}
 		int begin=PageUtil.RECOMMENDPERPAGE*(pageInt-1);
-		ArrayList<PoemUtil> poemUtils = poemDao.getRecommendPoemUtils(begin,PageUtil.RECOMMENDPERPAGE);
+		ArrayList<PoemUtil> poemUtils =null;
+		if(pageInt==1){
+			poemUtils=redisDao.getRecommendPoemUtils();//访问redis
+			if(poemUtils==null){
+				System.out.println("miss");
+				//如果redis缓存没有，则访问数据库
+				poemUtils=poemDao.getRecommendPoemUtils(begin,PageUtil.RECOMMENDPERPAGE);
+				//结果不为空，放入redis
+				if(poemUtils!=null){
+					redisDao.putRecommendPoemUtils(poemUtils);
+				}
+			}else{
+				System.out.println("hit");
+			}
+		}else{
+			poemUtils=poemDao.getRecommendPoemUtils(begin,PageUtil.RECOMMENDPERPAGE);
+		}
+		
+		
 		for (PoemUtil poemUtil : poemUtils) {
 			String[] poemRow = poemUtil.getPoemText().split("\\|");
 			poemUtil.setPoemRow(poemRow);

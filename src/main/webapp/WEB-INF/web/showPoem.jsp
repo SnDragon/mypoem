@@ -158,6 +158,7 @@
 <input type="hidden" value="<%=basePath%>" id="basePath"/>
 <input type="hidden" value="${user.userId }" id="userId"/>
 <input type="hidden" value="${user.userName }" id="userName"/>
+<input type="hidden" value="${user.userIcon }" id="userIcon" />
 </body>
 
 <script src="<%=basePath %>/js/lib/jquery.min.js"></script>

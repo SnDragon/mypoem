@@ -72,7 +72,6 @@ $("#addPoem").click(function(){
 	        	$("#data").empty();
 	        	$("#data").append(data);
 	        	imgPath=$("#data").text();
-	        //	alert("dataText:"+imgPath);
 	        },
 	        complete:function(){
 	        	if(imgPath.search(/poem/)!=-1){

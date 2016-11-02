@@ -191,7 +191,7 @@
                             <div class="send-comment">
                                 <!--不能在评论框前面放用户名，不同长度的用户名会导致评论框的位置变动-->
                                 <a class="head-icon" href="<%=basePath %>/user/uid/${user.userId}" target="_blank">
-                                    <img src="<%=basePath %>/img/attached/head-icon-mine.jpg" alt="进入我的个人中心" />
+                                    <img src="<%=basePath %>/img/user/${user.userIcon}" alt="进入我的个人中心" />
                                 </a>
                                 <textarea name="comment" class="input-comment" rows="2"></textarea>
                                 <br />
@@ -265,7 +265,7 @@
 <input type="hidden" id="authorId" value="${author.userId }" />
 <input type="hidden" id="basePath" value="<%=basePath %>" />
 <input type="hidden" id="userName" value="${user.userName }" />
-
+<input type="hidden" id="userIcon" value="${user.userIcon }" />
 
 <script src="<%=basePath %>/js/lib/bootstrap.min.js"></script>
 <script src="<%=basePath %>/js/style/common.js"></script>

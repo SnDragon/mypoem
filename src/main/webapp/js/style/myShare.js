@@ -41,7 +41,7 @@ $(function () {
 
         $totalText = $(".my-shares .title");
         totalItems = parseInt($totalText.html().slice(5));
-        itemsEachPage = 2;
+        itemsEachPage = 4;
         pages = Math.ceil(totalItems / itemsEachPage);
         if(pages > 1){
             showPage($("#sharePage"), totalItems, itemsEachPage);   //调用实现分页插件的函数

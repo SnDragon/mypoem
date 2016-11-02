@@ -270,6 +270,8 @@ $(function(){
     var $label_btn = $label.find("button");
     var $options2 = $label.find("a");
     $options2.click(function () {
+    	$(".label a").removeClass("selected");
+    	$(this).addClass("selected");
         var text = $(this).text() + " <span class='caret'></span>";
         $label_btn.html(text);
     });
